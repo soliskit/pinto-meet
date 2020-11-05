@@ -52,11 +52,11 @@ navigator.mediaDevices.getUserMedia({
 })
 
 socket.on("user-disconnected", userId => {
-    removeCallFromPeersByUserId(userId)
     const staleAnswerButton = document.getElementById("answer" + userId)
     if (staleAnswerButton) {
         staleAnswerButton.remove()
     }
+    removeCallFromPeersByUserId(userId)
 })
 
 myPeer.on("open", id => {
