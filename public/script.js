@@ -10,6 +10,7 @@ const connectedUsers = []
 
 function connectToNewUser(userId, stream) {
     const call = myPeer.call(userId, stream)
+    
     const video = document.createElement("video")
     call.on("stream", userVideoStream => {
         addVideoStream(video, userVideoStream, userId)
@@ -28,9 +29,9 @@ navigator.mediaDevices.getUserMedia({
 
     myPeer.on("call", call => {
         call.answer(stream)
-        const video = document.createElement("video")
         const userId = call.peer
-        // other users video stream
+
+        const video = document.createElement("video")
         call.on("stream", userVideoStream => {
             addVideoStream(video, userVideoStream, userId)
         })
