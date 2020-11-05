@@ -8,6 +8,19 @@ myVideo.muted = true
 const peers = []
 const connectedUsers = []
 
+function connectToNewUser(userId, stream) {
+    const call = myPeer.call(userId, stream)
+    const video = document.createElement("video")
+    console.log("connectToNewUser: " + userId)
+    call.on("stream", userVideoStream => {
+        addVideoStream(video, userVideoStream, userId)
+    })
+    call.on("close", () => {
+        removeVideoStream(video, userId)
+    })
+    peers[userId] = call
+}
+
 navigator.mediaDevices.getUserMedia({
     video: true,
     audio: true
@@ -72,19 +85,6 @@ function addVideoStream(video, stream, userId) {
     userName.innerText = userId
     userName.id = userId
     connectedUsersList.append(userName)
-}
-
-function connectToNewUser(userId, stream) {
-    const call = myPeer.call(userId, stream)
-    const video = document.createElement("video")
-    console.log("connectToNewUser: " + userId)
-    call.on("stream", userVideoStream => {
-        addVideoStream(video, userVideoStream, userId)
-    })
-    call.on("close", () => {
-        removeVideoStream(video, userId)
-    })
-    peers[userId] = call
 }
 
 function removeVideoStream(video, userId) {
