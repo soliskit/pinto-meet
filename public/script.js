@@ -17,10 +17,15 @@ navigator.mediaDevices.getUserMedia({
     myPeer.on("call", call => {
         call.answer(stream)
         const video = document.createElement("video")
+        const userId = call.peer
         // other users video stream
         call.on("stream", userVideoStream => {
-            addVideoStream(video, userVideoStream, call.peer)
+            addVideoStream(video, userVideoStream, userId)
         })
+        call.on("close", () => {
+            removeVideoStream(video, userId)
+        })
+        peers[userId] = call
     })
 
     socket.on("user-connected", userId => {
@@ -38,7 +43,7 @@ navigator.mediaDevices.getUserMedia({
 socket.on("user-disconnected", userId => {
     if (peers[userId]) peers[userId].close()
     const staleAnswerButton = document.getElementById("answer" + userId)
-    if(staleAnswerButton) {
+    if (staleAnswerButton) {
         staleAnswerButton.remove()
     }
 })
