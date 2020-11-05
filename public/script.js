@@ -26,8 +26,8 @@ navigator.mediaDevices.getUserMedia({
     addVideoStream(myVideo, stream, myPeer.id)
 
     myPeer.on("call", call => {
-        call.answer(stream)
         const userId = call.peer
+        call.answer(stream)
         addCallToPeers(userId, call)
     })
 
