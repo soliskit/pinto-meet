@@ -19,6 +19,13 @@ function addCallToPeers(userId, call) {
     peers[userId] = call
 }
 
+function removeCallFromPeersByUserId(userId) {
+    if (peers[userId]) {
+        peers[userId].close()
+        delete peers[userId]
+    }
+}
+
 navigator.mediaDevices.getUserMedia({
     video: true,
     audio: true
@@ -45,7 +52,7 @@ navigator.mediaDevices.getUserMedia({
 })
 
 socket.on("user-disconnected", userId => {
-    if (peers[userId]) peers[userId].close()
+    removeCallFromPeersByUserId(userId)
     const staleAnswerButton = document.getElementById("answer" + userId)
     if (staleAnswerButton) {
         staleAnswerButton.remove()
