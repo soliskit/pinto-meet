@@ -8,9 +8,7 @@ myVideo.muted = true
 const peers = []
 const connectedUsers = []
 
-function connectToNewUser(userId, stream) {
-    const call = myPeer.call(userId, stream)
-    
+function addCallToPeers(userId, call) {
     const video = document.createElement("video")
     call.on("stream", userVideoStream => {
         addVideoStream(video, userVideoStream, userId)
@@ -30,15 +28,7 @@ navigator.mediaDevices.getUserMedia({
     myPeer.on("call", call => {
         call.answer(stream)
         const userId = call.peer
-
-        const video = document.createElement("video")
-        call.on("stream", userVideoStream => {
-            addVideoStream(video, userVideoStream, userId)
-        })
-        call.on("close", () => {
-            removeVideoStream(video, userId)
-        })
-        peers[userId] = call
+        addCallToPeers(userId, call)
     })
 
     socket.on("user-connected", userId => {
@@ -47,7 +37,8 @@ navigator.mediaDevices.getUserMedia({
         answerButton.id = "answer" + userId
         callControls.append(answerButton)
         answerButton.addEventListener("click", () => {
-            connectToNewUser(userId, stream)
+            const call = myPeer.call(userId, stream)
+            addCallToPeers(userId, call)
             answerButton.remove()
         })
     })
