@@ -44,6 +44,12 @@ socket.on("user-disconnected", userId => {
 })
 
 myPeer.on("open", id => {
+    const hangUpButton = document.createElement("button")
+    hangUpButton.innerText = "Hangup"
+    callControls.append(hangUpButton)
+    hangUpButton.addEventListener("click", () => {
+        socket.disconnect()
+    })
     socket.emit("join-room", ROOM_ID, id)
 })
 
