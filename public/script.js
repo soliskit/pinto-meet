@@ -37,7 +37,10 @@ navigator.mediaDevices.getUserMedia({
 
 socket.on("user-disconnected", userId => {
     if (peers[userId]) peers[userId].close()
-    document.getElementById("answer" + userId).remove()
+    const staleAnswerButton = document.getElementById("answer" + userId)
+    if(staleAnswerButton) {
+        staleAnswerButton.remove()
+    }
 })
 
 myPeer.on("open", id => {
