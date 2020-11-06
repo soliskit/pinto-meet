@@ -4,8 +4,8 @@ import Peer from 'peerjs';
 // copied partially from https://github.com/madou/react-peer/blob/master/src/use-peer-state.tsx
 const usePeerState = (
   stream: MediaStream,
-  opts: { userId: string } = { userId: '' }
-): [string] => {
+  opts: { userId: string | undefined } = { userId: undefined }
+): [string | undefined] => {
 //   const [connections, setConnections] = useState<Peer.DataConnection[]>([]);
 //   const [state, setState] = useState<TState>(initialState);
 //   const [error, setError] = useState<PeerError | undefined>(undefined);

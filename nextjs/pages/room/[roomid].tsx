@@ -22,7 +22,7 @@ const Room = () => {
     videoRef.current.srcObject = stream
   }
 
-  return <div><p>Room: {roomid}, User: {userid}</p><video onCanPlay={handleCanPlay} autoPlay ref={videoRef} muted></video></div>
+  return <div><p>Room: {roomid}, User: {userid ?? "Loading..."}</p><video onCanPlay={handleCanPlay} autoPlay ref={videoRef} muted></video></div>
 }
 
 export default Room
