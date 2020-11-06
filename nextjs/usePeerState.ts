@@ -1,11 +1,11 @@
 import { useEffect, useState, useRef } from 'react';
-import Peer from 'peerjs';
+import Peer, { MediaConnection } from 'peerjs';
 
 // copied partially from https://github.com/madou/react-peer/blob/master/src/use-peer-state.tsx
 const usePeerState = (
   stream: MediaStream,
   opts: { userId: string | undefined } = { userId: undefined }
-): [string | undefined, PeerError | undefined] => {
+): [string | undefined, PeerCall[], PeerError | undefined] => {
 //   const [connections, setConnections] = useState<Peer.DataConnection[]>([]);
 //   const [state, setState] = useState<TState>(initialState);
   const [error, setError] = useState<PeerError | undefined>(undefined)
@@ -14,6 +14,7 @@ const usePeerState = (
 //   const stateRef = useRef<TState>(initialState);
   const [peer, setPeer] = useState<Peer | undefined>(undefined);
   const [userId, setUserId] = useState(opts.userId);
+  const [calls, setCalls] = useState<PeerCall[]>([])
 
   useEffect(
     () => {
@@ -29,6 +30,28 @@ const usePeerState = (
             setUserId(localPeer.id);
           }
         });
+
+        localPeer.on("call", call => {
+          const peerId = call.peer
+          call.answer(stream)
+          addCallToPeers(userId, call)
+        })
+
+        function addCallToPeers(peerId: string, call: MediaConnection) {
+          call.on("stream", (peerVideoStream: MediaStream) => {
+            const peerCall: PeerCall = {
+              peerId: peerId,
+              stream: peerVideoStream
+            }
+            if(!calls.find((value) => value.peerId === peerCall.peerId)) {
+              setCalls([...calls, peerCall])
+            }
+          })
+          call.on("close", () => {
+            setCalls(calls.filter((peerCall) => peerCall.peerId != peerId))
+          })
+          // peers[userId] = call
+        }
 
         localPeer.on('error', err => setError(err))
 
@@ -51,6 +74,7 @@ const usePeerState = (
 
   return [
     userId,
+    calls,
     // connections,
     error
   ]
@@ -60,5 +84,20 @@ export interface PeerError {
   type: string;
   message: string;
 }
+
+export interface PeerCall { 
+  peerId: string
+  stream: MediaStream
+}
+
+// class PeerCalls extends Array<PeerCall> {
+//   insert(peerCall: PeerCall): Array<PeerCall> {
+//     if(!this.find((value) => value.peerId === peerCall.peerId)) {
+//       return [...this, peerCall]
+//     } else {
+//       return this
+//     }
+//   }
+// }
 
 export default usePeerState;
