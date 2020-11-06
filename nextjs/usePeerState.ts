@@ -1,14 +1,14 @@
 import { useEffect, useState, useRef } from 'react';
 import Peer from 'peerjs';
-// import { PeerError } from './types';
+
 // copied partially from https://github.com/madou/react-peer/blob/master/src/use-peer-state.tsx
 const usePeerState = (
   stream: MediaStream,
   opts: { userId: string | undefined } = { userId: undefined }
-): [string | undefined] => {
+): [string | undefined, PeerError | undefined] => {
 //   const [connections, setConnections] = useState<Peer.DataConnection[]>([]);
 //   const [state, setState] = useState<TState>(initialState);
-//   const [error, setError] = useState<PeerError | undefined>(undefined);
+  const [error, setError] = useState<PeerError | undefined>(undefined)
   // We useRef to get around useLayoutEffect's closure only having access
   // to the initial state since we only re-execute it if userId changes.
 //   const stateRef = useRef<TState>(initialState);
@@ -18,7 +18,7 @@ const usePeerState = (
   useEffect(
     () => {
       import('peerjs').then(({ default: Peer }) => {
-        const localPeer = new Peer(opts.userId);
+        const localPeer = new Peer(opts.userId)
         setPeer(localPeer);
 
         localPeer.on('open', () => {
@@ -27,7 +27,7 @@ const usePeerState = (
           }
         });
 
-        // localPeer.on('error', err => setError(err));
+        localPeer.on('error', err => setError(err))
 
         // localPeer.on('connection', conn => {
         //   setConnections(prevState => [...prevState, conn]);
@@ -49,8 +49,13 @@ const usePeerState = (
   return [
     userId,
     // connections,
-    // error,
-  ];
-};
+    error
+  ]
+}
+
+export interface PeerError {
+  type: string;
+  message: string;
+}
 
 export default usePeerState;

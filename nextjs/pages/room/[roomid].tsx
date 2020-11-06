@@ -11,8 +11,12 @@ const Room = () => {
   const { roomid } = router.query
   const videoRef = useRef<HTMLVideoElement>()
   const stream = useUserMedia()
-  const [userid] = usePeerState(stream)
+  const [userid, peerError] = usePeerState(stream)
   const _ = useSWR('/api/user/'+ userid + '/room/' + roomid + '/join', fetcher)
+
+  if (peerError) {
+    return <p><h3>Peer</h3>{peerError.type}: {peerError.message}</p>
+  }
 
   function handleCanPlay() {
     videoRef.current.play()
