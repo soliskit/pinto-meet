@@ -50,6 +50,8 @@ const usePeerState = (
           call.on("close", () => {
             setCalls(calls.filter((peerCall) => peerCall.peerId != peerId))
           })
+
+          call.on("error", (error) => setError(error))
           // peers[userId] = call
         }
 
