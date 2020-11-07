@@ -34,7 +34,7 @@ const usePeerState = (
         localPeer.on("call", call => {
           const peerId = call.peer
           call.answer(stream)
-          addCallToPeers(userId, call)
+          addCallToPeers(peerId, call)
         })
 
         function addCallToPeers(peerId: string, call: MediaConnection) {
