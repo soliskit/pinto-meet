@@ -4,7 +4,7 @@ import useSWR from 'swr'
 import usePeerState from '../../usePeerState'
 import useUserMedia from '../../useUserMedia'
 
-const fetcher = (...args) => fetch(...args).then(res => res)
+const fetcher = (info: RequestInfo, init?: RequestInit) => fetch(info, init).then(res => res)
 
 const Video = (props: { stream: MediaStream }) => {
   const videoRef = useRef<HTMLVideoElement>()
