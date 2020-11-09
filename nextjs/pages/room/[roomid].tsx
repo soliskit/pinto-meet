@@ -27,14 +27,15 @@ const Room = () => {
   const stream = useUserMedia()
   const [userid, calls, peerError] = usePeerState(stream)
   const _ = useSWR('/api/user/'+ userid + '/room/' + roomid + '/join', fetcher)
+  let errorMessage = <p></p>
 
   if (peerError) {
-    return <p><h3>Peer</h3>{peerError.type}: {peerError.message}</p>
+    errorMessage = <p><h3>Peer</h3>{peerError.type}: {peerError.message}</p>
   }
 
   const videos = calls.map((peerCall) => <Video stream={peerCall.stream} />)
 
-  return <div><p>Room: {roomid}, User: {userid ?? "Loading..."}</p><Video stream={stream} />{videos}</div>
+  return <div>{errorMessage}<p>Room: {roomid}, User: {userid ?? "Loading..."}</p><Video stream={stream} />{videos}</div>
 }
 
 export default Room
