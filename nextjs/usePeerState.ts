@@ -67,8 +67,10 @@ const usePeerState = (
         // });
       });
 
-      return () => {
-        peer && peer.destroy();
+      return function cleanup() {
+        if(peer) {
+          peer.destroy();
+        }
       };
     },
     [opts.userId]
