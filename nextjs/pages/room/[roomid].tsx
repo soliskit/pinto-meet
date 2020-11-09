@@ -30,7 +30,7 @@ const Room = () => {
   let errorMessage = <p></p>
 
   if (peerError) {
-    errorMessage = <p><h3>Peer</h3>{peerError.type}: {peerError.message}</p>
+    errorMessage = <div className="error"><h3>Peer</h3><p>{peerError.type}: {peerError.message}</p></div>
   }
 
   const videos = calls.map((peerCall) => <Video stream={peerCall.stream} />)
