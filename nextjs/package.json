@@ -13,6 +13,7 @@
     "pusher": "^4.0.0",
     "react": "17.0.1",
     "react-dom": "17.0.1",
+    "socket.io-client": "^3.0.1",
     "swr": "^0.3.8"
   },
   "devDependencies": {
