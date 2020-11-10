@@ -1,4 +1,4 @@
-import { useEffect, useState, useRef } from 'react';
+import { useEffect, useState } from 'react';
 import Peer, { MediaConnection } from 'peerjs';
 import { Socket } from 'socket.io-client';
 
@@ -7,12 +7,7 @@ const usePeerState = (
   stream: MediaStream,
   opts: { userId: string | undefined, socket: Socket, } = { userId: undefined, socket: undefined }
 ): [string | undefined, PeerCall[], PeerError | undefined] => {
-//   const [connections, setConnections] = useState<Peer.DataConnection[]>([]);
-//   const [state, setState] = useState<TState>(initialState);
   const [error, setError] = useState<PeerError | undefined>(undefined)
-  // We useRef to get around useLayoutEffect's closure only having access
-  // to the initial state since we only re-execute it if userId changes.
-//   const stateRef = useRef<TState>(initialState);
   const [peer, setPeer] = useState<Peer | undefined>(undefined);
   const [userId, setUserId] = useState(opts.userId);
   const [calls, setCalls] = useState<PeerCall[]>([])
@@ -71,15 +66,6 @@ const usePeerState = (
         }
 
         localPeer.on('error', err => setError(err))
-
-        // localPeer.on('connection', conn => {
-        //   setConnections(prevState => [...prevState, conn]);
-
-        //   // We want to immediately send the newly connected peer the current data.
-        //   conn.on('open', () => {
-        //     conn.send(stateRef.current);
-        //   });
-        // });
       });
 
       return function cleanup() {
@@ -94,7 +80,6 @@ const usePeerState = (
   return [
     userId,
     calls,
-    // connections,
     error
   ]
 }
@@ -108,15 +93,5 @@ export interface PeerCall {
   peerId: string
   stream: MediaStream
 }
-
-// class PeerCalls extends Array<PeerCall> {
-//   insert(peerCall: PeerCall): Array<PeerCall> {
-//     if(!this.find((value) => value.peerId === peerCall.peerId)) {
-//       return [...this, peerCall]
-//     } else {
-//       return this
-//     }
-//   }
-// }
 
 export default usePeerState;
