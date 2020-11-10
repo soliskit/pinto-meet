@@ -27,7 +27,7 @@ const usePeerState = (
           if (userId !== localPeer.id) {
             setUserId(localPeer.id);
           }
-          if(localPeer.id) {
+          if (localPeer.id) {
             socket.emit("join-room", "6", localPeer.id)
           }
         });
@@ -39,7 +39,7 @@ const usePeerState = (
         })
 
         socket.on("user-connected", function (peerId) {
-            if(!stream) {
+            if (!stream) {
               console.error("stream is null")
               return
             }
@@ -53,7 +53,7 @@ const usePeerState = (
               peerId: peerId,
               stream: peerVideoStream
             }
-            if(!calls.find((value) => value.peerId === peerCall.peerId)) {
+            if (!calls.find((value) => value.peerId === peerCall.peerId)) {
               setCalls([...calls, peerCall])
             }
           })
@@ -69,7 +69,7 @@ const usePeerState = (
       });
 
       return function cleanup() {
-        if(peer) {
+        if (peer) {
           peer.destroy();
         }
       };
