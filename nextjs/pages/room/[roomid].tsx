@@ -1,10 +1,9 @@
 import { useRouter } from 'next/router'
-import { useRef } from 'react'
-import useSWR from 'swr'
+import { useRef, useLayoutEffect, useEffect } from 'react'
 import usePeerState from '../../usePeerState'
 import useUserMedia from '../../useUserMedia'
-
-const fetcher = (info: RequestInfo, init?: RequestInit) => fetch(info, init).then(res => res)
+import { io } from "socket.io-client"
+const socket = io(`https://${process.env.NEXT_PUBLIC_PEER_HOST}`)
 
 const Video = (props: { stream: MediaStream }) => {
   const videoRef = useRef<HTMLVideoElement>()
@@ -25,8 +24,8 @@ const Room = () => {
   const { roomid } = router.query
   const videoRef = useRef<HTMLVideoElement>()
   const stream = useUserMedia()
-  const [userid, calls, peerError] = usePeerState(stream)
-  const _ = useSWR('/api/user/'+ userid + '/room/' + roomid + '/join', fetcher)
+  const [userid, calls, peerError] = usePeerState(stream, { userId: undefined, socket })
+  
   let errorMessage = <p></p>
 
   if (peerError) {

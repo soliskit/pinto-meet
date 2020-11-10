@@ -1,10 +1,11 @@
 import { useEffect, useState, useRef } from 'react';
 import Peer, { MediaConnection } from 'peerjs';
+import { Socket } from 'socket.io-client';
 
 // copied partially from https://github.com/madou/react-peer/blob/master/src/use-peer-state.tsx
 const usePeerState = (
   stream: MediaStream,
-  opts: { userId: string | undefined } = { userId: undefined }
+  opts: { userId: string | undefined, socket: Socket, } = { userId: undefined, socket: undefined }
 ): [string | undefined, PeerCall[], PeerError | undefined] => {
 //   const [connections, setConnections] = useState<Peer.DataConnection[]>([]);
 //   const [state, setState] = useState<TState>(initialState);
@@ -15,6 +16,7 @@ const usePeerState = (
   const [peer, setPeer] = useState<Peer | undefined>(undefined);
   const [userId, setUserId] = useState(opts.userId);
   const [calls, setCalls] = useState<PeerCall[]>([])
+  const socket = opts.socket
 
   useEffect(
     () => {
@@ -30,12 +32,24 @@ const usePeerState = (
           if (userId !== localPeer.id) {
             setUserId(localPeer.id);
           }
+          if(localPeer.id) {
+            socket.emit("join-room", "6", localPeer.id)
+          }
         });
 
         localPeer.on("call", call => {
           const peerId = call.peer
           call.answer(stream)
           addCallToPeers(peerId, call)
+        })
+
+        socket.on("user-connected", function (peerId) {
+            if(!stream) {
+              console.error("stream is null")
+              return
+            }
+            const call = localPeer.call(peerId, stream)
+            addCallToPeers(peerId, call)
         })
 
         function addCallToPeers(peerId: string, call: MediaConnection) {
@@ -74,7 +88,7 @@ const usePeerState = (
         }
       };
     },
-    [opts.userId]
+    [opts.userId, stream]
   );
 
   return [
