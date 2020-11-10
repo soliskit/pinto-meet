@@ -1,5 +1,5 @@
 import { useRouter } from 'next/router'
-import { useRef, useLayoutEffect, useEffect } from 'react'
+import { useRef } from 'react'
 import usePeerState from '../../usePeerState'
 import useUserMedia from '../../useUserMedia'
 import { io } from "socket.io-client"
@@ -22,7 +22,6 @@ const Video = (props: { stream: MediaStream }) => {
 const Room = () => {
   const router = useRouter()
   const { roomid } = router.query
-  const videoRef = useRef<HTMLVideoElement>()
   const stream = useUserMedia()
   const [userid, calls, peerError] = usePeerState(stream, { userId: undefined, socket })
   
