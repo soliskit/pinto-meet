@@ -41,7 +41,7 @@ const useConnectionState = (peer: Peer, socket: Socket, stream: MediaStream): [P
       }
     })
     call.on('close', () => {
-      setCalls(calls.filter((peerCall) => peerCall.peerId != peerId))
+      setCalls(calls.filter((peerCall) => peerCall.peerId !== peerId))
     })
 
     // call.on("error", (error) => setError(error))
@@ -50,10 +50,10 @@ const useConnectionState = (peer: Peer, socket: Socket, stream: MediaStream): [P
   const removeCallFromPeersByUserId = (userId: string) => {
     console.error(`${calls.length} CALL ELEMENTS`)
     console.error(`USERID: ${userId}`)
-    const openCall: PeerCall = calls.find((peerCall) => peerCall.peerId == userId)
+    const openCall: PeerCall = calls.find((peerCall) => peerCall.peerId === userId)
     console.error(`OPENCALL: ${openCall}`)
     openCall.connection.close()
-    setCalls(calls.filter((peerCall) => peerCall.peerId != openCall.peerId))
+    setCalls(calls.filter((peerCall) => peerCall.peerId !== openCall.peerId))
   }
 
   return [calls]
