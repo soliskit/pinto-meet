@@ -16,8 +16,8 @@ const usePeerState = (
   useEffect(
     () => {
       import('peerjs').then(({ default: Peer }) => {
-        const localPeer = new Peer(opts.userId, { 
-          host: process.env.NEXT_PUBLIC_PEER_HOST, 
+        const localPeer = new Peer(opts.userId, {
+          host: process.env.NEXT_PUBLIC_PEER_HOST,
           port: Number(process.env.NEXT_PUBLIC_PEER_PORT),
           secure: Boolean(process.env.NEXT_PUBLIC_PEER_SECURE)
         })
@@ -35,7 +35,7 @@ const usePeerState = (
         localPeer.on('error', err => setError(err))
       })
 
-      return function cleanup() {
+      return function cleanup () {
         if (peer) {
           peer.destroy()
         }
@@ -56,7 +56,7 @@ export interface PeerError {
   message: string;
 }
 
-export interface PeerCall { 
+export interface PeerCall {
   peerId: string
   stream: MediaStream
   connection: MediaConnection
