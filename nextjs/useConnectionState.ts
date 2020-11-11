@@ -1,7 +1,7 @@
-import Peer, { MediaConnection } from "peerjs"
-import { useState } from "react"
-import { Socket } from "socket.io-client"
-import { PeerCall } from "./usePeerState"
+import Peer, { MediaConnection } from 'peerjs'
+import { useState } from 'react'
+import { Socket } from 'socket.io-client'
+import { PeerCall } from './usePeerState'
 
 const useConnectionState = (peer: Peer, socket: Socket, stream: MediaStream): [PeerCall[]] => {
   const [calls, setCalls] = useState<PeerCall[]>([])
@@ -10,27 +10,27 @@ const useConnectionState = (peer: Peer, socket: Socket, stream: MediaStream): [P
     return [calls]
   }
 
-  peer.on("call", call => {
+  peer.on('call', call => {
     const peerId = call.peer
     call.answer(stream)
     addCallToPeers(peerId, call)
   })
 
-  socket.on("user-connected", peerId => {
+  socket.on('user-connected', peerId => {
       if (!stream) {
-        console.error("stream is null")
+        console.error('stream is null')
         return
       }
       const call = peer.call(peerId, stream)
       addCallToPeers(peerId, call)
   })
 
-  socket.on("user-disconnected", peerId => {
+  socket.on('user-disconnected', peerId => {
     removeCallFromPeersByUserId(peerId)
   })
 
   const addCallToPeers = (peerId: string, call: MediaConnection) => {
-    call.on("stream", (peerVideoStream: MediaStream) => {
+    call.on('stream', (peerVideoStream: MediaStream) => {
       const peerCall: PeerCall = {
         peerId: peerId,
         stream: peerVideoStream, 
@@ -40,7 +40,7 @@ const useConnectionState = (peer: Peer, socket: Socket, stream: MediaStream): [P
         setCalls([...calls, peerCall])
       }
     })
-    call.on("close", () => {
+    call.on('close', () => {
       setCalls(calls.filter((peerCall) => peerCall.peerId != peerId))
     })
 

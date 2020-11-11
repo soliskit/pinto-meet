@@ -1,4 +1,4 @@
-import Pusher from "pusher"
+import Pusher from 'pusher'
 
 const {
   APP_ID: appId,
