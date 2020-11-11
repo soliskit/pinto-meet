@@ -33,7 +33,7 @@ const useConnectionState = (peer: Peer, socket: Socket, stream: MediaStream): [P
     call.on('stream', (peerVideoStream: MediaStream) => {
       const peerCall: PeerCall = {
         peerId: peerId,
-        stream: peerVideoStream, 
+        stream: peerVideoStream,
         connection: call
       }
       if (!calls.find((value) => value.peerId === peerCall.peerId)) {
