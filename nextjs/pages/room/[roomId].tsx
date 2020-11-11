@@ -3,6 +3,7 @@ import { useRef } from 'react'
 import usePeerState from '../../usePeerState'
 import useUserMedia from '../../useUserMedia'
 import { io, Socket } from "socket.io-client"
+import useConnectionState from '../../useConnectionState'
 
 const Video = (props: { stream: MediaStream }) => {
   const videoRef = useRef<HTMLVideoElement>()
@@ -31,8 +32,8 @@ const Room = () => {
   } else {
     socket = io(`http://${process.env.NEXT_PUBLIC_PEER_HOST}`)
   }
-  const [userid, calls, peerError] = usePeerState(stream, { userId: undefined, roomId, socket})
-  
+  const [userid, peer, peerError] = usePeerState(stream, { userId: undefined, roomId, socket})
+  const [calls] = useConnectionState(peer, socket, stream)
   let errorMessage = <p></p>
 
   if (peerError) {
