@@ -22,7 +22,7 @@ const Video = (props: { stream: MediaStream }) => {
 type StringArray = string[]
 const Room = () => {
   const router = useRouter()
-  const { roomid: roomId } = router.query
+  const { roomId } = router.query
   const stream = useUserMedia()
   if (roomId instanceof Array) {
     throw Error("Array passed into room parameter")
