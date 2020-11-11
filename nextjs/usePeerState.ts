@@ -5,13 +5,14 @@ import { Socket } from 'socket.io-client';
 // copied partially from https://github.com/madou/react-peer/blob/master/src/use-peer-state.tsx
 const usePeerState = (
   stream: MediaStream,
-  opts: { userId: string | undefined, socket: Socket, } = { userId: undefined, socket: undefined }
+  opts: { userId: string | undefined, roomId: string, socket: Socket } = { userId: undefined, roomId: undefined, socket: undefined }
 ): [string | undefined, PeerCall[], PeerError | undefined] => {
   const [error, setError] = useState<PeerError | undefined>(undefined)
   const [peer, setPeer] = useState<Peer | undefined>(undefined);
   const [userId, setUserId] = useState(opts.userId);
   const [calls, setCalls] = useState<PeerCall[]>([])
   const socket = opts.socket
+  const roomId = opts.roomId
 
   useEffect(
     () => {
@@ -28,7 +29,7 @@ const usePeerState = (
             setUserId(localPeer.id);
           }
           if (localPeer.id) {
-            socket.emit("join-room", "6", localPeer.id)
+            socket.emit("join-room", roomId, localPeer.id)
           }
         });
 
