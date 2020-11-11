@@ -19,11 +19,15 @@ const Video = (props: { stream: MediaStream }) => {
   return <video onCanPlay={handleCanPlay} autoPlay ref={videoRef} muted></video>
 }
 
+type StringArray = string[]
 const Room = () => {
   const router = useRouter()
-  const { roomid } = router.query
+  const { roomid: roomId } = router.query
   const stream = useUserMedia()
-  const [userid, calls, peerError] = usePeerState(stream, { userId: undefined, socket })
+  if (roomId instanceof Array) {
+    throw Error("Array passed into room parameter")
+  }
+  const [userid, calls, peerError] = usePeerState(stream, { userId: undefined, roomId, socket})
   
   let errorMessage = <p></p>
 
@@ -33,7 +37,7 @@ const Room = () => {
 
   const videos = calls.map((peerCall) => <Video stream={peerCall.stream} />)
 
-  return <div>{errorMessage}<p>Room: {roomid}, User: {userid ?? "Loading..."}</p><Video stream={stream} />{videos}</div>
+  return <div>{errorMessage}<p>Room: {roomId}, User: {userid ?? "Loading..."}</p><Video stream={stream} />{videos}</div>
 }
 
 export default Room
