@@ -1,6 +1,7 @@
 import { useEffect, useState } from 'react'
-import Peer, { MediaConnection } from 'peerjs'
+import Peer from 'peerjs'
 import { Socket } from 'socket.io-client'
+import PeerError from './pages/types/peer-error'
 
 // copied partially from https://github.com/madou/react-peer/blob/master/src/use-peer-state.tsx
 const usePeerState = (
@@ -49,17 +50,6 @@ const usePeerState = (
     peer,
     error
   ]
-}
-
-export interface PeerError {
-  type: string;
-  message: string;
-}
-
-export interface PeerCall {
-  peerId: string
-  stream: MediaStream
-  connection: MediaConnection
 }
 
 export default usePeerState

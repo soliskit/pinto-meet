@@ -1,7 +1,7 @@
 import Peer, { MediaConnection } from 'peerjs'
 import { useState } from 'react'
 import { Socket } from 'socket.io-client'
-import { PeerCall } from './usePeerState'
+import PeerCall from './pages/types/peer-call'
 
 const useConnectionState = (peer: Peer, socket: Socket, stream: MediaStream): [PeerCall[]] => {
   const [calls, setCalls] = useState<PeerCall[]>([])
