@@ -14,6 +14,7 @@ const usePeerState = (
   const socket = opts.socket
   const roomId = opts.roomId
 
+  const localCalls: PeerCall[] = []
   useEffect(
     () => {
       import('peerjs').then(({ default: Peer }) => {
@@ -48,14 +49,20 @@ const usePeerState = (
             addCallToPeers(peerId, call)
         })
 
+        socket.on("user-disconnected", userId => {
+          removeCallFromPeersByUserId(userId)
+        })
+
         function addCallToPeers(peerId: string, call: MediaConnection) {
           call.on("stream", (peerVideoStream: MediaStream) => {
             const peerCall: PeerCall = {
               peerId: peerId,
-              stream: peerVideoStream
+              stream: peerVideoStream, 
+              connection: call
             }
             if (!calls.find((value) => value.peerId === peerCall.peerId)) {
               setCalls([...calls, peerCall])
+              localCalls.push(peerCall)
             }
           })
           call.on("close", () => {
@@ -63,7 +70,15 @@ const usePeerState = (
           })
 
           call.on("error", (error) => setError(error))
-          // peers[userId] = call
+        }
+
+        function removeCallFromPeersByUserId(userId: string) {
+          console.error(`${localCalls.length} CALL ELEMENTS`)
+          console.error(`USERID: ${userId}`)
+          const openCall: PeerCall = localCalls.find((peerCall) => peerCall.peerId == userId)
+          console.error(`OPENCALL: ${openCall}`)
+          openCall.connection.close()
+          setCalls(calls.filter((peerCall) => peerCall.peerId != openCall.peerId))
         }
 
         localPeer.on('error', err => setError(err))
@@ -93,6 +108,7 @@ export interface PeerError {
 export interface PeerCall { 
   peerId: string
   stream: MediaStream
+  connection: MediaConnection
 }
 
 export default usePeerState;
