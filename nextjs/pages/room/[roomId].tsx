@@ -19,7 +19,6 @@ const Video = (props: { stream: MediaStream }) => {
   return <video onCanPlay={handleCanPlay} autoPlay ref={videoRef} muted></video>
 }
 
-type StringArray = string[]
 const Room = () => {
   const router = useRouter()
   const { roomId } = router.query
