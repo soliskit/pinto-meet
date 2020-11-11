@@ -5,14 +5,14 @@ const {
   KEY: key,
   SECRET: secret,
   CLUSTER: cluster,
-} = process.env;
+} = process.env
 
 const pusher = new Pusher({
   appId,
   key,
   secret,
   cluster,
-});
+})
 
 module.exports = async (req, res) => {
   const {
@@ -25,10 +25,10 @@ module.exports = async (req, res) => {
         'room-events',
         'join-room',
         { roomid, userid }
-      );
-    });
-    res.status(200).end('sent event succesfully');
+      )
+    })
+    res.status(200).end('sent event succesfully')
   } catch (e) {
-    console.log(e.message);
+    console.log(e.message)
   }
-};
+}

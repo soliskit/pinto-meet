@@ -25,4 +25,4 @@ const useUserMedia = (): MediaStream => {
     return stream
 }
 
-export default useUserMedia;
+export default useUserMedia
