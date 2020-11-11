@@ -39,8 +39,8 @@ const Room = () => {
   if (peerError) {
     errorMessage = <div className="error"><h3>Peer</h3><p>{peerError.type}: {peerError.message}</p></div>
   }
-
-  const videos = calls.map((peerCall) => <Video stream={peerCall.stream} />)
+  
+  const videos = calls.map((peerCall) => <Video stream={peerCall.stream} key={peerCall.peerId} />)
 
   return <div>{errorMessage}<p>Room: {roomId}, User: {userid ?? "Loading..."}</p><Video stream={stream} />{videos}</div>
 }
