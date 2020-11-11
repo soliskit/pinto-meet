@@ -27,7 +27,7 @@ const Room = () => {
   if (roomId instanceof Array) {
     throw Error('Array passed into room parameter')
   }
-  if (Boolean(process.env.NEXT_PUBLIC_PEER_SECURE)) {
+  if (Boolean(process.env.NEXT_PUBLIC_PEER_SECURE) === true) {
     socket = io(`https://${process.env.NEXT_PUBLIC_PEER_HOST}`)
   } else {
     socket = io(`http://${process.env.NEXT_PUBLIC_PEER_HOST}`)
