@@ -1,5 +1,5 @@
 import { useRouter } from 'next/router'
-import React, { useRef } from 'react'
+import { useRef } from 'react'
 import usePeerState from '../../usePeerState'
 import useUserMedia from '../../useUserMedia'
 import { io, Socket } from 'socket.io-client'
