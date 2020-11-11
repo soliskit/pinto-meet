@@ -6,15 +6,13 @@ import { Socket } from 'socket.io-client';
 const usePeerState = (
   stream: MediaStream,
   opts: { userId: string | undefined, roomId: string, socket: Socket } = { userId: undefined, roomId: undefined, socket: undefined }
-): [string | undefined, PeerCall[], PeerError | undefined] => {
+): [string | undefined, Peer, PeerError | undefined] => {
   const [error, setError] = useState<PeerError | undefined>(undefined)
   const [peer, setPeer] = useState<Peer | undefined>(undefined);
   const [userId, setUserId] = useState(opts.userId);
-  const [calls, setCalls] = useState<PeerCall[]>([])
   const socket = opts.socket
   const roomId = opts.roomId
 
-  const localCalls: PeerCall[] = []
   useEffect(
     () => {
       import('peerjs').then(({ default: Peer }) => {
@@ -34,53 +32,6 @@ const usePeerState = (
           }
         });
 
-        localPeer.on("call", call => {
-          const peerId = call.peer
-          call.answer(stream)
-          addCallToPeers(peerId, call)
-        })
-
-        socket.on("user-connected", function (peerId) {
-            if (!stream) {
-              console.error("stream is null")
-              return
-            }
-            const call = localPeer.call(peerId, stream)
-            addCallToPeers(peerId, call)
-        })
-
-        socket.on("user-disconnected", userId => {
-          removeCallFromPeersByUserId(userId)
-        })
-
-        function addCallToPeers(peerId: string, call: MediaConnection) {
-          call.on("stream", (peerVideoStream: MediaStream) => {
-            const peerCall: PeerCall = {
-              peerId: peerId,
-              stream: peerVideoStream, 
-              connection: call
-            }
-            if (!calls.find((value) => value.peerId === peerCall.peerId)) {
-              setCalls([...calls, peerCall])
-              localCalls.push(peerCall)
-            }
-          })
-          call.on("close", () => {
-            setCalls(calls.filter((peerCall) => peerCall.peerId != peerId))
-          })
-
-          call.on("error", (error) => setError(error))
-        }
-
-        function removeCallFromPeersByUserId(userId: string) {
-          console.error(`${localCalls.length} CALL ELEMENTS`)
-          console.error(`USERID: ${userId}`)
-          const openCall: PeerCall = localCalls.find((peerCall) => peerCall.peerId == userId)
-          console.error(`OPENCALL: ${openCall}`)
-          openCall.connection.close()
-          setCalls(calls.filter((peerCall) => peerCall.peerId != openCall.peerId))
-        }
-
         localPeer.on('error', err => setError(err))
       });
 
@@ -95,7 +46,7 @@ const usePeerState = (
 
   return [
     userId,
-    calls,
+    peer,
     error
   ]
 }
