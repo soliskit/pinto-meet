@@ -18,7 +18,7 @@ module.exports = async (req, res) => {
   const {
     query: { userid, roomid },
   } = req
-  
+
   try {
     await new Promise((resolve, reject) => {
       pusher.trigger(

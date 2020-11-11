@@ -4,19 +4,19 @@ const useUserMedia = (): MediaStream => {
   const [stream, setStream] = useState(null)
 
   useEffect(() => {
-    async function enableStream() {
+    async function enableStream () {
       try {
         const localStream = await navigator.mediaDevices.getUserMedia({ video: true, audio: true })
         setStream(localStream)
-      } catch(error) {
+      } catch (error) {
         console.error(error)
       }
     }
     if (!stream) {
       enableStream()
     } else {
-      return function cleanup() {
-        stream.getTracks().forEach( track => {
+      return function cleanup () {
+        stream.getTracks().forEach(track => {
           track.stop()
         })
       }
