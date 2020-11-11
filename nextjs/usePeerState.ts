@@ -28,7 +28,7 @@ const usePeerState = (
             setUserId(localPeer.id);
           }
           if (localPeer.id) {
-            socket.emit("join-room", roomId, localPeer.id)
+            socket.emit('join-room', roomId, localPeer.id)
           }
         });
 
