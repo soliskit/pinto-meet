@@ -8,7 +8,7 @@ import useConnectionState from '../../useConnectionState'
 const Video = (props: { stream: MediaStream }) => {
   const videoRef = useRef<HTMLVideoElement>()
 
-  function handleCanPlay() {
+  function handleCanPlay () {
     return videoRef.current.play()
   }
 
