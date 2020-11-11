@@ -2,8 +2,7 @@ import { useRouter } from 'next/router'
 import { useRef } from 'react'
 import usePeerState from '../../usePeerState'
 import useUserMedia from '../../useUserMedia'
-import { io } from "socket.io-client"
-const socket = io(`https://${process.env.NEXT_PUBLIC_PEER_HOST}`)
+import { io, Socket } from "socket.io-client"
 
 const Video = (props: { stream: MediaStream }) => {
   const videoRef = useRef<HTMLVideoElement>()
@@ -20,11 +19,17 @@ const Video = (props: { stream: MediaStream }) => {
 }
 
 const Room = () => {
+  let socket: Socket
   const router = useRouter()
   const { roomId } = router.query
   const stream = useUserMedia()
   if (roomId instanceof Array) {
     throw Error("Array passed into room parameter")
+  }
+  if (Boolean(process.env.NEXT_PUBLIC_PEER_SECURE)) {
+    socket = io(`https://${process.env.NEXT_PUBLIC_PEER_HOST}`)
+  } else {
+    socket = io(`http://${process.env.NEXT_PUBLIC_PEER_HOST}`)
   }
   const [userid, calls, peerError] = usePeerState(stream, { userId: undefined, roomId, socket})
   
