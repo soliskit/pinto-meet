@@ -1,6 +1,6 @@
 import { useRef } from 'react'
 
-const useVideo = (props: { stream: MediaStream }) => {
+const Video = (props: { stream: MediaStream }) => {
   const videoRef = useRef<HTMLVideoElement>()
 
   function handleCanPlay () {
@@ -10,7 +10,8 @@ const useVideo = (props: { stream: MediaStream }) => {
   if (props.stream && videoRef.current && !videoRef.current.srcObject) {
     videoRef.current.srcObject = props.stream
   }
-  return <video oncanplay={handleCanPlay} autoPlay ref={videoRef} muted></video>
+
+  return <video onCanPlay={handleCanPlay} autoPlay ref={videoRef} muted></video>
 }
 
-export default useVideo
+export default Video
