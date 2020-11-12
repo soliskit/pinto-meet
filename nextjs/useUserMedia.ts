@@ -1,7 +1,7 @@
 import { useState, useEffect } from 'react'
 
 const useUserMedia = (): MediaStream => {
-  const [stream, setStream] = useState(null)
+  const [stream, setStream] = useState<MediaStream>(null)
 
   useEffect(() => {
     async function enableStream () {
