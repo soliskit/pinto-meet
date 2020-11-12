@@ -1,23 +1,9 @@
 import { useRouter } from 'next/router'
-import { useRef } from 'react'
 import usePeerState from '../../usePeerState'
 import useUserMedia from '../../useUserMedia'
 import { io, Socket } from 'socket.io-client'
 import useConnectionState from '../../useConnectionState'
-
-const Video = (props: { stream: MediaStream }) => {
-  const videoRef = useRef<HTMLVideoElement>()
-
-  function handleCanPlay () {
-    return videoRef.current.play()
-  }
-
-  if (props.stream && videoRef.current && !videoRef.current.srcObject) {
-    videoRef.current.srcObject = props.stream
-  }
-
-  return <video onCanPlay={handleCanPlay} autoPlay ref={videoRef} muted></video>
-}
+import Video from '../types/video'
 
 const Room = () => {
   let socket: Socket
