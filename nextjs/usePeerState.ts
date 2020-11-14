@@ -17,10 +17,9 @@ const usePeerState = (
   useEffect(
     () => {
       import('peerjs').then(({ default: Peer }) => {
-        const localPeer = new Peer(opts.userId, {
+        const localPeer = new Peer(opts.userId, { 
           host: process.env.NEXT_PUBLIC_PEER_HOST,
-          port: Number(process.env.NEXT_PUBLIC_PEER_PORT),
-          secure: Boolean(process.env.NEXT_PUBLIC_PEER_SECURE)
+          secure: true
         })
         setPeer(localPeer)
 
