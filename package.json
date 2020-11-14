@@ -4,7 +4,8 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "devStart": "nodemon server.js"
+    "devStart": "nodemon server.js",
+    "server": "npx peerjs -p 9000"
   },
   "keywords": [],
   "author": "",
@@ -12,6 +13,7 @@
   "dependencies": {
     "ejs": "^3.1.5",
     "express": "^4.17.1",
+    "peer": "^0.5.3",
     "socket.io": "^2.3.0",
     "uuid": "^8.3.1"
   },
