@@ -17,11 +17,16 @@ const usePeerState = (
   useEffect(
     () => {
       import('peerjs').then(({ default: Peer }) => {
-        const localPeer = new Peer(opts.userId, { 
-          host: process.env.NEXT_PUBLIC_PEER_HOST,
-          secure: true
+        let localPeer: Peer | undefined
+        setPeer((currentPeer) => {
+          if (!currentPeer) {
+            localPeer = new Peer(opts.userId, { host: process.env.NEXT_PUBLIC_PEER_HOST, secure: true })
+            return localPeer
+          } else {
+            localPeer = currentPeer
+            return currentPeer
+          }
         })
-        setPeer(localPeer)
 
         localPeer.on('open', () => {
           if (userId !== localPeer.id) {
