@@ -3,7 +3,7 @@ import usePeerState from '../../usePeerState'
 import useUserMedia from '../../useUserMedia'
 import { io, Socket } from 'socket.io-client'
 import useConnectionState from '../../useConnectionState'
-import Video from '../types/video'
+import Video from '../../types/video'
 
 const Room = () => {
   let socket: Socket
