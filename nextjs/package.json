@@ -3,7 +3,7 @@
   "version": "0.1.0",
   "private": true,
   "scripts": {
-    "dev:start": "npm run build && npx next dev -p 3000",
+    "dev:start": "next build && NODE_OPTIONS='--inspect' next dev -p 3000",
     "build": "next build",
     "start": "next start"
   },
