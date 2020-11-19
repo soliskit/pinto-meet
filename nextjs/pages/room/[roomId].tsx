@@ -4,20 +4,23 @@ import useUserMedia from '../../useUserMedia'
 import { io, Socket } from 'socket.io-client'
 import useConnectionState from '../../useConnectionState'
 import Video from '../../types/video'
+import { useEffect, useRef } from 'react'
 
 const Room = () => {
-  let socket: Socket
+  const socketRef = useRef<Socket>(undefined) 
   const router = useRouter()
   const { roomId } = router.query
   const stream = useUserMedia()
   if (roomId instanceof Array) {
     throw Error('Array passed into room parameter')
   }
+
+  useEffect( () => {
+    socketRef.current = io(`https://${process.env.NEXT_PUBLIC_PEER_HOST}`)
+  }, [process.env.NEXT_PUBLIC_PEER_HOST])
   
-  socket = io(`https://${process.env.NEXT_PUBLIC_PEER_HOST}`)
-  
-  const [userid, peer, peerError] = usePeerState(stream, { userId: undefined, roomId, socket })
-  const [calls] = useConnectionState(peer, socket, stream)
+  const [userid, peer, peerError] = usePeerState({ userId: undefined, roomId, socket: socketRef.current })
+  const [calls] = useConnectionState(peer, socketRef.current, stream)
   let errorMessage = <p></p>
 
   if (peerError) {
