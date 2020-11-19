@@ -51,7 +51,6 @@ const useConnectionState = (peer: Peer, socket: Socket, stream: MediaStream): [P
 
   const removeCallFromPeersByUserId = (userId: string) => {
     setCalls(previousCalls => {
-      console.error(previousCalls)
       const openCall = previousCalls.find((peerCall) => peerCall.peerId === userId)
       openCall.connection.close()
       return previousCalls.filter((peerCall) => peerCall.peerId !== userId)
