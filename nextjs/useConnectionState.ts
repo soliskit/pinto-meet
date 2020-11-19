@@ -38,9 +38,24 @@ const useConnectionState = (peer: Peer, socket: Socket, stream: MediaStream): [P
         stream: peerVideoStream,
         connection: call
       }
-      if (!calls.find((value) => value.peerId === peerCall.peerId)) {
-        setCalls(previousCalls => [...previousCalls, peerCall])
-      }
+      
+      setCalls(previousCalls => {
+        let callExists: boolean
+        let callIndex: number
+        for (let i = 0; i < previousCalls.length; i++) {
+          const previousCall = previousCalls[i]
+          callExists = previousCall.peerId == peerCall.peerId
+          if (callExists) {
+            callIndex = i
+          }
+        }
+        if (callExists) {
+          previousCalls[callIndex] = peerCall
+          return [...previousCalls]
+        } else {
+          return [...previousCalls, peerCall]
+        }
+      })
     })
     call.on('close', () => {
       setCalls(previousCalls => previousCalls.filter((peerCall) => peerCall.peerId !== peerId))
