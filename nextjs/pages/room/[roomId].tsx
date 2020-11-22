@@ -16,7 +16,14 @@ const Room = () => {
   }
 
   useEffect( () => {
-    socketRef.current = io(`http://${process.env.NEXT_PUBLIC_PEER_HOST}:9000`)
+    if (process.env.NEXT_PUBLIC_IS_SECURE === 'true') {
+      socketRef.current = io(`https://${process.env.NEXT_PUBLIC_HOST}`)
+    } else {
+      if (!process.env.NEXT_PUBLIC_PORT) {
+        throw Error('Missing port for insecure connection')
+      }
+      socketRef.current = io(`http://${process.env.NEXT_PUBLIC_HOST}:${process.env.NEXT_PUBLIC_PORT}`)
+    }
   }, [process.env.NEXT_PUBLIC_PEER_HOST])
   
   const [userid, peer, peerError] = usePeerState({ userId: undefined, roomId, socket: socketRef.current })
