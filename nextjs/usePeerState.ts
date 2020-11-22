@@ -22,7 +22,7 @@ const usePeerState = (
         let localPeer: Peer | undefined
         setPeer((currentPeer) => {
           if (!currentPeer) {
-            localPeer = new Peer(opts.userId, { host: process.env.NEXT_PUBLIC_PEER_HOST, secure: true })
+            localPeer = new Peer(opts.userId, { host: process.env.NEXT_PUBLIC_PEER_HOST, port: 9000, secure: false })
             return localPeer
           } else {
             localPeer = currentPeer
