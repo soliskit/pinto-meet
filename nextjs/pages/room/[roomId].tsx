@@ -29,6 +29,7 @@ const Room = () => {
   const [userid, peer, peerError] = usePeerState({ userId: undefined, roomId, socket: socketRef.current })
   const [calls] = useConnectionState(peer, socketRef.current, stream)
   const [callConnected, setCallConnected] = useState<boolean>(false)
+  const [micActivated, setMicActivated] = useState<boolean>(true)
 
   const hangup = () => {
     setCallConnected(false)
@@ -40,8 +41,25 @@ const Room = () => {
     socketRef.current.emit('join-room', roomId, userid)
   }
 
+  const muteMicrophone = () => {
+    setMicActivated(false)
+    const audioTracks = stream.getAudioTracks()
+    audioTracks.forEach((track) => {
+      track.enabled = false
+    })
+  }
+
+  const activateMicrophone = () => {
+    setMicActivated(true)
+    const audioTracks = stream.getAudioTracks()
+    audioTracks.forEach((track) => {
+      track.enabled = true
+    })
+  }
+
   let errorMessage = <p></p>
   let connectionButton
+  let muteButton: JSX.IntrinsicElements['button']
 
   if (peerError) {
     errorMessage = <div className='error'><h3>Peer</h3><p>{peerError.type}: {peerError.message}</p></div>
@@ -53,9 +71,15 @@ const Room = () => {
     connectionButton = <button onClick={join}>Join Now</button>
   }
 
+  if (micActivated) {
+    muteButton = <button onClick={muteMicrophone}>Mute</button>
+  } else {
+    muteButton = <button onClick={activateMicrophone}>Unmute</button>
+  }
+
   const videos: JSX.IntrinsicElements['video'][] = calls.map((peerCall) => <Video stream={peerCall.stream} key={peerCall.peerId} />)
   
-return <div>{errorMessage}<p>Room: {roomId}, User: {userid ?? 'Loading...'}</p><Video stream={stream}/>{connectionButton}{videos}</div>
+return <div>{errorMessage}<p>Room: {roomId}, User: {userid ?? 'Loading...'}</p><Video stream={stream}/>{connectionButton}{muteButton}{videos}</div>
 }
 
 export default Room
