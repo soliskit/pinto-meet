@@ -58,7 +58,7 @@ const Room = () => {
   }
 
   let errorMessage = <p></p>
-  let connectionButton
+  let connectionButton: JSX.IntrinsicElements['button']
   let muteButton: JSX.IntrinsicElements['button']
 
   if (peerError) {
