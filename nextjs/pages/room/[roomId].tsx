@@ -16,7 +16,7 @@ const Room = () => {
   }
 
   useEffect( () => {
-    socketRef.current = io(`https://${process.env.NEXT_PUBLIC_PEER_HOST}`)
+    socketRef.current = io(`http://${process.env.NEXT_PUBLIC_PEER_HOST}:9000`)
   }, [process.env.NEXT_PUBLIC_PEER_HOST])
   
   const [userid, peer, peerError] = usePeerState({ userId: undefined, roomId, socket: socketRef.current })
