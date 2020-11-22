@@ -41,9 +41,6 @@ const usePeerState = (
           if (userId !== localPeer.id) {
             setUserId(localPeer.id)
           }
-          if (localPeer.id) {
-            socket.emit('join-room', roomId, localPeer.id)
-          }
         })
 
         localPeer.on('error', err => setError(err))
