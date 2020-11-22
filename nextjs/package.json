@@ -5,7 +5,7 @@
   "scripts": {
     "build": "next build --profile",
     "start": "next start",
-    "dev": "next build --debug && NODE_OPTIONS='--inspect' next start -p 3000"
+    "dev": "next build --debug && NODE_OPTIONS='--inspect' next dev -p 3000"
   },
   "dependencies": {
     "next": "^10.0.2",
