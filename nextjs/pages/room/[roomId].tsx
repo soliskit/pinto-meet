@@ -33,6 +33,7 @@ const Room = () => {
   const hangup = () => {
     setCallConnected(false)
     socketRef.current.disconnect()
+    router.push('/')
   }
   const join = () => {
     setCallConnected(true)
