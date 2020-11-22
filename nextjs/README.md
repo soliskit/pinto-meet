@@ -28,3 +28,25 @@ You can check out [the Next.js GitHub repository](https://github.com/vercel/next
 The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/import?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
 
 Check out our [Next.js deployment documentation](https://nextjs.org/docs/deployment) for more details.
+
+## Debugging
+
+Click `Shift + Command + D` inside VS Code to open Debugger
+Select `create a launch.json file` if you haven't created one yet
+Add configs and run once you've started client app
+`.vscode/launch.json`
+```json
+{
+	"version": "0.2.0",
+	"configurations": [
+    {
+      "name": "Launch Inspector",
+      "port": 9229,
+      "request": "attach",
+      "type": "node",
+      "skipFiles": ["<node_internals>/**"],
+      "cwd": "${workspaceFolder}/nextjs"
+    }
+	]
+}
+```
