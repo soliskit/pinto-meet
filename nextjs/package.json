@@ -4,8 +4,8 @@
   "private": true,
   "scripts": {
     "dev:start": "next build && NODE_OPTIONS='--inspect' next dev -p 3000",
-    "build": "next build",
-    "start": "next start"
+    "build": "next build --profile",
+    "start": "next start",
   },
   "dependencies": {
     "next": "^10.0.2",
