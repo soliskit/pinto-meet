@@ -4,7 +4,7 @@ import useUserMedia from '../../useUserMedia'
 import { io, Socket } from 'socket.io-client'
 import useConnectionState from '../../useConnectionState'
 import Video from '../../types/video'
-import { useEffect, useRef } from 'react'
+import { useEffect, useRef, useState } from 'react'
 
 const Room = () => {
   const socketRef = useRef<Socket>(undefined) 
@@ -28,15 +28,33 @@ const Room = () => {
   
   const [userid, peer, peerError] = usePeerState({ userId: undefined, roomId, socket: socketRef.current })
   const [calls] = useConnectionState(peer, socketRef.current, stream)
-  let errorMessage = <p></p>
+  const [callConnected, setCallConnected] = useState<boolean>(false)
 
-  if (peerError) {
-    errorMessage = <div className="error"><h3>Peer</h3><p>{peerError.type}: {peerError.message}</p></div>
+  const hangup = () => {
+    setCallConnected(false)
+    socketRef.current.disconnect()
+  }
+  const join = () => {
+    setCallConnected(true)
+    socketRef.current.emit('join-room', roomId, userid)
   }
 
-  const videos = calls.map((peerCall) => <Video stream={peerCall.stream} key={peerCall.peerId} />)
+  let errorMessage = <p></p>
+  let connectionButton
 
-  return <div>{errorMessage}<p>Room: {roomId}, User: {userid ?? 'Loading...'}</p><Video stream={stream} />{videos}</div>
+  if (peerError) {
+    errorMessage = <div className='error'><h3>Peer</h3><p>{peerError.type}: {peerError.message}</p></div>
+  }
+
+  if (callConnected) {
+    connectionButton = <button onClick={hangup}>Hangup</button>
+  } else {
+    connectionButton = <button onClick={join}>Join Now</button>
+  }
+
+  const videos: JSX.IntrinsicElements['video'][] = calls.map((peerCall) => <Video stream={peerCall.stream} key={peerCall.peerId} />)
+  
+return <div>{errorMessage}<p>Room: {roomId}, User: {userid ?? 'Loading...'}</p><Video stream={stream}/>{connectionButton}{videos}</div>
 }
 
 export default Room
