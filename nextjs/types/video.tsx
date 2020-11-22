@@ -8,10 +8,11 @@ const Video = (props: { stream: MediaStream }) => {
   }
 
   if (props.stream && videoRef.current && !videoRef.current.srcObject) {
+    videoRef.current.muted = true
     videoRef.current.srcObject = props.stream
   }
 
-  return <video onCanPlay={handleCanPlay} autoPlay ref={videoRef} muted></video>
+  return <video onCanPlay={handleCanPlay} autoPlay ref={videoRef}></video>
 }
 
 export default Video
