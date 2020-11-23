@@ -1,6 +1,6 @@
 import { useRef } from 'react'
 
-const Video = (props: { stream: MediaStream }) => {
+const Video = (props: { stream: MediaStream, muted: boolean }) => {
   const videoRef = useRef<HTMLVideoElement>()
 
   function handleCanPlay () {
@@ -8,7 +8,7 @@ const Video = (props: { stream: MediaStream }) => {
   }
 
   if (props.stream && videoRef.current && !videoRef.current.srcObject) {
-    videoRef.current.muted = true // this line is going away
+    videoRef.current.muted = props.muted
     videoRef.current.srcObject = props.stream
   }
 
