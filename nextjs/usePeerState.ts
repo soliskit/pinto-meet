@@ -1,22 +1,17 @@
 import { useEffect, useState } from 'react'
 import Peer from 'peerjs'
-import { Socket } from 'socket.io-client'
 import PeerError from './types/peer-error'
 
 // copied partially from https://github.com/madou/react-peer/blob/master/src/use-peer-state.tsx
 const usePeerState = (
-  opts: { userId: string | undefined, socket: Socket } = { userId: undefined, socket: undefined }
+  opts: { userId: string | undefined } = { userId: undefined }
 ): [string | undefined, Peer, PeerError | undefined] => {
   const [error, setError] = useState<PeerError | undefined>(undefined)
   const [peer, setPeer] = useState<Peer | undefined>(undefined)
   const [userId, setUserId] = useState(opts.userId)
-  const socket = opts.socket
 
   useEffect(
     () => {
-      if (!socket) {
-        return
-      }
       import('peerjs').then(({ default: Peer }) => {
         let localPeer: Peer | undefined
         setPeer((currentPeer) => {
@@ -51,7 +46,7 @@ const usePeerState = (
         }
       }
     },
-    [opts.userId, socket]
+    [opts.userId]
   )
 
   return [
