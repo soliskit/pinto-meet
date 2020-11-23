@@ -3,7 +3,7 @@ import styles from '../styles/Home.module.css'
 import Time from '../types/time'
 import JoinForm from '../types/join-form'
 
-export default function Home () {
+function Home () {
   return (
     <div className={styles.home}>
       <Head>
@@ -28,3 +28,5 @@ export default function Home () {
     </div>
   )
 }
+
+export default Home
