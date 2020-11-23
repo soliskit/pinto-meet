@@ -26,7 +26,7 @@ const Room = () => {
     }
   }, [process.env.NEXT_PUBLIC_PEER_HOST])
   
-  const [userid, peer, peerError] = usePeerState({ userId: undefined, socket: socketRef.current })
+  const [userid, peer, peerError] = usePeerState({ userId: undefined })
   const [calls] = useConnectionState(peer, socketRef.current, stream)
   const [callConnected, setCallConnected] = useState<boolean>(false)
   const [micActivated, setMicActivated] = useState<boolean>(true)
@@ -37,6 +37,9 @@ const Room = () => {
     router.push('/')
   }
   const join = () => {
+    if (!socketRef.current) {
+      throw Error('Socket connection failed to initialize')
+    }
     setCallConnected(true)
     socketRef.current.emit('join-room', roomId, userid)
   }
