@@ -1,6 +1,6 @@
 import { useEffect, useState } from 'react'
 
-const Time = (): JSX.IntrinsicElements['time'] => {
+const Time = () => {
   const [date, setDate] = useState(new Date())
   const months = ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sept', 'Oct', 'Nov', 'Dec']
   const weekdays = ['Sun', 'Mon', 'Tues', 'Weds', 'Thur', 'Fri', 'Sat']
