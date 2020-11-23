@@ -2,7 +2,7 @@ import { useState } from 'react'
 import Link from 'next/link'
 import styles from '../styles/Home.module.css'
 
-const JoinForm = (): JSX.IntrinsicElements['form'] => {
+const JoinForm = () => {
   const [name, setName] = useState(undefined)
 
   const updateName = (event) => {
