@@ -1,5 +1,6 @@
 import { useState } from 'react'
 import Link from 'next/link'
+import styles from '../styles/Home.module.css'
 
 const JoinForm = (): JSX.IntrinsicElements['form'] => {
   const [name, setName] = useState(undefined)
@@ -9,16 +10,17 @@ const JoinForm = (): JSX.IntrinsicElements['form'] => {
   }
 
   return (
-    <div>
-      <h1>Join or open a room: {name}</h1>
-      <form>
+    <div className={styles.join_room}>
+      <h1 className={styles.form}>Join or open room: {name}</h1>
+      <form className={styles.join_room}>
         <input 
           type="text" 
           value={name} 
           onChange={updateName} 
-          placeholder='Please enter your name'/>
+          className={styles.form}
+          placeholder='Enter room name'/>
       </form>
-      <Link href={`room/${name}`}><a>Join</a></Link>
+      <Link href={`room/${name}`}><button type='button' autoFocus={true} className={styles.form}>Join</button></Link>
     </div>
   )
 }
