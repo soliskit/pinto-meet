@@ -26,7 +26,7 @@ const Room = () => {
     }
   }, [process.env.NEXT_PUBLIC_PEER_HOST])
   
-  const [userid, peer, peerError] = usePeerState({ userId: undefined, roomId, socket: socketRef.current })
+  const [userid, peer, peerError] = usePeerState({ userId: undefined, socket: socketRef.current })
   const [calls] = useConnectionState(peer, socketRef.current, stream)
   const [callConnected, setCallConnected] = useState<boolean>(false)
   const [micActivated, setMicActivated] = useState<boolean>(true)
