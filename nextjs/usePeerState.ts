@@ -5,13 +5,12 @@ import PeerError from './types/peer-error'
 
 // copied partially from https://github.com/madou/react-peer/blob/master/src/use-peer-state.tsx
 const usePeerState = (
-  opts: { userId: string | undefined, roomId: string, socket: Socket } = { userId: undefined, roomId: undefined, socket: undefined }
+  opts: { userId: string | undefined, socket: Socket } = { userId: undefined, socket: undefined }
 ): [string | undefined, Peer, PeerError | undefined] => {
   const [error, setError] = useState<PeerError | undefined>(undefined)
   const [peer, setPeer] = useState<Peer | undefined>(undefined)
   const [userId, setUserId] = useState(opts.userId)
   const socket = opts.socket
-  const roomId = opts.roomId
 
   useEffect(
     () => {
