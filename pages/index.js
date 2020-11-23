@@ -1,6 +1,6 @@
 import Head from 'next/head'
 import styles from '../styles/Home.module.css'
-import Time from '../types/Time'
+import Time from '../types/time'
 
 export default function Home () {
   return (

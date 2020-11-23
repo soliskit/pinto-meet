@@ -1,4 +1,4 @@
-import { useEffect, useState } from 'react';
+import { useEffect, useState } from 'react'
 
 const Time = (): JSX.IntrinsicElements['time'] => {
   const months = ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sept', 'Oct', 'Nov', 'Dec']
@@ -6,7 +6,7 @@ const Time = (): JSX.IntrinsicElements['time'] => {
   const [date, setDate] = useState(new Date())
   const hour = date.getHours()
   const minute = checkMinutes(date.getMinutes())
-  const ampm = hour >= 12 ? 'PM' : 'AM';
+  const ampm = hour >= 12 ? 'PM' : 'AM'
   const weekday = weekdays[date.getDay()]
   const month = months[date.getMonth()]
   const day = date.getDate()
