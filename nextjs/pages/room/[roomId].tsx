@@ -66,6 +66,8 @@ const Room = () => {
 
   if (peerError) {
     errorMessage = <div className='error'><h3>Peer</h3><p>{peerError.type}: {peerError.message}</p></div>
+  } else if (callConnected && calls.length == 0) {
+    errorMessage = <div className='error'><h3>Joined room: {roomId}</h3><p>You're the only person in the room</p></div>
   }
 
   if (callConnected) {
