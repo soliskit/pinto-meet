@@ -95,7 +95,7 @@ const Room = () => {
   } else if (callConnected) {
     roomHeader = <header><h4>Joined room: {roomId} with {toCardinal(calls.length)} participant</h4></header>
   } else {
-    roomHeader = <header><h4>Join room: {roomId}</h4></header>
+    roomHeader = <header><h4>Join room: {roomId} to get started</h4></header>
   }
 
   if (callConnected) {

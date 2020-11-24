@@ -15,7 +15,7 @@ const JoinForm = () => {
 
   return (
     <div className={styles.join_room}>
-      <h1 className={styles.form}>Join or open room: {name}</h1>
+      <h1 className={styles.form}>Open room: {name}</h1>
       <form className={styles.join_room}>
         <input 
           type="text" 
@@ -26,7 +26,7 @@ const JoinForm = () => {
       </form>
       <Link href={roomName}>
         <button type='button' autoFocus={true} className={styles.form}>
-          Join
+          Open
         </button>
       </Link>
     </div>
