@@ -3,7 +3,7 @@ import Link from 'next/link'
 import styles from '../styles/Home.module.css'
 
 const JoinForm = () => {
-  const [name, setName] = useState(undefined)
+  const [name, setName] = useState<string>(undefined)
 
   const updateName = (event) => {
     setName(event.target.value)
