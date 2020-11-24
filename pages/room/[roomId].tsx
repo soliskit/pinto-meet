@@ -116,7 +116,8 @@ const Room = () => {
     <div>
       <Head>
         <title>Pinto Pinto | {roomId}</title>
-        <meta property='og:title' content='Pinto Pinto' />
+        <meta property='og:title' content='Open source video conferencing'/>
+        <meta property='og:description' content='Join a room to get started' />
         <meta property='og:type' content='website' />
         <meta property='og:image' content='/room_thumbnail.png' />
         <meta property='og:url' content={`https://pintopinto.org${router.asPath}`} />
