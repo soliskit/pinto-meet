@@ -61,6 +61,24 @@ const Room = () => {
     })
   }
 
+  const toCardinal = (num: number): string => {
+    const ones = num % 10
+    const tens = num % 100
+
+    if (tens < 11 || tens > 13) {
+      switch (ones) {
+        case 1:
+          return `${num}st`
+        case 2:
+          return `${num}nd`
+        case 3:
+          return `${num}rd`
+      }
+    }
+
+    return `${num}th`
+  }
+
   let errorMessage = <></>
   let roomHeader: JSX.IntrinsicElements['header']
   let connectionButton: JSX.IntrinsicElements['button']
@@ -74,6 +92,8 @@ const Room = () => {
     roomHeader = <header><h3>Loading...</h3></header>
   } else if (callConnected && calls.length == 0) {
     roomHeader = <header><h3>Joined room: {roomId}</h3><p>You're the only person in the room</p></header>
+  } else if (callConnected) {
+    roomHeader = <header><h3>Joined room: {roomId} with {toCardinal(calls.length)} participant</h3></header>
   } else {
     roomHeader = <header><h3>Join room: {roomId}</h3></header>
   }
