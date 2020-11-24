@@ -1,12 +1,16 @@
 import styles from '../styles/Home.module.css'
 import { useState } from 'react'
 import Link from 'next/link'
+import Haikunator from 'haikunator'
 
 const JoinForm = () => {
+  const haikunator = new Haikunator({ defaults: { tokenLength: 0 } })
   const [name, setName] = useState<string>(undefined)
+  const [roomName, setRoomName] = useState<string>(`room/${haikunator.haikunate()}`)
 
   const updateName = (event) => {
     setName(event.target.value)
+    setRoomName(`room/${ event.target.value }`)
   }
 
   return (
@@ -20,7 +24,7 @@ const JoinForm = () => {
           className={styles.form}
           placeholder='Enter room name'/>
       </form>
-      <Link href={`room/${name}`}>
+      <Link href={roomName}>
         <button type='button' autoFocus={true} className={styles.form}>
           Join
         </button>
