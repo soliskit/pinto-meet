@@ -13,11 +13,12 @@ const Time = () => {
     }
   }
 
-  const checkMinutes = (m): string => {
+  const checkMinutes = (m: number): string => {
+    let minute = `${m}`
     if (m < 10) {
-      m = '0' + m
+      minute = `0${m}`
     }
-    return m
+    return minute
   }
 
   const tick = () => {
