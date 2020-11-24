@@ -60,14 +60,21 @@ const Room = () => {
     })
   }
 
-  let errorMessage = <p></p>
+  let errorMessage = <></>
+  let roomHeader: JSX.IntrinsicElements['header']
   let connectionButton: JSX.IntrinsicElements['button']
   let muteButton: JSX.IntrinsicElements['button']
 
   if (peerError) {
     errorMessage = <div className='error'><h3>Peer</h3><p>{peerError.type}: {peerError.message}</p></div>
+  }
+
+  if (!userid) {
+    roomHeader = <header><h3>Loading...</h3></header>
   } else if (callConnected && calls.length == 0) {
-    errorMessage = <div className='error'><h3>Joined room: {roomId}</h3><p>You're the only person in the room</p></div>
+    roomHeader = <header><h3>Joined room: {roomId}</h3><p>You're the only person in the room</p></header>
+  } else {
+    roomHeader = <header><h3>Joined room: {roomId}</h3></header>
   }
 
   if (callConnected) {
