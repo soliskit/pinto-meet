@@ -8,6 +8,10 @@ function Home () {
     <div className={styles.background}>
       <Head>
         <title>Pinto Pinto</title>
+        <meta property='og:title' content='Pinto Pinto' />
+        <meta property='og:type' content='website' />
+        <meta property='og:image' content='/hero_thumbnail.png' />
+        <meta property='og:url' content='https://pintopinto.org/' />
         <meta name='viewport' content='initial-scale=1.0, user-scalable=no, width=device-width' />
         <link rel='icon' href='/favicon.ico' />
       </Head>
