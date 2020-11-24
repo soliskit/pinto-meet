@@ -84,7 +84,7 @@ const Room = () => {
 
   const videos: JSX.IntrinsicElements['video'][] = calls.map((peerCall) => <Video stream={peerCall.stream} muted={false} key={peerCall.peerId} />)
   
-return <div>{errorMessage}<p>Room: {roomId}, User: {userid ?? 'Loading...'}</p><Video stream={stream} muted={true}/>{connectionButton}{muteButton}{videos}</div>
+  return <div>{errorMessage}<p>Room: {roomId}, User: {userid ?? 'Loading...'}</p><Video stream={stream} muted={true}/>{connectionButton}{muteButton}{videos}</div>
 }
 
 export default Room
