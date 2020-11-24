@@ -8,21 +8,21 @@ function Home () {
     <div className={styles.background}>
       <Head>
         <title>Pinto Pinto</title>
-        <meta name='viewport' content='initial-scale=1.0, width=device-width' />
+        <meta name='viewport' content='initial-scale=1.0, user-scalable=no, width=device-width' />
         <link rel='icon' href='/favicon.ico' />
       </Head>
 
       <div className={styles.container} >
         
-        <section>
+        <header>
           <h1 className={styles.title}>
             <Time/>
           </h1>
-        </section>
+        </header>
 
-        <section>
+        <main>
           <JoinForm/>
-        </section>
+        </main>
 
       </div>
     </div>
