@@ -1,6 +1,6 @@
+import styles from '../styles/Home.module.css'
 import { useState } from 'react'
 import Link from 'next/link'
-import styles from '../styles/Home.module.css'
 
 const JoinForm = () => {
   const [name, setName] = useState<string>(undefined)
@@ -20,7 +20,11 @@ const JoinForm = () => {
           className={styles.form}
           placeholder='Enter room name'/>
       </form>
-      <Link href={`room/${name}`}><button type='button' autoFocus={true} className={styles.form}>Join</button></Link>
+      <Link href={`room/${name}`}>
+        <button type='button' autoFocus={true} className={styles.form}>
+          Join
+        </button>
+      </Link>
     </div>
   )
 }
