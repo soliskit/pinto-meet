@@ -4,7 +4,15 @@ const Time = () => {
   const [date, setDate] = useState(new Date())
   const months = ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sept', 'Oct', 'Nov', 'Dec']
   const weekdays = ['Sun', 'Mon', 'Tues', 'Weds', 'Thur', 'Fri', 'Sat']
-  const hour = date.getHours()
+
+  const checkHours = (h: number): number => {
+    if (h == 0) {
+      return 12
+    } else {
+      return h
+    }
+  }
+
   const checkMinutes = (m): string => {
     if (m < 10) {
       m = '0' + m
@@ -16,8 +24,9 @@ const Time = () => {
     setDate(new Date())
   }
 
+  const hour = checkHours((date.getHours() % 12))
   const minute = checkMinutes(date.getMinutes())
-  const ampm = hour >= 12 ? 'PM' : 'AM'
+  const ampm: string = hour >= 12 ? 'PM' : 'AM'
   const weekday = weekdays[date.getDay()]
   const month = months[date.getMonth()]
   const day = date.getDate()
