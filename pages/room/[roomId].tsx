@@ -1,3 +1,4 @@
+import Head from 'next/head'
 import { useRouter } from 'next/router'
 import usePeerState from '../../usePeerState'
 import useUserMedia from '../../useUserMedia'
@@ -93,6 +94,11 @@ const Room = () => {
   
   return (
     <div>
+      <Head>
+        <title>Pinto Pinto | {roomId}</title>
+        <meta name='viewport' content='initial-scale=1.0, user-scalable=no, width=device-width' />
+        <link rel='icon' href='/favicon.ico' />
+      </Head>
       {errorMessage}
       {roomHeader}
       <Video stream={stream} muted={true}/>
