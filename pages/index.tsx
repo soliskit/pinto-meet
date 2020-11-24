@@ -9,7 +9,7 @@ function Home () {
       <Head>
         <title>Pinto Pinto</title>
         <meta property='og:title' content='Video conferencing for the rest of us'/>
-        <meta property='og:description' content='Connecting you quicker than the Pony Express since 2020&newline; Open a room to get started today' />
+        <meta property='og:description' content='Open a room to get started today' />
         <meta property='og:type' content='website' />
         <meta property='og:image' content='/hero_thumbnail.png' />
         <meta property='og:url' content='https://pintopinto.org/' />
