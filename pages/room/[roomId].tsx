@@ -75,7 +75,7 @@ const Room = () => {
   } else if (callConnected && calls.length == 0) {
     roomHeader = <header><h3>Joined room: {roomId}</h3><p>You're the only person in the room</p></header>
   } else {
-    roomHeader = <header><h3>Joined room: {roomId}</h3></header>
+    roomHeader = <header><h3>Join room: {roomId}</h3></header>
   }
 
   if (callConnected) {
