@@ -5,6 +5,17 @@ const Time = () => {
   const months = ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sept', 'Oct', 'Nov', 'Dec']
   const weekdays = ['Sun', 'Mon', 'Tues', 'Weds', 'Thur', 'Fri', 'Sat']
   const hour = date.getHours()
+  const checkMinutes = (m): string => {
+    if (m < 10) {
+      m = '0' + m
+    }
+    return m
+  }
+
+  const tick = () => {
+    setDate(new Date())
+  }
+
   const minute = checkMinutes(date.getMinutes())
   const ampm = hour >= 12 ? 'PM' : 'AM'
   const weekday = weekdays[date.getDay()]
@@ -17,16 +28,6 @@ const Time = () => {
       clearInterval(timerID)
     }
   })
-  
-  function checkMinutes(m) {
-    if (m < 10) {
-      m = '0' + m
-    }
-    return m
-  }
-  function tick() {
-    setDate(new Date())
-  }
 
   return <time>{hour}:{minute} {ampm}&nbsp; • &nbsp;{weekday}, &nbsp;{month} {day}</time>
 }
