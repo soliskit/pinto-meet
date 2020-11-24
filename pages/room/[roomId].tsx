@@ -89,13 +89,13 @@ const Room = () => {
   }
 
   if (!userid) {
-    roomHeader = <header><h3>Loading...</h3></header>
+    roomHeader = <header><h4>Loading...</h4></header>
   } else if (callConnected && calls.length == 0) {
-    roomHeader = <header><h3>Joined room: {roomId}</h3><p>You're the only person in the room</p></header>
+    roomHeader = <header><h4>Joined room: {roomId}</h4><p>You're the only person in the room</p></header>
   } else if (callConnected) {
-    roomHeader = <header><h3>Joined room: {roomId} with {toCardinal(calls.length)} participant</h3></header>
+    roomHeader = <header><h4>Joined room: {roomId} with {toCardinal(calls.length)} participant</h4></header>
   } else {
-    roomHeader = <header><h3>Join room: {roomId}</h3></header>
+    roomHeader = <header><h4>Join room: {roomId}</h4></header>
   }
 
   if (callConnected) {
