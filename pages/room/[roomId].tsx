@@ -94,6 +94,7 @@ const Room = () => {
   return (
     <div>
       {errorMessage}
+      {roomHeader}
       <Video stream={stream} muted={true}/>
       {connectionButton}
       {muteButton}
