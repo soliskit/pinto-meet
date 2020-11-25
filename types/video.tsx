@@ -13,7 +13,15 @@ const Video = (props: { stream: MediaStream, muted: boolean }) => {
     videoRef.current.srcObject = props.stream
   }
 
-  return <video className={styles.video} onCanPlay={handleCanPlay} autoPlay ref={videoRef} playsInline></video>
+  return (
+    <video 
+      className={styles.video} 
+      ref={videoRef} 
+      onCanPlay={handleCanPlay} 
+      playsInline 
+      autoPlay>
+    </video>
+  )
 }
 
 export default Video
