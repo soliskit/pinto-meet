@@ -1,34 +1,51 @@
 import styles from '../styles/Home.module.css'
-import { useState } from 'react'
-import Link from 'next/link'
+import { SyntheticEvent, useRef, useState } from 'react'
 import Haikunator from 'haikunator'
 
 const JoinForm = () => {
   const haikunator = new Haikunator({ defaults: { tokenLength: 0 } })
-  const [name, setName] = useState<string>(undefined)
-  const [roomName, setRoomName] = useState<string>(`room/${haikunator.haikunate()}`)
+  const roomPath = useRef<string>(`room/${haikunator.haikunate()}`)
+  const [name, setName] = useState<string>('')
 
-  const updateName = (event) => {
-    setName(event.target.value)
-    setRoomName(`room/${ event.target.value }`)
+  const updateName = (event: SyntheticEvent) => {
+    setName((event.target as HTMLInputElement).value.toLowerCase())
+  }
+
+  const handleSubmission = (event: SyntheticEvent) => {
+    event.preventDefault()
+    const inputValue = (((event.target as HTMLFormElement).form as HTMLFormElement)[0] as HTMLInputElement).value.trim()
+    if (inputValue === '') {
+      window.location.pathname = `/${roomPath.current}`
+    } else {
+      const path = inputValue.replace('/', '-').replace('\\', '-')
+      window.location.pathname = `/room/${path}`
+    }
   }
 
   return (
     <div className={styles.join_room}>
-      <h1 className={styles.form}>Open room: {name}</h1>
-      <form className={styles.join_room}>
+      <h1 
+        className={styles.form}>
+          Open room: {name}
+      </h1>
+      <form 
+        id={`join-${name}`} 
+        className={styles.join_room}>
         <input 
-          type="text" 
+          type='text' 
           value={name} 
+          className={styles.form} 
           onChange={updateName} 
-          className={styles.form}
           placeholder='Enter room name'/>
       </form>
-      <Link href={roomName}>
-        <button type='button' autoFocus={true} className={styles.form}>
+      <button 
+        type='submit' 
+        form={`join-${name}`} 
+        className={styles.form} 
+        autoFocus={true} 
+        onClick={handleSubmission}>
           Open
-        </button>
-      </Link>
+      </button>
     </div>
   )
 }
