@@ -37,6 +37,7 @@ const Room = () => {
     socketRef.current.disconnect()
     router.push('/')
   }
+  
   const join = () => {
     if (!socketRef.current) {
       throw Error('Socket connection failed to initialize')
