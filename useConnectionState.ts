@@ -17,7 +17,7 @@ const useConnectionState = (peer: Peer, socket: Socket, stream: MediaStream): [P
       addCallToPeers(peerId, call)
     })
 
-    socket.on('user-connected', peerId => {
+    socket.on('user-connected', (peerId: string) => {
       if (!stream) {
         console.error('stream is null')
         return
@@ -26,7 +26,7 @@ const useConnectionState = (peer: Peer, socket: Socket, stream: MediaStream): [P
       addCallToPeers(peerId, call)
     })
 
-    socket.on('user-disconnected', peerId => {
+    socket.on('user-disconnected', (peerId: string) => {
       removeCallFromPeersByUserId(peerId)
     })
   }, [peer, stream])
