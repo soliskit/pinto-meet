@@ -31,13 +31,13 @@ const usePeerState = (
           }
         })
 
-        localPeer.on('open', () => {
-          if (userId !== localPeer.id) {
-            setUserId(localPeer.id)
+        localPeer?.on('open', () => {
+          if (userId !== localPeer?.id) {
+            setUserId(localPeer?.id)
           }
         })
 
-        localPeer.on('error', err => setError(err))
+        localPeer?.on('error', err => setError(err))
       })
 
       return function cleanup () {
