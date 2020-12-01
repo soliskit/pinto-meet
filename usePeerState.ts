@@ -1,5 +1,5 @@
-import { useEffect, useState } from 'react'
 import Peer from 'peerjs'
+import { useEffect, useState } from 'react'
 import PeerError from './types/peer-error'
 
 // copied partially from https://github.com/madou/react-peer/blob/master/src/use-peer-state.tsx

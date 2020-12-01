@@ -1,14 +1,15 @@
 import Head from 'next/head'
 import { useRouter } from 'next/router'
+import { useEffect, useRef, useState } from 'react'
+import { io, Socket } from 'socket.io-client'
+import styles from '../../styles/Room.module.css'
+import Video from '../../types/video'
+import useConnectionState from '../../useConnectionState'
 import usePeerState from '../../usePeerState'
 import useUserMedia from '../../useUserMedia'
-import { io, Socket } from 'socket.io-client'
-import useConnectionState from '../../useConnectionState'
-import Video from '../../types/video'
-import { useEffect, useRef, useState } from 'react'
 
 const Room = () => {
-  const socketRef = useRef<Socket>(undefined) 
+  const socketRef = useRef<Socket>(undefined)
   const router = useRouter()
   const { roomId } = router.query
   const stream = useUserMedia()
