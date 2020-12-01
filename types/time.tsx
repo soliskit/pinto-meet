@@ -6,7 +6,7 @@ const Time = () => {
   const weekdays = ['Sun', 'Mon', 'Tues', 'Weds', 'Thur', 'Fri', 'Sat']
 
   const checkHours = (h: number): number => {
-    if (h == 0) {
+    if (h === 0) {
       return 12
     } else {
       return h
@@ -33,7 +33,7 @@ const Time = () => {
   const day = date.getDate()
 
   useEffect(() => {
-    const timerID = setInterval( () => tick(), 1000 )
+    const timerID = setInterval(() => tick(), 1000)
     return function cleanup () {
       clearInterval(timerID)
     }

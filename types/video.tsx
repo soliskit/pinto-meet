@@ -17,11 +17,11 @@ const Video = (props: { stream: MediaStream, muted: boolean }) => {
   }
 
   return (
-    <video 
-      className={styles.video} 
-      ref={videoRef} 
-      onCanPlay={handleCanPlay} 
-      playsInline 
+    <video
+      className={styles.video}
+      ref={videoRef}
+      onCanPlay={handleCanPlay}
+      playsInline
       autoPlay>
     </video>
   )

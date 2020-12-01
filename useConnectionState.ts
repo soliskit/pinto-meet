@@ -10,7 +10,7 @@ const useConnectionState = (peer: Peer, socket: Socket, stream: MediaStream): [P
     if (!peer || !socket || !stream) {
       return
     }
-    
+
     peer.on('call', call => {
       const peerId = call.peer
       call.answer(stream)
@@ -38,13 +38,13 @@ const useConnectionState = (peer: Peer, socket: Socket, stream: MediaStream): [P
         stream: peerVideoStream,
         connection: call
       }
-      
+
       setCalls(previousCalls => {
         let callExists = false
         let callIndex = 0
         for (let i = 0; i < previousCalls.length; i++) {
           const previousCall = previousCalls[i]
-          callExists = previousCall.peerId == peerCall.peerId
+          callExists = previousCall.peerId === peerCall.peerId
           if (callExists) {
             callIndex = i
           }
