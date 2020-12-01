@@ -1,7 +1,7 @@
 import Head from 'next/head'
 import styles from '../styles/Home.module.css'
-import Time from '../types/time'
 import JoinForm from '../types/join-form'
+import Time from '../types/time'
 
 function Home () {
   return (
@@ -18,7 +18,7 @@ function Home () {
       </Head>
 
       <div className={styles.container} >
-        
+
         <header>
           <h1 className={styles.title}>
             <Time/>

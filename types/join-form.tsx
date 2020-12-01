@@ -1,6 +1,6 @@
-import styles from '../styles/Home.module.css'
-import { SyntheticEvent, useRef, useState } from 'react'
 import Haikunator from 'haikunator'
+import { SyntheticEvent, useRef, useState } from 'react'
+import styles from '../styles/Home.module.css'
 
 const JoinForm = () => {
   const haikunator = new Haikunator({ defaults: { tokenLength: 0 } })
@@ -24,25 +24,25 @@ const JoinForm = () => {
 
   return (
     <div className={styles.join_room}>
-      <h1 
+      <h1
         className={styles.form}>
           Open room: {name}
       </h1>
-      <form 
-        id={`join-${name}`} 
+      <form
+        id={`join-${name}`}
         className={styles.join_room}>
-        <input 
-          type='text' 
-          value={name} 
-          className={styles.form} 
-          onChange={updateName} 
+        <input
+          type='text'
+          value={name}
+          className={styles.form}
+          onChange={updateName}
           placeholder='Enter room name'/>
       </form>
-      <button 
-        type='submit' 
-        form={`join-${name}`} 
-        className={styles.form} 
-        autoFocus={true} 
+      <button
+        type='submit'
+        form={`join-${name}`}
+        className={styles.form}
+        autoFocus={true}
         onClick={handleSubmission}>
           Open
       </button>
