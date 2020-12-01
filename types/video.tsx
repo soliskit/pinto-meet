@@ -1,5 +1,5 @@
-import styles from '../styles/Video.module.css'
 import { useRef } from 'react'
+import styles from '../styles/Video.module.css'
 
 const Video = (props: { stream: MediaStream, muted: boolean }) => {
   const videoRef = useRef<HTMLVideoElement>()
