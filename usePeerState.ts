@@ -16,8 +16,8 @@ const usePeerState = (
         let localPeer: Peer | undefined
         setPeer((currentPeer) => {
           if (!currentPeer) {
-            let peerOptions: Peer.PeerJSOption = { 
-              host: process.env.NEXT_PUBLIC_HOST, 
+            const peerOptions: Peer.PeerJSOption = {
+              host: process.env.NEXT_PUBLIC_HOST,
               secure: process.env.NEXT_PUBLIC_IS_SECURE === 'true'
             }
             if (process.env.NEXT_PUBLIC_PORT) {
