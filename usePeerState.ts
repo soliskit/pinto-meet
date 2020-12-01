@@ -7,7 +7,7 @@ const usePeerState = (
   opts: { userId: string | undefined } = { userId: undefined }
 ): [string | undefined, Peer, PeerError | undefined] => {
   const [error, setError] = useState<PeerError | undefined>(undefined)
-  const [peer, setPeer] = useState<Peer | undefined>(undefined)
+  const [peer, setPeer] = useState<Peer | null>(null)
   const [userId, setUserId] = useState(opts.userId)
 
   useEffect(
@@ -51,6 +51,7 @@ const usePeerState = (
 
   return [
     userId,
+    // @ts-ignore
     peer,
     error
   ]
