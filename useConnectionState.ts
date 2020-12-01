@@ -40,8 +40,8 @@ const useConnectionState = (peer: Peer, socket: Socket, stream: MediaStream): [P
       }
       
       setCalls(previousCalls => {
-        let callExists: boolean
-        let callIndex: number
+        let callExists = false
+        let callIndex = 0
         for (let i = 0; i < previousCalls.length; i++) {
           const previousCall = previousCalls[i]
           callExists = previousCall.peerId == peerCall.peerId
