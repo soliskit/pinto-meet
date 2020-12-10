@@ -20,12 +20,3 @@
   justify-content: space-around;
   padding: .5em;
 }
-
-#connectControl {
-  width: 40em;
-  padding: 1em 0;
-  border: none;
-  text-align: center;
-  font-size: 100%;
-  background-color: #d6bc47;
-}
