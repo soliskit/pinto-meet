@@ -1,8 +1,8 @@
 import Head from 'next/head'
 import { useRouter } from 'next/router'
-import { useEffect, useRef, useState } from 'react'
+import { useEffect, useRef } from 'react'
 import { io, Socket } from 'socket.io-client'
-import styles from '../../styles/Room.module.css'
+import Presenter from '../../types/presenter'
 import Video from '../../types/video'
 import useConnectionState from '../../useConnectionState'
 import usePeerState from '../../usePeerState'
@@ -31,91 +31,18 @@ const Room = () => {
 
   const [userid, peer, peerError] = usePeerState({ userId: undefined })
   const [calls] = useConnectionState(peer, socketRef.current, stream)
-  const [callConnected, setCallConnected] = useState<boolean>(false)
-  const [micActivated, setMicActivated] = useState<boolean>(true)
-
-  const hangup = () => {
-    setCallConnected(false)
-    socketRef.current.disconnect()
-    router.push('/')
-  }
-
-  const join = () => {
-    if (!socketRef.current) {
-      throw Error('Socket connection failed to initialize')
-    }
-    setCallConnected(true)
-    socketRef.current.emit('join-room', roomId, userid)
-  }
-
-  const muteMicrophone = () => {
-    setMicActivated(false)
-    const audioTracks = stream.getAudioTracks()
-    audioTracks.forEach((track) => {
-      track.enabled = false
-    })
-  }
-
-  const activateMicrophone = () => {
-    setMicActivated(true)
-    const audioTracks = stream.getAudioTracks()
-    audioTracks.forEach((track) => {
-      track.enabled = true
-    })
-  }
-
-  const toCardinal = (num: number): string => {
-    const ones = num % 10
-    const tens = num % 100
-
-    if (tens < 11 || tens > 13) {
-      switch (ones) {
-        case 1:
-          return `${num}st`
-        case 2:
-          return `${num}nd`
-        case 3:
-          return `${num}rd`
-      }
-    }
-
-    return `${num}th`
-  }
 
   let errorMessage = <></>
-  /* eslint-disable no-undef */
-  let roomHeader: JSX.IntrinsicElements['header']
-  let connectionButton: JSX.IntrinsicElements['button']
-  let muteButton: JSX.IntrinsicElements['button']
-  /* eslint-enable no-undef */
 
   if (peerError) {
     errorMessage = <div className='error'><h3>Peer</h3><p>{peerError.type}: {peerError.message}</p></div>
   }
 
-  if (!userid) {
-    roomHeader = <header><h4>Loading...</h4></header>
-  } else if (callConnected && calls.length === 0) {
-    roomHeader = <header><h4>Joined room: {roomId}</h4><p>You are the only person in the room</p></header>
-  } else if (callConnected) {
-    roomHeader = <header><h4>Joined room: {roomId} with {toCardinal(calls.length)} participant</h4></header>
-  } else {
-    roomHeader = <header><h4>Join room: {roomId} to get started</h4></header>
+  if (roomId === undefined || userid === undefined) {
+    return <></>
   }
 
-  if (callConnected) {
-    connectionButton = <button onClick={hangup}>Hangup</button>
-  } else {
-    connectionButton = <button onClick={join}>Join Now</button>
-  }
-
-  if (micActivated) {
-    muteButton = <button onClick={muteMicrophone}>Mute</button>
-  } else {
-    muteButton = <button onClick={activateMicrophone}>Unmute</button>
-  }
-
-  /* eslint-disable-next-line no-undef */
+  // eslint-disable-next-line no-undef
   const videos: JSX.IntrinsicElements['video'][] = calls.map((peerCall) => <Video stream={peerCall.stream} muted={false} key={peerCall.peerId} />)
 
   return (
@@ -131,10 +58,7 @@ const Room = () => {
         <link rel='icon' href='/favicon.ico' />
       </Head>
       {errorMessage}
-      {roomHeader}
-      <Video stream={stream} muted={true}/>
-      {connectionButton}
-      {muteButton}
+      <Presenter stream={stream} muted={true} router={router} socket={socketRef.current} roomId={roomId} userid={userid} calls={calls}/>
       {videos}
     </div>
   )
