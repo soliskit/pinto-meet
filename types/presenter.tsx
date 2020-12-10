@@ -22,7 +22,7 @@ const Presenter = (props: { stream: MediaStream, disconnect: () => void }) => {
     })
   }
 
-  const muteMicrophone = () => {
+  const deactivateMicrophone = () => {
     setMicActivated(false)
     const audioTracks = props.stream.getAudioTracks()
     audioTracks.forEach((track) => {
@@ -35,7 +35,7 @@ const Presenter = (props: { stream: MediaStream, disconnect: () => void }) => {
   const endScreenCapture = () => { setScreenCapture(false) }
 
   if (micActivated) {
-    muteButton = <button onClick={muteMicrophone}><Mute/></button>
+    muteButton = <button onClick={deactivateMicrophone}><Mute/></button>
   } else {
     muteButton = <button onClick={activateMicrophone}><UnMute/></button>
   }
