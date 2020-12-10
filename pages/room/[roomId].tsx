@@ -101,7 +101,7 @@ const Room = () => {
       </Head>
       {errorMessage}
       {roomHeader}
-      <Presenter stream={stream} muted={true} disconnect={hangup}/>
+      <Presenter stream={stream} disconnect={hangup}/>
       {joinButton}
       {videos}
     </div>
