@@ -6,8 +6,8 @@ import UnMute from '../public/unmute'
 import styles from '../styles/Presenter.module.css'
 import Video from '../types/video'
 
-const Presenter = (props: { stream: MediaStream, muted: boolean, disconnect: () => void }) => {
-  const [micActivated, setMicActivated] = useState<boolean>(props.muted)
+const Presenter = (props: { stream: MediaStream, disconnect: () => void }) => {
+  const [micActivated, setMicActivated] = useState<boolean>(false)
 
   let muteButton: JSX.IntrinsicElements['button'] // eslint-disable-line no-undef
 
@@ -36,7 +36,7 @@ const Presenter = (props: { stream: MediaStream, muted: boolean, disconnect: () 
   return (
       <div className={styles.presenterContainer}>
         <span id={styles.presenterWrapper}>
-          <Video stream={props.stream} muted={props.muted}/>
+        <Video stream={props.stream} muted={true}/>
           <span id={styles.controlsWrapper}>
             <div className={styles.controlsContainer}>
               {muteButton}
