@@ -1,6 +1,6 @@
 import Head from 'next/head'
 import { useRouter } from 'next/router'
-import { useEffect, useRef } from 'react'
+import { useEffect, useRef, useState } from 'react'
 import { io, Socket } from 'socket.io-client'
 import styles from '../../styles/Room.module.css'
 import Presenter from '../../types/presenter'
@@ -32,15 +32,56 @@ const Room = () => {
 
   const [userid, peer, peerError] = usePeerState({ userId: undefined })
   const [calls] = useConnectionState(peer, socketRef.current, stream)
+  const [callStatus, setCallStatus] = useState<boolean>(false)
+
+  const toCardinal = (num: number): string => {
+    const ones = num % 10
+    const tens = num % 100
+
+    if (tens < 11 || tens > 13) {
+      switch (ones) {
+        case 1:
+          return `${num}st`
+        case 2:
+          return `${num}nd`
+        case 3:
+          return `${num}rd`
+      }
+    }
+
+    return `${num}th`
+  }
+
+  const join = () => {
+    setCallStatus(true)
+    if (!socketRef.current) {
+      throw Error('Socket connection failed to initialize')
+    }
+    socketRef.current.emit('join-room', roomId, userid)
+  }
+
+  const hangup = () => {
+    setCallStatus(false)
+    socketRef.current.disconnect()
+    router.push('/')
+  }
 
   let errorMessage = <></>
+  let roomHeader = <header><h4>Join room: {roomId} to get started</h4></header>
+  let joinButton = <div id={styles.connect} className={styles.connectContainer}><button id={styles.connectControl} onClick={join}>Join Now</button></div>
 
   if (peerError) {
     errorMessage = <div className='error'><h3>Peer</h3><p>{peerError.type}: {peerError.message}</p></div>
   }
 
-  if (roomId === undefined || userid === undefined) {
-    return <></>
+  if (callStatus && calls.length === 0) {
+    roomHeader = <header><h4>Joined room: {roomId}</h4><p>You are the only person in the room</p></header>
+  } else if (callStatus) {
+    roomHeader = <header><h4>Joined room: {roomId} with {toCardinal(calls.length)} participant</h4></header>
+  }
+
+  if (callStatus) {
+    joinButton = <></>
   }
 
   // eslint-disable-next-line no-undef
@@ -59,7 +100,9 @@ const Room = () => {
         <link rel='icon' href='/favicon.ico' />
       </Head>
       {errorMessage}
-      <Presenter stream={stream} muted={true} router={router} socket={socketRef.current} roomId={roomId} userid={userid} calls={calls}/>
+      {roomHeader}
+      <Presenter stream={stream} muted={true} disconnect={hangup}/>
+      {joinButton}
       {videos}
     </div>
   )
