@@ -34,7 +34,6 @@ const Presenter = (props: { stream: MediaStream, muted: boolean, disconnect: () 
   }
 
   return (
-    <>
       <div className={styles.presenterContainer}>
         <span id={styles.presenterWrapper}>
           <Video stream={props.stream} muted={props.muted}/>
@@ -47,7 +46,6 @@ const Presenter = (props: { stream: MediaStream, muted: boolean, disconnect: () 
           </span>
         </span>
       </div>
-    </>
   )
 }
 
