@@ -3,8 +3,8 @@ import { useRouter } from 'next/router'
 import { useEffect, useRef, useState } from 'react'
 import { io, Socket } from 'socket.io-client'
 import styles from '../../styles/Room.module.css'
+import Attendees from '../../types/attendees'
 import Presenter from '../../types/presenter'
-import Video from '../../types/video'
 import useConnectionState from '../../useConnectionState'
 import usePeerState from '../../usePeerState'
 import useUserMedia from '../../useUserMedia'
@@ -33,6 +33,7 @@ const Room = () => {
   const [userid, peer, peerError] = usePeerState({ userId: undefined })
   const [calls] = useConnectionState(peer, socketRef.current, stream)
   const [callStatus, setCallStatus] = useState<boolean>(false)
+  const attendees = <Attendees peerCalls={calls}/>
 
   const toCardinal = (num: number): string => {
     const ones = num % 10
@@ -84,9 +85,6 @@ const Room = () => {
     joinButton = <></>
   }
 
-  // eslint-disable-next-line no-undef
-  const videos: JSX.IntrinsicElements['video'][] = calls.map((peerCall) => <Video stream={peerCall.stream} muted={false} key={peerCall.peerId} />)
-
   return (
     <div>
       <Head>
@@ -101,7 +99,7 @@ const Room = () => {
       </Head>
       {errorMessage}
       {roomHeader}
-      {videos}
+      {attendees}
       <Presenter stream={stream} disconnect={hangup}/>
       {joinButton}
     </div>
