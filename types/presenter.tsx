@@ -8,7 +8,7 @@ import styles from '../styles/Presenter.module.css'
 import Video from '../types/video'
 
 const Presenter = (props: { stream: MediaStream, disconnect: () => void }) => {
-  const [micActivated, setMicActivated] = useState<boolean>(false)
+  const [micActivated, setMicActivated] = useState<boolean>(true)
   const [screenCaptureActivated, setScreenCapture] = useState<boolean>(false)
 
   let muteButton: JSX.IntrinsicElements['button'] // eslint-disable-line no-undef
