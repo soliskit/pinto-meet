@@ -3,6 +3,10 @@
   flex-direction: row-reverse;
 }
 
+#presenterWrapper video {
+  max-width: 100vw;
+}
+
 #presenterWrapper {
   position: relative;
 }

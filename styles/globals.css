@@ -15,7 +15,3 @@ a {
 * {
   box-sizing: border-box;
 }
-
-video {
-  max-width: 100vw;
-}
