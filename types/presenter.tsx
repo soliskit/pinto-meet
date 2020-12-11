@@ -41,9 +41,9 @@ const Presenter = (props: { stream: MediaStream, disconnect: () => void }) => {
   }
 
   if (screenCaptureActivated) {
-    shareButton = <button onClick={endScreenCapture}><UnShare/></button>
+    shareButton = <button disabled={true} onClick={endScreenCapture}><UnShare/></button>
   } else {
-    shareButton = <button onClick={startScreenCapture}><Share/></button>
+    shareButton = <button disabled={true} onClick={startScreenCapture}><Share/></button>
   }
 
   return (
