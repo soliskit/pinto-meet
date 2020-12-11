@@ -12,11 +12,18 @@
   left: 10%;
   right: 10%;
   bottom: 5%;
-  background: #f22f46cc;
 }
 
 .controlsContainer {
   display: flex;
   justify-content: space-around;
   padding: .5em;
+}
+
+.controlsContainer button {
+  border: 0;
+  padding: 1em;
+  border-radius: 1em;
+  background-color: rgba(245, 245, 245, 0.342);
+  backdrop-filter: blur(.8em) saturate(200%) hue-rotate(20deg);
 }
