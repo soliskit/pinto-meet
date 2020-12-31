@@ -64,7 +64,7 @@ const Room = () => {
   const hangup = () => {
     setCallStatus(false)
     socketRef.current.disconnect()
-    router.push('/')
+    router.back()
   }
 
   let errorMessage = <></>
