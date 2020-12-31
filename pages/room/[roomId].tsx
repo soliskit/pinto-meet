@@ -28,7 +28,7 @@ const Room = () => {
       }
       socketRef.current = io(`http://${process.env.NEXT_PUBLIC_HOST}:${process.env.NEXT_PUBLIC_PORT}`)
     }
-  }, [process.env.NEXT_PUBLIC_PEER_HOST])
+  }, [process.env.NEXT_PUBLIC_HOST])
 
   const [userid, peer, peerError] = usePeerState({ userId: undefined })
   const [calls] = useConnectionState(peer, socketRef.current, stream)
