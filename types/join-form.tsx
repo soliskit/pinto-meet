@@ -1,5 +1,5 @@
 import Haikunator from 'haikunator'
-import { SyntheticEvent, useRef, useState } from 'react'
+import router from 'next/router'
 import styles from '../styles/Home.module.css'
 
 const JoinForm = () => {
@@ -15,11 +15,11 @@ const JoinForm = () => {
     event.preventDefault()
     const inputValue = (((event.target as HTMLFormElement).form as HTMLFormElement)[0] as HTMLInputElement).value.trim()
     if (inputValue === '') {
-      window.location.pathname = `/${roomPath.current}`
+      const haikunator = new Haikunator({ defaults: { tokenLength: 0 } })
     } else {
       const path = inputValue.replace('/', '-').replace('\\', '-')
-      window.location.pathname = `/room/${path}`
     }
+    router.push(`/room/${encodeURIComponent(path)}`)
   }
 
   return (
