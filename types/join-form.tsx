@@ -1,10 +1,9 @@
 import Haikunator from 'haikunator'
 import router from 'next/router'
+import { SyntheticEvent, useState } from 'react'
 import styles from '../styles/Home.module.css'
 
 const JoinForm = () => {
-  const haikunator = new Haikunator({ defaults: { tokenLength: 0 } })
-  const roomPath = useRef<string>(`room/${haikunator.haikunate()}`)
   const [name, setName] = useState<string>('')
 
   const updateName = (event: SyntheticEvent) => {
@@ -13,11 +12,10 @@ const JoinForm = () => {
 
   const handleSubmission = (event: SyntheticEvent) => {
     event.preventDefault()
-    const inputValue = (((event.target as HTMLFormElement).form as HTMLFormElement)[0] as HTMLInputElement).value.trim()
-    if (inputValue === '') {
+    let path = name.trim()
+    if (path === '') {
       const haikunator = new Haikunator({ defaults: { tokenLength: 0 } })
-    } else {
-      const path = inputValue.replace('/', '-').replace('\\', '-')
+      path = haikunator.haikunate()
     }
     router.push(`/room/${encodeURIComponent(path)}`)
   }
