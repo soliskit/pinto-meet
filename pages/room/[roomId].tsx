@@ -25,7 +25,11 @@ const Room = ({ roomName }: InferGetServerSidePropsType<typeof getServerSideProp
       }
       socketRef.current = io(`http://${process.env.NEXT_PUBLIC_HOST}:${process.env.NEXT_PUBLIC_PORT}`)
     }
-  }, [process.env.NEXT_PUBLIC_HOST])
+    return function cleanup () {
+      socketRef.current.disconnect()
+      router.reload() // syncs socket state with peerServer on browser back action
+    }
+  }, [roomName])
 
   const [userid, peer, peerError] = usePeerState({ userId: undefined })
   const [calls] = useConnectionState(peer, socketRef.current, stream)
@@ -52,16 +56,12 @@ const Room = ({ roomName }: InferGetServerSidePropsType<typeof getServerSideProp
 
   const join = () => {
     setCallStatus(true)
-    if (!socketRef.current) {
-      throw Error('Socket connection failed to initialize')
-    }
     socketRef.current.emit('join-room', roomName, userid)
   }
 
   const hangup = () => {
     setCallStatus(false)
-    socketRef.current.disconnect()
-    router.back()
+    router.push('/')
   }
 
   let errorMessage = <></>
