@@ -8,16 +8,13 @@ import Presenter from '../../types/presenter'
 import useConnectionState from '../../useConnectionState'
 import usePeerState from '../../usePeerState'
 import useUserMedia from '../../useUserMedia'
+import { InferGetServerSidePropsType, GetServerSideProps } from 'next'
 
-const Room = () => {
+const Room = ({ roomName }: InferGetServerSidePropsType<typeof getServerSideProps>) => {
+  const router = useRouter()
   // @ts-ignore
   const socketRef = useRef<Socket>(undefined)
-  const router = useRouter()
-  const { roomId } = router.query
   const stream = useUserMedia()
-  if (roomId instanceof Array) {
-    throw Error('Array passed into room parameter')
-  }
 
   useEffect(() => {
     if (process.env.NEXT_PUBLIC_IS_SECURE === 'true') {
@@ -58,7 +55,7 @@ const Room = () => {
     if (!socketRef.current) {
       throw Error('Socket connection failed to initialize')
     }
-    socketRef.current.emit('join-room', roomId, userid)
+    socketRef.current.emit('join-room', roomName, userid)
   }
 
   const hangup = () => {
@@ -68,7 +65,7 @@ const Room = () => {
   }
 
   let errorMessage = <></>
-  let roomHeader = <header><h4>Join room: {roomId} to get started</h4></header>
+  let roomHeader = <header><h4>Join room: {roomName} to get started</h4></header>
   let joinButton = <div id={styles.connect} className={styles.connectContainer}><button id={styles.connectControl} onClick={join}>Join Now</button></div>
 
   if (peerError) {
@@ -76,9 +73,9 @@ const Room = () => {
   }
 
   if (callStatus && calls.length === 0) {
-    roomHeader = <header><h4>Joined room: {roomId}</h4><p>You are the only person in the room</p></header>
+    roomHeader = <header><h4>Joined room: {roomName}</h4><p>You are the only person in the room</p></header>
   } else if (callStatus) {
-    roomHeader = <header><h4>Joined room: {roomId} with {toCardinal(calls.length)} participant</h4></header>
+    roomHeader = <header><h4>Joined room: {roomName} with {toCardinal(calls.length)} participant</h4></header>
   }
 
   if (callStatus) {
@@ -88,7 +85,7 @@ const Room = () => {
   return (
     <div>
       <Head>
-        <title>Pinto Pinto | {roomId}</title>
+        <title>Pinto Pinto | {roomName}</title>
         <meta property='og:title' content='Video conferencing for the rest of us'/>
         <meta property='og:description' content='Join the room now to get started' />
         <meta property='og:type' content='website' />
@@ -104,6 +101,21 @@ const Room = () => {
       {joinButton}
     </div>
   )
+}
+
+export const getServerSideProps: GetServerSideProps = async (context) => {
+  let roomName: String
+  if (context.query.roomId) {
+    roomName = context.query.roomId.toString()
+  } else { // if roomId param is missing, use end of url
+    roomName = context.resolvedUrl.slice(6)
+  }
+
+  return {
+    props: {
+      roomName
+    }
+  }
 }
 
 export default Room
