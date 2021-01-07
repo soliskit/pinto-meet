@@ -25,19 +25,19 @@
   },
   "dependencies": {
     "haikunator": "^2.1.2",
-    "next": "^10.0.4",
+    "next": "^10.0.5",
     "peerjs": "^1.3.1",
     "react": "17.0.1",
     "react-dom": "17.0.1",
-    "socket.io-client": "^3.0.4"
+    "socket.io-client": "^3.0.5"
   },
   "devDependencies": {
-    "@types/node": "^14.14.17",
+    "@types/node": "^14.14.20",
     "@types/react": "^16.14.2",
-    "@typescript-eslint/eslint-plugin": "^4.11.1",
-    "@typescript-eslint/parser": "^4.11.1",
+    "@typescript-eslint/eslint-plugin": "^4.12.0",
+    "@typescript-eslint/parser": "^4.12.0",
     "@vercel/node": "^1.8.5",
-    "eslint": "^7.16.0",
+    "eslint": "^7.17.0",
     "eslint-config-standard": "^16.0.2",
     "eslint-plugin-import": "^2.22.1",
     "eslint-plugin-node": "^11.1.0",
