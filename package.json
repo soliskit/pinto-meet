@@ -1,10 +1,44 @@
 {
-  "name": "pinto",
+  "name": "pinto-pinto",
   "version": "0.1.0",
   "engines": {
     "node": "12.x",
     "npm": "6.14.10"
   },
+  "website": "https://meet.pintopinto.org/",
+  "logo": "/favicon.ico",
+  "scripts": {
+    "build": "next build --profile",
+    "start": "next start",
+    "dev": "next dev -p 5000",
+    "prod": "npx vercel dev --listen 5000 --debug"
+  },
+  "dependencies": {
+    "haikunator": "^2.1.2",
+    "next": "^10.0.5",
+    "peerjs": "^1.3.1",
+    "react": "17.0.1",
+    "react-dom": "17.0.1",
+    "socket.io-client": "^3.0.5"
+  },
+  "devDependencies": {
+    "@types/node": "^14.14.20",
+    "@types/react": "^16.14.2",
+    "@typescript-eslint/eslint-plugin": "^4.12.0",
+    "@typescript-eslint/parser": "^4.12.0",
+    "@vercel/node": "^1.8.5",
+    "eslint": "^7.17.0",
+    "eslint-config-standard": "^16.0.2",
+    "eslint-plugin-import": "^2.22.1",
+    "eslint-plugin-node": "^11.1.0",
+    "eslint-plugin-promise": "^4.2.1",
+    "eslint-plugin-react": "^7.22.0",
+    "eslint-plugin-react-hooks": "^4.2.0",
+    "typescript": "^4.1.3",
+    "vercel": "^21.0.1"
+  },
+  "author": "David Solis",
+  "repository": "https://github.com/litlmoz/pinto",
   "description": "Video conferencing for the rest of us, join a room to get started today.",
   "keywords": [
     "FaceTime",
@@ -14,37 +48,5 @@
     "WebRTC",
     "Next.js"
   ],
-  "website": "https://meet.pintopinto.org/",
-  "repository": "https://github.com/litlmoz/pinto",
-  "logo": "/favicon.ico",
-  "scripts": {
-    "build": "next build --profile",
-    "start": "next start",
-    "dev": "next dev -p 5000",
-    "vercel": "npx vercel dev --listen 5000 --debug"
-  },
-  "dependencies": {
-    "haikunator": "^2.1.2",
-    "next": "^10.0.4",
-    "peerjs": "^1.3.1",
-    "react": "17.0.1",
-    "react-dom": "17.0.1",
-    "socket.io-client": "^3.0.4"
-  },
-  "devDependencies": {
-    "@types/node": "^14.14.17",
-    "@types/react": "^16.14.2",
-    "@typescript-eslint/eslint-plugin": "^4.11.1",
-    "@typescript-eslint/parser": "^4.11.1",
-    "@vercel/node": "^1.8.5",
-    "eslint": "^7.16.0",
-    "eslint-config-standard": "^16.0.2",
-    "eslint-plugin-import": "^2.22.1",
-    "eslint-plugin-node": "^11.1.0",
-    "eslint-plugin-promise": "^4.2.1",
-    "eslint-plugin-react": "^7.22.0",
-    "eslint-plugin-react-hooks": "^4.2.0",
-    "typescript": "^4.1.3"
-  },
   "private": true
 }
