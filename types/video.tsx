@@ -3,7 +3,7 @@ import { useRef } from 'react'
 const Video = (props: { stream: MediaStream, muted: boolean }) => {
   const videoRef = useRef<HTMLVideoElement>(null)
 
-  function handleCanPlay () {
+  const handleCanPlay = () => {
     if (!videoRef.current) {
       throw Error('Video Element missing source')
     }

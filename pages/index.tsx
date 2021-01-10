@@ -3,35 +3,33 @@ import styles from '../styles/Home.module.css'
 import JoinForm from '../types/join-form'
 import Time from '../types/time'
 
-function Home () {
-  return (
-    <div className={styles.background}>
-      <Head>
-        <title>Pinto Pinto</title>
-        <meta property='og:title' content='Video conferencing for the rest of us'/>
-        <meta property='og:description' content='Open a room to get started today' />
-        <meta property='og:type' content='website' />
-        <meta property='og:image' content='/hero_thumbnail.png' />
-        <meta property='og:url' content='https://pintopinto.org/' />
-        <meta name='viewport' content='initial-scale=1.0, user-scalable=no, width=device-width' />
-        <link rel='icon' href='/favicon.ico' />
-      </Head>
+const Home = () => (
+  <div className={styles.background}>
+    <Head>
+      <title>Pinto Pinto</title>
+      <meta property='og:title' content='Video conferencing for the rest of us'/>
+      <meta property='og:description' content='Open a room to get started today' />
+      <meta property='og:type' content='website' />
+      <meta property='og:image' content='/hero_thumbnail.png' />
+      <meta property='og:url' content='https://pintopinto.org/' />
+      <meta name='viewport' content='initial-scale=1.0, user-scalable=no, width=device-width' />
+      <link rel='icon' href='/favicon.ico' />
+    </Head>
 
-      <div className={styles.container} >
+    <div className={styles.container} >
 
-        <header>
-          <h1 className={styles.title}>
-            <Time/>
-          </h1>
-        </header>
+      <header>
+        <h1 className={styles.title}>
+          <Time/>
+        </h1>
+      </header>
 
-        <main>
-          <JoinForm/>
-        </main>
+      <main>
+        <JoinForm/>
+      </main>
 
-      </div>
     </div>
-  )
-}
+  </div>
+)
 
 export default Home
