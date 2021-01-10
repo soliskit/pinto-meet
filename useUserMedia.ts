@@ -4,7 +4,7 @@ const useUserMedia = (): MediaStream => {
   const [stream, setStream] = useState<MediaStream | null>(null)
 
   useEffect(() => {
-    async function enableStream () {
+    const enableStream = async () => {
       try {
         const localStream = await navigator.mediaDevices.getUserMedia({ video: true, audio: true })
         setStream(localStream)
