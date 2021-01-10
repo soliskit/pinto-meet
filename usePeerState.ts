@@ -17,8 +17,10 @@ const usePeerState = (
         setPeer((currentPeer) => {
           if (!currentPeer) {
             const peerOptions: Peer.PeerJSOption = {
+              key: process.env.NEXT_PUBLIC_KEY,
               host: process.env.NEXT_PUBLIC_HOST,
-              secure: process.env.NEXT_PUBLIC_IS_SECURE === 'true'
+              secure: process.env.NEXT_PUBLIC_IS_SECURE === 'true',
+              debug: 3
             }
             if (process.env.NEXT_PUBLIC_PORT) {
               peerOptions.port = Number(process.env.NEXT_PUBLIC_PORT)

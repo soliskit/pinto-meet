@@ -1,7 +1,7 @@
 import Head from 'next/head'
 import { useRouter } from 'next/router'
 import { useEffect, useRef, useState } from 'react'
-import { io, Socket } from 'socket.io-client'
+import { io, ManagerOptions, Socket, SocketOptions } from 'socket.io-client'
 import styles from '../../styles/Room.module.css'
 import Attendees from '../../types/attendees'
 import Presenter from '../../types/presenter'
@@ -15,16 +15,20 @@ const Room = ({ roomName }: InferGetServerSidePropsType<typeof getServerSideProp
   // @ts-ignore
   const socketRef = useRef<Socket>(undefined)
   const stream = useUserMedia()
+  const socketOptions: Partial<ManagerOptions & SocketOptions> = {
+    path: `/${process.env.NEXT_PUBLIC_KEY}.io`,
+    host: process.env.NEXT_PUBLIC_HOST,
+    secure: process.env.NEXT_PUBLIC_IS_SECURE === 'true',
+    transports: ['websocket', 'polling'],
+    rememberUpgrade: true // if the previous websocket connection to the server succeeded, the
+    // connection attempt will bypass the normal upgrade process and will initially try websocket
+  }
+  if (process.env.NEXT_PUBLIC_PORT) {
+    socketOptions.port = process.env.NEXT_PUBLIC_PORT
+  }
 
   useEffect(() => {
-    if (process.env.NEXT_PUBLIC_IS_SECURE === 'true') {
-      socketRef.current = io(`https://${process.env.NEXT_PUBLIC_HOST}`)
-    } else {
-      if (!process.env.NEXT_PUBLIC_PORT) {
-        throw Error('Missing port for insecure connection')
-      }
-      socketRef.current = io(`http://${process.env.NEXT_PUBLIC_HOST}:${process.env.NEXT_PUBLIC_PORT}`)
-    }
+    socketRef.current = io(socketOptions)
     return function cleanup () {
       socketRef.current.disconnect()
       router.reload() // syncs socket state with peerServer on browser back action
