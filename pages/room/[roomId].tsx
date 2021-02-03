@@ -1,7 +1,7 @@
 import Head from 'next/head'
 import { useRouter } from 'next/router'
 import { useEffect, useRef, useState } from 'react'
-import { io, Socket } from 'socket.io-client'
+import { io, Socket, ManagerOptions, SocketOptions } from 'socket.io-client'
 import styles from '../../styles/Room.module.css'
 import Attendees from '../../types/attendees'
 import Presenter from '../../types/presenter'
@@ -15,15 +15,18 @@ const Room = ({ roomName }: InferGetServerSidePropsType<typeof getServerSideProp
   // @ts-ignore
   const socketRef = useRef<Socket>(undefined)
   const stream = useUserMedia()
+  const socketOptions: Partial<ManagerOptions & SocketOptions> = {
+    path: `/${process.env.NEXT_PUBLIC_KEY}.io`
+  }
 
   useEffect(() => {
     if (process.env.NEXT_PUBLIC_IS_SECURE === 'true') {
-      socketRef.current = io(`https://${process.env.NEXT_PUBLIC_HOST}`)
+      socketRef.current = io(`https://${process.env.NEXT_PUBLIC_HOST}`, socketOptions)
     } else {
       if (!process.env.NEXT_PUBLIC_PORT) {
         throw Error('Missing port for insecure connection')
       }
-      socketRef.current = io(`http://${process.env.NEXT_PUBLIC_HOST}:${process.env.NEXT_PUBLIC_PORT}`)
+      socketRef.current = io(`http://${process.env.NEXT_PUBLIC_HOST}:${process.env.NEXT_PUBLIC_PORT}`, socketOptions)
     }
     return function cleanup () {
       socketRef.current.disconnect()
