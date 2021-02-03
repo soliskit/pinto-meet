@@ -17,14 +17,12 @@ const Room = ({ roomName }: InferGetServerSidePropsType<typeof getServerSideProp
   const stream = useUserMedia()
   const socketOptions: Partial<ManagerOptions & SocketOptions> = {
     path: `/${process.env.NEXT_PUBLIC_KEY}.io`,
-    host: process.env.NEXT_PUBLIC_HOST,
     rememberUpgrade: true
   }
 
   useEffect(() => {
     if (process.env.NEXT_PUBLIC_NODE_ENV === 'production') {
-      socketOptions.secure = true
-      socketRef.current = io(socketOptions)
+      socketRef.current = io(`https://${process.env.NEXT_PUBLIC_HOST}`, socketOptions)
     } else {
       if (!process.env.NEXT_PUBLIC_PORT) {
         throw Error('Missing port for insecure connection')
