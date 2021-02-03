@@ -19,10 +19,11 @@ const usePeerState = (
             const peerOptions: Peer.PeerJSOption = {
               key: process.env.NEXT_PUBLIC_KEY,
               host: process.env.NEXT_PUBLIC_HOST,
-              secure: process.env.NEXT_PUBLIC_IS_SECURE === 'true',
               debug: 2
             }
-            if (process.env.NEXT_PUBLIC_PORT) {
+            if (process.env.NEXT_PUBLIC_NODE_ENV === 'production') {
+              peerOptions.secure = true
+            } else {
               peerOptions.port = Number(process.env.NEXT_PUBLIC_PORT)
             }
             localPeer = new Peer(opts.userId, peerOptions)
