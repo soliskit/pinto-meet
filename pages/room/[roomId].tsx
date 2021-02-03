@@ -16,7 +16,8 @@ const Room = ({ roomName }: InferGetServerSidePropsType<typeof getServerSideProp
   const socketRef = useRef<Socket>(undefined)
   const stream = useUserMedia()
   const socketOptions: Partial<ManagerOptions & SocketOptions> = {
-    path: `/${process.env.NEXT_PUBLIC_KEY}.io`
+    path: `/${process.env.NEXT_PUBLIC_KEY}.io`,
+    rememberUpgrade: true
   }
 
   useEffect(() => {
