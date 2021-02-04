@@ -24,9 +24,6 @@ const Room = ({ roomName }: InferGetServerSidePropsType<typeof getServerSideProp
     if (process.env.NEXT_PUBLIC_NODE_ENV === 'production') {
       socketRef.current = io(`https://${process.env.NEXT_PUBLIC_HOST}`, socketOptions)
     } else {
-      if (!process.env.NEXT_PUBLIC_PORT) {
-        throw Error('Missing port for insecure connection')
-      }
       socketRef.current = io(`http://${process.env.NEXT_PUBLIC_HOST}:${process.env.NEXT_PUBLIC_PORT}`, socketOptions)
     }
     return function cleanup () {
