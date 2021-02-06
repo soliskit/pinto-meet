@@ -1,10 +1,9 @@
 import Head from 'next/head'
-import styles from '../styles/Home.module.css'
 import JoinForm from '../types/join-form'
 import Time from '../types/time'
 
 const Home = () => (
-  <div className={styles.background}>
+  <div className='bg-hero-image h-screen bg-cover bg-center'>
     <Head>
       <title>Pinto Pinto</title>
       <meta property='og:title' content='Video conferencing for the rest of us'/>
@@ -16,12 +15,10 @@ const Home = () => (
       <link rel='icon' href='/favicon.ico' />
     </Head>
 
-    <div className={styles.container} >
+    <div className='pt-10 pl-5'>
 
       <header>
-        <h1 className={styles.title}>
-          <Time/>
-        </h1>
+        <Time/>
       </header>
 
       <main>

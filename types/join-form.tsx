@@ -1,7 +1,6 @@
 import Haikunator from 'haikunator'
 import router from 'next/router'
 import { SyntheticEvent, useState } from 'react'
-import styles from '../styles/Home.module.css'
 
 const JoinForm = () => {
   const [name, setName] = useState<string>('')
@@ -21,29 +20,28 @@ const JoinForm = () => {
   }
 
   return (
-    <div className={styles.join_room}>
-      <h1
-        className={styles.form}>
+    <div className='pt-10'>
+      <h1 className='pb-5'>
           Open room: {name}
       </h1>
       <form
         id={`join-${name}`}
-        className={styles.join_room}>
+        className='pb-5'>
         <input
           type='text'
           value={name}
-          className={styles.form}
+          className='pl-3 py-3 md:pl-6 md:py-6 w-5/6 md:w-1/3 rounded-sm bg-yellow-100'
           onChange={updateName}
           placeholder='Enter room name'/>
       </form>
       <button
-        type='submit'
-        form={`join-${name}`}
-        className={styles.form}
-        autoFocus={true}
-        onClick={handleSubmission}>
-          Open
-      </button>
+          type='submit'
+          form={`join-${name}`}
+          className='py-3 md:py-6 w-5/6 md:w-1/3 text-lg rounded-sm bg-yellow-800'
+          autoFocus={true}
+          onClick={handleSubmission}>
+            Open
+        </button>
     </div>
   )
 }
