@@ -65,7 +65,7 @@ const Room = ({ roomName }: InferGetServerSidePropsType<typeof getServerSideProp
   }
 
   let errorMessage = <></>
-  let roomHeader = <header><h4>Join room: {roomName} to get started</h4></header>
+  let roomHeader = <header><h4>Join room: {roomName} to get started {userid}</h4></header>
   let joinButton = <div id={styles.connect} className={styles.connectContainer}><button id={styles.connectControl} onClick={join}>Join Now</button></div>
 
   if (peerError) {
@@ -73,9 +73,9 @@ const Room = ({ roomName }: InferGetServerSidePropsType<typeof getServerSideProp
   }
 
   if (callStatus && calls.length === 0) {
-    roomHeader = <header><h4>Joined room: {roomName}</h4><p>You are the only person in the room</p></header>
+    roomHeader = <header><h4>Joined room: {roomName} {userid}</h4><p>You are the only person in the room</p></header>
   } else if (callStatus) {
-    roomHeader = <header><h4>Joined room: {roomName} with {toCardinal(calls.length)} participant</h4></header>
+    roomHeader = <header><h4>Joined room: {roomName} with {toCardinal(calls.length)} participant {userid}</h4></header>
   }
 
   if (callStatus) {
