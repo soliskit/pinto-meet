@@ -4,7 +4,6 @@ import Mute from '../public/mute'
 import Share from '../public/share'
 import UnShare from '../public/un-share'
 import UnMute from '../public/unmute'
-import styles from '../styles/Presenter.module.css'
 import Video from '../types/video'
 
 const Presenter = (props: { stream: MediaStream, disconnect: () => void }) => {
@@ -47,17 +46,15 @@ const Presenter = (props: { stream: MediaStream, disconnect: () => void }) => {
   }
 
   return (
-    <div className={styles.presenterContainer}>
-      <span id={styles.presenterWrapper}>
+    <div className='w-1/2'>
+      <div className=''>
         <Video stream={props.stream} muted={true}/>
-        <span id={styles.controlsWrapper}>
-          <div className={styles.controlsContainer}>
-            {muteButton}
-            {shareButton}
-            <button onClick={props.disconnect}><Disconnect/></button>
-          </div>
-        </span>
-      </span>
+        <div className=''>
+          {muteButton}
+          {shareButton}
+          <button onClick={props.disconnect}><Disconnect/></button>
+        </div>
+      </div>
     </div>
   )
 }

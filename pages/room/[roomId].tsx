@@ -84,7 +84,7 @@ const Room = ({ roomName }: InferGetServerSidePropsType<typeof getServerSideProp
   }
 
   return (
-    <div>
+    <div className='h-screen bg-yellow-100'>
       <Head>
         <title>Pinto Pinto | {roomName}</title>
         <meta property='og:title' content='Video conferencing for the rest of us'/>
@@ -97,9 +97,11 @@ const Room = ({ roomName }: InferGetServerSidePropsType<typeof getServerSideProp
       </Head>
       {errorMessage}
       {roomHeader}
-      {attendees}
-      <Presenter stream={stream} disconnect={hangup}/>
-      {joinButton}
+      <div className='flex flex-wrap'>
+        {attendees}
+        <Presenter stream={stream} disconnect={hangup}/>
+      </div>
+        {joinButton}
     </div>
   )
 }
