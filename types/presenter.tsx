@@ -47,9 +47,9 @@ const Presenter = (props: { stream: MediaStream, disconnect: () => void }) => {
 
   return (
     <div className='w-1/2'>
-      <div className=''>
+      <div className='relative'>
         <Video stream={props.stream} muted={true}/>
-        <div className=''>
+        <div className='absolute bottom-0'>
           {muteButton}
           {shareButton}
           <button onClick={props.disconnect}><Disconnect/></button>
