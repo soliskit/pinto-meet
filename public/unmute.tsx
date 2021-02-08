@@ -1,5 +1,5 @@
 const UnMute = () => (
-  <svg className='p-4 mb-2 bg-control rounded-lg buttonBlur' width="65px" height="65px" viewBox="0 0 42 42" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlnsXlink="http://www.w3.org/1999/xlink">
+  <svg className='py-4 mb-2 bg-control rounded-lg buttonBlur' width="65px" height="65px" viewBox="0 0 42 42" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlnsXlink="http://www.w3.org/1999/xlink">
     <g id="Page-1" stroke="none" strokeWidth="1" fill="none" fillRule="evenodd">
       <g id="speaker.wave.2.circle.fill" transform="translate(-2865.000000, -1452.000000)">
         <g id="Symbols" transform="translate(498.000000, 618.000000)" fill="#000000" fillRule="nonzero">
