@@ -17,6 +17,7 @@ const Video = (props: { stream: MediaStream, muted: boolean }) => {
 
   return (
     <video
+      className='rounded-lg'
       ref={videoRef}
       onCanPlay={handleCanPlay}
       playsInline
