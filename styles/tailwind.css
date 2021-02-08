@@ -1,3 +1,7 @@
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
+
+.buttonBlur {
+  backdrop-filter: blur(.8em) saturate(200%) hue-rotate(20deg);
+}
