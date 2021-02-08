@@ -17,12 +17,15 @@ module.exports = {
       'xl': '1366px',
       // Desktop
       '2xl': '1552px'
-      /* eslint-enable quote-props */
     },
     extend: {
       backgroundImage: theme => ({
         'hero-image': "url('/hero_image.jpg')"
-      })
+      }),
+      colors: {
+        'control': '#f5f5f557'
+      }
+      /* eslint-enable quote-props */
     }
   },
   variants: {
