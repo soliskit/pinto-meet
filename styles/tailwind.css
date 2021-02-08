@@ -3,5 +3,6 @@
 @tailwind utilities;
 
 .buttonBlur {
+  -webkit-backdrop-filter: blur(.8em) saturate(200%) hue-rotate(20deg);
   backdrop-filter: blur(.8em) saturate(200%) hue-rotate(20deg);
 }
