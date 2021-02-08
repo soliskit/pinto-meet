@@ -30,14 +30,14 @@ const JoinForm = () => {
         <input
           type='text'
           value={name}
-          className='pl-3 py-3 md:pl-6 md:py-6 w-5/6 md:w-1/3 rounded-sm bg-yellow-100'
+          className='pl-3 py-3 md:pl-6 md:py-6 w-5/6 md:w-1/3 rounded-lg bg-yellow-100'
           onChange={updateName}
           placeholder='Enter room name'/>
       </form>
       <button
           type='submit'
           form={`join-${name}`}
-          className='py-3 md:py-6 w-5/6 md:w-1/3 text-lg rounded-sm bg-yellow-800'
+          className='py-3 md:py-6 w-5/6 md:w-1/3 text-lg rounded-lg bg-yellow-800'
           autoFocus={true}
           onClick={handleSubmission}>
             Open
