@@ -3,7 +3,7 @@ import JoinForm from '../types/join-form'
 import Time from '../types/time'
 
 const Home = () => (
-  <div className='bg-hero-image h-screen bg-cover bg-center'>
+  <div className='bg-hero-image min-h-screen bg-cover bg-center'>
     <Head>
       <title>Pinto Pinto</title>
       <meta property='og:title' content='Video conferencing for the rest of us'/>
