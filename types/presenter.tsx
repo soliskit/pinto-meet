@@ -49,7 +49,7 @@ const Presenter = (props: { stream: MediaStream, disconnect: () => void }) => {
     <div className='flex'>
       <div className='relative'>
         <Video stream={props.stream} muted={true}/>
-        <div className='absolute bottom-0 left-0 right-0'>
+        <div className='absolute inset-x-0 bottom-2'>
           <div className='flex justify-evenly'>
             {muteButton}
             {shareButton}
