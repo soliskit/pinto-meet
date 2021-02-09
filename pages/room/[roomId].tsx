@@ -101,9 +101,9 @@ const Room = ({ roomName }: InferGetServerSidePropsType<typeof getServerSideProp
         <div className='w-1/3 lg:max-w-max'>
           <Presenter stream={stream} disconnect={hangup}/>
         </div>
-        <div className='mt-5 grid'>
-          {joinButton}
-        </div>
+      </div>
+      <div className='mt-5 grid'>
+        {joinButton}
       </div>
     </div>
   )
