@@ -96,14 +96,16 @@ const Room = ({ roomName }: InferGetServerSidePropsType<typeof getServerSideProp
       </Head>
       {errorMessage}
       {roomHeader}
-      <div className='flex flex-wrap justify-evenly max-w-full gap-2'>
+      <div className='max-w-full gap-2 flex flex-wrap justify-evenly'>
         {attendees}
-        <Presenter stream={stream} disconnect={hangup}/>
-      </div>
+        <div className='w-1/3 lg:max-w-max'>
+          <Presenter stream={stream} disconnect={hangup}/>
+        </div>
         <div className='mt-5 grid'>
-      {joinButton}
-    </div>
+          {joinButton}
+        </div>
       </div>
+    </div>
   )
 }
 
