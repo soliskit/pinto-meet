@@ -66,7 +66,7 @@ const Room = ({ roomName }: InferGetServerSidePropsType<typeof getServerSideProp
 
   let errorMessage = <></>
   let roomHeader = <header><h4>Join room: {roomName} to get started</h4></header>
-  let joinButton = <button className='w-1/3 place-self-center px-20 py-4 md:py-6 rounded-lg bg-yellow-800' onClick={join}>Join Now</button>
+  let joinButton = <button className='w-1/3 place-self-center py-4 md:py-6 rounded-lg bg-yellow-800' onClick={join}>Join Now</button>
 
   if (peerError) {
     errorMessage = <div className='error'><h3>Peer</h3><p>{peerError.type}: {peerError.message}</p></div>
