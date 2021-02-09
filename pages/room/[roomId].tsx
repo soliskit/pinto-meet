@@ -83,7 +83,7 @@ const Room = ({ roomName }: InferGetServerSidePropsType<typeof getServerSideProp
   }
 
   return (
-    <div className='h-screen bg-yellow-100'>
+    <div className='bg-yellow-100 min-h-screen'>
       <Head>
         <title>Pinto Pinto | {roomName}</title>
         <meta property='og:title' content='Video conferencing for the rest of us'/>
