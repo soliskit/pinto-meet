@@ -100,7 +100,6 @@ const Room = ({ roomName }: InferGetServerSidePropsType<typeof getServerSideProp
         {attendees}
         <Presenter stream={stream} disconnect={hangup}/>
       </div>
-      <br></br>
       {joinButton}
     </div>
   )

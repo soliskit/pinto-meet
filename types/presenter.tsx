@@ -55,7 +55,6 @@ const Presenter = (props: { stream: MediaStream, disconnect: () => void }) => {
             {shareButton}
             <button onClick={props.disconnect}><Disconnect/></button>
           </div>
-          <br/>
         </div>
       </div>
     </div>
