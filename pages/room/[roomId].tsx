@@ -96,7 +96,7 @@ const Room = ({ roomName }: InferGetServerSidePropsType<typeof getServerSideProp
       </Head>
       {errorMessage}
       {roomHeader}
-      <div className='flex flex-wrap'>
+      <div className='flex flex-row flex-wrap justify-evenly max-w-full space-y-1'>
         {attendees}
         <Presenter stream={stream} disconnect={hangup}/>
       </div>
