@@ -1,5 +1,5 @@
 const UnShare = () => (
-  <svg className='p-2 lg:p-3 bg-control rounded-lg filter w-11 h-11 md:w-16 md:h-16 lg:w-20 lg:h-20' viewBox="0 0 44 42" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlnsXlink="http://www.w3.org/1999/xlink">
+  <svg className='py-3 bg-control rounded-lg filter w-11 h-11 md:w-16 md:h-16 lg:w-20 lg:h-20' width="44px" height="42px" viewBox="0 0 44 42" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlnsXlink="http://www.w3.org/1999/xlink">
     <g id="Page-1" stroke="none" strokeWidth="1" fill="none" fillRule="evenodd">
       <g id="rectangle.fill.on.rectangle.fill.slash.fill" transform="translate(-2845.000000, -1436.000000)">
         <g id="Symbols" transform="translate(482.000000, 608.000000)" fill="#000000" fillRule="nonzero">
