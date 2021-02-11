@@ -10,7 +10,8 @@
     "build": "next build",
     "start": "next start",
     "dev": "next dev -p 5000",
-    "prod": "npx vercel dev --listen 5000 --debug"
+    "prod": "npx vercel dev --listen 5000 --debug",
+    "postinstall": "husky install"
   },
   "dependencies": {
     "autoprefixer": "^10.2.4",
@@ -36,6 +37,7 @@
     "eslint-plugin-promise": "^4.2.1",
     "eslint-plugin-react": "^7.22.0",
     "eslint-plugin-react-hooks": "^4.2.0",
+    "husky": "^5.0.9",
     "typescript": "^4.1.3",
     "vercel": "^21.2.2"
   },
