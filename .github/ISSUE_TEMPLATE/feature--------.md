@@ -1,7 +1,7 @@
 ---
 name: "Feature \U0001F9D1\U0001F3FD‍\U0001F4BB"
 about: "Next big idea \U0001F434 "
-title: ''
+title: "[ Positive effect this will have on peer to peer video calls ]"
 labels: enhancement
 assignees: ''
 
