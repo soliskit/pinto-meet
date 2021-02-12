@@ -1,6 +1,6 @@
 ---
 name: "Bug \U0001F41E"
-about: Improve WebRTC client
+about: Improve WebRTC video conference client
 title: "[ Description of action and resulting error ]"
 labels: bug
 assignees: ''
