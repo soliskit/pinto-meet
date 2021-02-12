@@ -1,6 +1,37 @@
-This is a [Next.js](https://nextjs.org/) project bootstrapped with [`create-next-app`](https://github.com/vercel/next.js/tree/canary/packages/create-next-app).
+# Pinto Pinto
+## Next.js WebRTC for video conference client
+
+### Prerequisites
+
+This project is managed through something called a **package**. A package contains all the code being shared as well as a `package.json` file (called a **manifest**) which describes the package.
+
+This project requires:
+
+* Node `14.x` installed, if unfamiliar learn more about Node.js by visting [here](https://nodejs.org).
+* NPM comes with node installation and will be used to manage packages.
+* Optionally, you can use Yarn to manage dependencies instead.
+
+On a Mac, you can obtain all of the above packages using [Homebrew](http://brew.sh).
 
 ## Getting Started
+
+First, install the latest packages by running:
+
+```bash
+npm install
+# or
+yarn install
+```
+
+First make sure your project is saved in a Git repository of your choosing.
+
+Link your repo to a Vercel project if you haven't already by running and follow the `Vercel CLI` prompts:
+
+```bash
+npx vercel link
+```
+
+Check out [Next.js deployment documentation](https://nextjs.org/docs/deployment) for more details.
 
 First, run the development server:
 
@@ -10,43 +41,4 @@ npm run dev
 yarn dev
 ```
 
-Open [http://localhost:4000](http://localhost:4000) with your browser to see the result.
-
-You can start editing the page by modifying `pages/index.js`. The page auto-updates as you edit the file.
-
-## Learn More
-
-To learn more about Next.js, take a look at the following resources:
-
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
-
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js/) - your feedback and contributions are welcome!
-
-## Deploy on Vercel
-
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/import?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
-
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/deployment) for more details.
-
-## Debugging
-
-Click `Shift + Command + D` inside VS Code to open Debugger
-Select `create a launch.json file` if you haven't created one yet
-Add configs and run once you've started client app
-`.vscode/launch.json`
-```json
-{
-	"version": "0.2.0",
-	"configurations": [
-    {
-      "name": "Launch Inspector",
-      "port": 9229,
-      "request": "attach",
-      "type": "node",
-      "skipFiles": ["<node_internals>/**"],
-      "cwd": "${workspaceFolder}/nextjs"
-    }
-	]
-}
-```
+Open [http://localhost:5000](http://localhost:5000) with your browser to see the homepage of our video client app.
