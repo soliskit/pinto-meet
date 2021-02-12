@@ -42,7 +42,7 @@
     "vercel": "^21.2.2"
   },
   "author": "David Solis",
-  "repository": "https://github.com/litlmoz/pinto",
+  "repository": "https://github.com/litlmoz/pinto-pinto",
   "description": "Video conferencing for the rest of us, join a room to get started today.",
   "keywords": [
     "FaceTime",
@@ -50,6 +50,7 @@
     "Video Conferencing",
     "Meet",
     "WebRTC",
+    "TailwindCSS",
     "Next.js"
   ],
   "private": true
