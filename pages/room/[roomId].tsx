@@ -146,12 +146,10 @@ const Room = ({ roomName }: InferGetServerSidePropsType<typeof getServerSideProp
       <div className='max-w-full gap-2 flex flex-wrap justify-evenly'>
         {attendees}
         <div className='w-1/3 lg:max-w-max'>
-          <Presenter stream={stream} disconnect={hangup}/>
+          <Presenter stream={stream} disconnect={hangup} />
         </div>
       </div>
-      <div className='mt-5 grid'>
-        {joinButton}
-      </div>
+      <div className='mt-5 grid'>{joinButton}</div>
     </div>
   )
 }
@@ -160,7 +158,8 @@ export const getServerSideProps: GetServerSideProps = async (context) => {
   let roomName: String
   if (context.query.roomId) {
     roomName = context.query.roomId.toString()
-  } else { // if roomId param is missing, use end of url
+  } else {
+    // if roomId param is missing, use end of url
     roomName = context.resolvedUrl.slice(6)
   }
 

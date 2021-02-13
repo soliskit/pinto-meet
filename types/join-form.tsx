@@ -32,13 +32,14 @@ const JoinForm = () => {
         />
       </form>
       <button
-          type='submit'
-          form={`join-${name}`}
-          className='py-3 md:py-6 w-5/6 md:w-1/3 text-lg rounded-lg bg-yellow-800'
-          autoFocus={true}
-          onClick={handleSubmission}>
-            Open
-        </button>
+        type='submit'
+        form={`join-${name}`}
+        className='py-3 md:py-6 w-5/6 md:w-1/3 text-lg rounded-lg bg-yellow-800'
+        autoFocus={true}
+        onClick={handleSubmission}
+      >
+        Open
+      </button>
     </div>
   )
 }

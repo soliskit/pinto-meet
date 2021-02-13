@@ -10,47 +10,44 @@ const usePeerState = (
   const [peer, setPeer] = useState<Peer | null>(null)
   const [userId, setUserId] = useState(opts.userId)
 
-  useEffect(
-    () => {
-      import('peerjs').then(({ default: Peer }) => {
-        let localPeer: Peer | undefined
-        setPeer((currentPeer) => {
-          if (!currentPeer) {
-            const peerOptions: Peer.PeerJSOption = {
-              key: process.env.NEXT_PUBLIC_KEY,
-              host: process.env.NEXT_PUBLIC_HOST,
-              debug: 2
-            }
-            if (process.env.NEXT_PUBLIC_NODE_ENV === 'production') {
-              peerOptions.secure = true
-            } else {
-              peerOptions.port = Number(process.env.NEXT_PUBLIC_PORT)
-            }
-            localPeer = new Peer(opts.userId, peerOptions)
-            return localPeer
+  useEffect(() => {
+    import('peerjs').then(({ default: Peer }) => {
+      let localPeer: Peer | undefined
+      setPeer((currentPeer) => {
+        if (!currentPeer) {
+          const peerOptions: Peer.PeerJSOption = {
+            key: process.env.NEXT_PUBLIC_KEY,
+            host: process.env.NEXT_PUBLIC_HOST,
+            debug: 2
+          }
+          if (process.env.NEXT_PUBLIC_NODE_ENV === 'production') {
+            peerOptions.secure = true
           } else {
-            localPeer = currentPeer
-            return currentPeer
+            peerOptions.port = Number(process.env.NEXT_PUBLIC_PORT)
           }
-        })
-
-        localPeer?.on('open', () => {
-          if (userId !== localPeer?.id) {
-            setUserId(localPeer?.id)
-          }
-        })
-
-        localPeer?.on('error', err => setError(err))
+          localPeer = new Peer(opts.userId, peerOptions)
+          return localPeer
+        } else {
+          localPeer = currentPeer
+          return currentPeer
+        }
       })
 
-      return function cleanup () {
-        if (peer) {
-          peer.destroy()
+      localPeer?.on('open', () => {
+        if (userId !== localPeer?.id) {
+          setUserId(localPeer?.id)
         }
+      })
+
+      localPeer?.on('error', (err) => setError(err))
+    })
+
+    return function cleanup() {
+      if (peer) {
+        peer.destroy()
       }
-    },
-    [opts.userId]
-  )
+    }
+  }, [opts.userId])
 
   return [
     userId,
