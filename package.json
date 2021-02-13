@@ -67,5 +67,6 @@
     "TailwindCSS",
     "Next.js"
   ],
+  "license": "GPL-3.0-or-later",
   "private": true
 }
