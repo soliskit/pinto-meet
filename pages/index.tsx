@@ -2,6 +2,7 @@ import Head from 'next/head'
 import JoinForm from '../types/join-form'
 import Time from '../types/time'
 
+// eslint-disable-next-line @typescript-eslint/explicit-module-boundary-types
 const Home = () => (
   <div className='bg-hero-image min-h-screen bg-cover bg-center'>
     <Head>

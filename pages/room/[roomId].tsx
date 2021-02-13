@@ -9,7 +9,10 @@ import usePeerState from '../../usePeerState'
 import useUserMedia from '../../useUserMedia'
 import { InferGetServerSidePropsType, GetServerSideProps } from 'next'
 
-const Room = ({ roomName }: InferGetServerSidePropsType<typeof getServerSideProps>) => {
+// eslint-disable-next-line @typescript-eslint/explicit-module-boundary-types
+const Room = ({
+  roomName
+}: InferGetServerSidePropsType<typeof getServerSideProps>) => {
   const router = useRouter()
   // @ts-ignore
   const socketRef = useRef<Socket>(undefined)

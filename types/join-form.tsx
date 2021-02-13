@@ -2,6 +2,7 @@ import Haikunator from 'haikunator'
 import router from 'next/router'
 import { SyntheticEvent, useState } from 'react'
 
+// eslint-disable-next-line @typescript-eslint/explicit-module-boundary-types
 const JoinForm = () => {
   const [name, setName] = useState<string>('')
 

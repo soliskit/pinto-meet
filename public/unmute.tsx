@@ -1,3 +1,4 @@
+// eslint-disable-next-line @typescript-eslint/explicit-module-boundary-types
 const UnMute = () => (
   <svg className='py-3 bg-control rounded-lg filter w-11 h-11 md:w-16 md:h-16 lg:w-20 lg:h-20' width="42px" height="42px" viewBox="0 0 42 42" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlnsXlink="http://www.w3.org/1999/xlink">
     <g id="Page-1" stroke="none" strokeWidth="1" fill="none" fillRule="evenodd">
