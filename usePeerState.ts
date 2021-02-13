@@ -39,7 +39,7 @@ const usePeerState = (
         }
       })
 
-      localPeer?.on('error', (err) => setError(err))
+      localPeer.on('error', (err) => setError(err))
     })
 
     return function cleanup() {
