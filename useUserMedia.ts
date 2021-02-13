@@ -18,8 +18,8 @@ const useUserMedia = (): MediaStream => {
     if (!stream) {
       enableStream()
     } else {
-      return function cleanup () {
-        stream.getTracks().forEach(track => {
+      return function cleanup() {
+        stream.getTracks().forEach((track) => {
           track.stop()
         })
       }

@@ -34,7 +34,7 @@ const Room = ({
         socketOptions
       )
     }
-    return function cleanup () {
+    return function cleanup() {
       socketRef.current.disconnect()
       router.reload() // syncs socket state with peerServer on browser back action
     }
@@ -43,7 +43,7 @@ const Room = ({
   const [userid, peer, peerError] = usePeerState({ userId: undefined })
   const [calls] = useConnectionState(peer, socketRef.current, stream)
   const [callStatus, setCallStatus] = useState<boolean>(false)
-  const attendees = <Attendees peerCalls={calls}/>
+  const attendees = <Attendees peerCalls={calls} />
 
   const toCardinal = (num: number): string => {
     const ones = num % 10

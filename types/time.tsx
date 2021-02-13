@@ -39,7 +39,7 @@ const Time = () => {
     setDate(new Date())
   }
 
-  const hour = checkHours((date.getHours() % 12))
+  const hour = checkHours(date.getHours() % 12)
   const minute = checkMinutes(date.getMinutes())
   const ampm: string = hour >= 12 ? 'PM' : 'AM'
   const weekday = weekdays[date.getDay()]
@@ -48,7 +48,7 @@ const Time = () => {
 
   useEffect(() => {
     const timerID = setInterval(() => tick(), 1000)
-    return function cleanup () {
+    return function cleanup() {
       clearInterval(timerID)
     }
   })

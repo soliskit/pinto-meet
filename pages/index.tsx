@@ -28,11 +28,11 @@ const Home = () => (
     <div className='pt-10 pl-5'>
 
       <header>
-        <Time/>
+        <Time />
       </header>
 
       <main>
-        <JoinForm/>
+        <JoinForm />
       </main>
 
     </div>
