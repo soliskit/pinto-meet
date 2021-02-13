@@ -159,7 +159,7 @@ const Room = ({
 }
 
 export const getServerSideProps: GetServerSideProps = async (context) => {
-  let roomName: String
+  let roomName: string
   if (context.query.roomId) {
     roomName = context.query.roomId.toString()
   } else {
