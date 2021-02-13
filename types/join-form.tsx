@@ -21,18 +21,15 @@ const JoinForm = () => {
 
   return (
     <div className='pt-10'>
-      <h1 className='pb-5'>
-          Open room: {name}
-      </h1>
-      <form
-        id={`join-${name}`}
-        className='pb-5'>
+      <h1 className='pb-5'>Open room: {name}</h1>
+      <form id={`join-${name}`} className='pb-5'>
         <input
           type='text'
           value={name}
           className='pl-3 py-3 md:pl-6 md:py-6 w-5/6 md:w-1/3 rounded-lg bg-yellow-100'
           onChange={updateName}
-          placeholder='Enter room name'/>
+          placeholder='Enter room name'
+        />
       </form>
       <button
           type='submit'

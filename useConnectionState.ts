@@ -3,7 +3,11 @@ import { useEffect, useState } from 'react'
 import { Socket } from 'socket.io-client'
 import PeerCall from './types/peer-call'
 
-const useConnectionState = (peer: Peer, socket: Socket, stream: MediaStream): [PeerCall[]] => {
+const useConnectionState = (
+  peer: Peer,
+  socket: Socket,
+  stream: MediaStream
+): [PeerCall[]] => {
   const [calls, setCalls] = useState<PeerCall[]>([])
 
   useEffect(() => {
@@ -58,19 +62,25 @@ const useConnectionState = (peer: Peer, socket: Socket, stream: MediaStream): [P
       })
     })
     call.on('close', () => {
-      setCalls(previousCalls => previousCalls.filter((peerCall) => peerCall.peerId !== peerId))
+      setCalls((previousCalls) =>
+        previousCalls.filter((peerCall) => peerCall.peerId !== peerId)
+      )
     })
 
     call.on('error', (error) => console.error(error))
   }
 
   const removeCallFromPeersByUserId = (userId: string) => {
-    setCalls(previousCalls => {
-      const openCall = previousCalls.find((peerCall) => peerCall.peerId === userId)
+    setCalls((previousCalls) => {
+      const openCall = previousCalls.find(
+        (peerCall) => peerCall.peerId === userId
+      )
       if (openCall) {
         openCall.connection.close()
       }
-      const newCalls = previousCalls.filter((peerCall) => peerCall.peerId !== userId)
+      const newCalls = previousCalls.filter(
+        (peerCall) => peerCall.peerId !== userId
+      )
       return newCalls
     })
   }
