@@ -15,7 +15,7 @@ const useConnectionState = (
       return
     }
 
-    peer.on('call', call => {
+    peer.on('call', (call) => {
       const peerId = call.peer
       call.answer(stream)
       addCallToPeers(peerId, call)
@@ -43,7 +43,7 @@ const useConnectionState = (
         connection: call
       }
 
-      setCalls(previousCalls => {
+      setCalls((previousCalls) => {
         let callExists = false
         let callIndex = 0
         for (let i = 0; i < previousCalls.length; i++) {

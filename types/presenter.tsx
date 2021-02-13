@@ -71,7 +71,7 @@ const Presenter = (props: { stream: MediaStream; disconnect: () => void }) => {
   return (
     <div className='flex'>
       <div className='relative'>
-        <Video stream={props.stream} muted={true}/>
+        <Video stream={props.stream} muted={true} />
         <div className='absolute inset-x-0 bottom-2'>
           <div className='flex justify-evenly'>
             {muteButton}
