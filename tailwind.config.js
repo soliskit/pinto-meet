@@ -17,26 +17,24 @@ module.exports = {
       ]
     },
     screens: {
-      /* eslint-disable quote-props */
       // iPhone SE portrait
-      'sm': '320px',
+      sm: '320px',
       // iPhone 8+ landscape
-      'md': '736px',
+      md: '736px',
       // iPad mini landscape & iPad Pro 12.9 portait
-      'lg': '1024px',
+      lg: '1024px',
       // iPad Pro 12.9 landscape
-      'xl': '1366px',
+      xl: '1366px',
       // Desktop
       '2xl': '1552px'
     },
     extend: {
-      backgroundImage: theme => ({
+      backgroundImage: () => ({
         'hero-image': "url('/hero_image.jpg')"
       }),
       colors: {
-        'control': '#f5f5f557'
+        control: '#f5f5f557'
       }
-      /* eslint-enable quote-props */
     }
   },
   variants: {
