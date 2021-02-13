@@ -22,8 +22,8 @@ const Video = (props: { stream: MediaStream, muted: boolean }) => {
       ref={videoRef}
       onCanPlay={handleCanPlay}
       playsInline
-      autoPlay>
-    </video>
+      autoPlay
+    ></video>
   )
 }
 
