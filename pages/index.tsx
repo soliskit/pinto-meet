@@ -26,7 +26,6 @@ const Home = () => (
     </Head>
 
     <div className='pt-10 pl-5'>
-
       <header>
         <Time />
       </header>
@@ -34,7 +33,6 @@ const Home = () => (
       <main>
         <JoinForm />
       </main>
-
     </div>
   </div>
 )
