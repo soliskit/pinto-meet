@@ -26,7 +26,8 @@
   },
   "husky": {
     "hooks": {
-      "pre-commit": "lint-staged && pretty-quick --staged"
+      "pre-commit": "lint-staged && npx pretty-quick --staged",
+      "pre-push": "npx tsc && npx eslint --ignore-path .gitignore --ext .ts,.tsx"
     }
   },
   "lint-staged": {
