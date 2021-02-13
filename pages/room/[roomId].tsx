@@ -21,9 +21,15 @@ const Room = ({ roomName }: InferGetServerSidePropsType<typeof getServerSideProp
 
   useEffect(() => {
     if (process.env.NEXT_PUBLIC_NODE_ENV === 'production') {
-      socketRef.current = io(`https://${process.env.NEXT_PUBLIC_HOST}`, socketOptions)
+      socketRef.current = io(
+        `https://${process.env.NEXT_PUBLIC_HOST}`,
+        socketOptions
+      )
     } else {
-      socketRef.current = io(`http://${process.env.NEXT_PUBLIC_HOST}:${process.env.NEXT_PUBLIC_PORT}`, socketOptions)
+      socketRef.current = io(
+        `http://${process.env.NEXT_PUBLIC_HOST}:${process.env.NEXT_PUBLIC_PORT}`,
+        socketOptions
+      )
     }
     return function cleanup () {
       socketRef.current.disconnect()
@@ -65,17 +71,46 @@ const Room = ({ roomName }: InferGetServerSidePropsType<typeof getServerSideProp
   }
 
   let errorMessage = <></>
-  let roomHeader = <header><h4>Join room: {roomName} to get started</h4></header>
-  let joinButton = <button className='w-1/3 place-self-center py-4 md:py-6 rounded-lg bg-yellow-800' onClick={join}>Join Now</button>
+  let roomHeader = (
+    <header>
+      <h4>Join room: {roomName} to get started</h4>
+    </header>
+  )
+  let joinButton = (
+    <button
+      className='w-1/3 place-self-center py-4 md:py-6 rounded-lg bg-yellow-800'
+      onClick={join}
+    >
+      Join Now
+    </button>
+  )
 
   if (peerError) {
-    errorMessage = <div className='error'><h3>Peer</h3><p>{peerError.type}: {peerError.message}</p></div>
+    errorMessage = (
+      <div className='error'>
+        <h3>Peer</h3>
+        <p>
+          {peerError.type}: {peerError.message}
+        </p>
+      </div>
+    )
   }
 
   if (callStatus && calls.length === 0) {
-    roomHeader = <header><h4>Joined room: {roomName}</h4><p>You are the only person in the room</p></header>
+    roomHeader = (
+      <header>
+        <h4>Joined room: {roomName}</h4>
+        <p>You are the only person in the room</p>
+      </header>
+    )
   } else if (callStatus) {
-    roomHeader = <header><h4>Joined room: {roomName} with {toCardinal(calls.length)} participant</h4></header>
+    roomHeader = (
+      <header>
+        <h4>
+          Joined room: {roomName} with {toCardinal(calls.length)} participant
+        </h4>
+      </header>
+    )
   }
 
   if (callStatus) {
@@ -86,12 +121,24 @@ const Room = ({ roomName }: InferGetServerSidePropsType<typeof getServerSideProp
     <div className='bg-yellow-100 min-h-screen'>
       <Head>
         <title>Pinto Pinto | {roomName}</title>
-        <meta property='og:title' content='Video conferencing for the rest of us'/>
-        <meta property='og:description' content='Join the room now to get started' />
+        <meta
+          property='og:title'
+          content='Video conferencing for the rest of us'
+        />
+        <meta
+          property='og:description'
+          content='Join the room now to get started'
+        />
         <meta property='og:type' content='website' />
         <meta property='og:image' content='/room_thumbnail.png' />
-        <meta property='og:url' content={`https://pintopinto.org${router.asPath}`} />
-        <meta name='viewport' content='initial-scale=1.0, user-scalable=no, width=device-width' />
+        <meta
+          property='og:url'
+          content={`https://pintopinto.org${router.asPath}`}
+        />
+        <meta
+          name='viewport'
+          content='initial-scale=1.0, user-scalable=no, width=device-width'
+        />
         <link rel='icon' href='/favicon.ico' />
       </Head>
       {errorMessage}

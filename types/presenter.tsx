@@ -29,20 +29,40 @@ const Presenter = (props: { stream: MediaStream, disconnect: () => void }) => {
     })
   }
 
-  const startScreenCapture = () => { setScreenCapture(true) }
+  const startScreenCapture = () => {
+    setScreenCapture(true)
+  }
 
-  const endScreenCapture = () => { setScreenCapture(false) }
+  const endScreenCapture = () => {
+    setScreenCapture(false)
+  }
 
   if (micActivated) {
-    muteButton = <button onClick={deactivateMicrophone}><UnMute/></button>
+    muteButton = (
+      <button onClick={deactivateMicrophone}>
+        <UnMute />
+      </button>
+    )
   } else {
-    muteButton = <button onClick={activateMicrophone}><Mute/></button>
+    muteButton = (
+      <button onClick={activateMicrophone}>
+        <Mute />
+      </button>
+    )
   }
 
   if (screenCaptureActivated) {
-    shareButton = <button disabled={true} onClick={endScreenCapture}><UnShare/></button>
+    shareButton = (
+      <button disabled={true} onClick={endScreenCapture}>
+        <UnShare />
+      </button>
+    )
   } else {
-    shareButton = <button disabled={true} onClick={startScreenCapture}><Share/></button>
+    shareButton = (
+      <button disabled={true} onClick={startScreenCapture}>
+        <Share />
+      </button>
+    )
   }
 
   return (
@@ -53,7 +73,9 @@ const Presenter = (props: { stream: MediaStream, disconnect: () => void }) => {
           <div className='flex justify-evenly'>
             {muteButton}
             {shareButton}
-            <button onClick={props.disconnect}><Disconnect/></button>
+            <button onClick={props.disconnect}>
+              <Disconnect />
+            </button>
           </div>
         </div>
       </div>

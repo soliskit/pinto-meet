@@ -2,7 +2,20 @@ import { useEffect, useState } from 'react'
 
 const Time = () => {
   const [date, setDate] = useState(new Date())
-  const months = ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sept', 'Oct', 'Nov', 'Dec']
+  const months = [
+    'Jan',
+    'Feb',
+    'Mar',
+    'Apr',
+    'May',
+    'Jun',
+    'Jul',
+    'Aug',
+    'Sept',
+    'Oct',
+    'Nov',
+    'Dec'
+  ]
   const weekdays = ['Sun', 'Mon', 'Tues', 'Weds', 'Thur', 'Fri', 'Sat']
 
   const checkHours = (h: number): number => {
@@ -39,7 +52,13 @@ const Time = () => {
     }
   })
 
-  return <h1 className='sm:text-3xl md:text-7xl lg:text-8xl'><time>{hour}:{minute} {ampm}&nbsp; • &nbsp;{weekday}, &nbsp;{month} {day}</time></h1>
+  return (
+    <h1 className='sm:text-3xl md:text-7xl lg:text-8xl'>
+      <time>
+        {hour}:{minute} {ampm}&nbsp; • &nbsp;{weekday}, &nbsp;{month} {day}
+      </time>
+    </h1>
+  )
 }
 
 export default Time
