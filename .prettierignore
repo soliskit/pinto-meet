@@ -1,0 +1,8 @@
+.github/
+.husky
+.next
+.vercel
+.node_modules
+.env
+package-lock.json
+npm-debug.log*

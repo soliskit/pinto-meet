@@ -15,16 +15,18 @@
   },
   "extends": [
     "plugin:react/recommended",
-    "standard"
+    "plugin:@typescript-eslint/recommended",
+    "standard",
+    "prettier",
+    "prettier/@typescript-eslint",
+    "prettier/react",
+    "prettier/standard",
+    "plugin:prettier/recommended"
   ],
-  "plugins": [
-    "react",
-    "@typescript-eslint"
-  ],
+  "plugins": ["react", "@typescript-eslint", "prettier"],
   "rules": {
-    "react/jsx-uses-react": "off",
     "react/react-in-jsx-scope": "off",
-    "eol-last": ["warn", "never"]
+    "prettier/prettier": "error"
   },
   "reportUnusedDisableDirectives": true
 }
