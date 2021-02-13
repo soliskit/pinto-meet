@@ -11,7 +11,9 @@
     "start": "next start",
     "dev": "next dev -p 5000",
     "prod": "npx vercel dev --listen 5000 --debug",
-    "postinstall": "husky install"
+    "postinstall": "husky install",
+    "pretty-quick": "pretty-quick",
+    "lint": "eslint --ignore-path .gitignore --ext .ts,.tsx ."
   },
   "dependencies": {
     "autoprefixer": "^10.2.4",
@@ -26,8 +28,8 @@
   },
   "husky": {
     "hooks": {
-      "pre-commit": "lint-staged && npx pretty-quick --staged",
-      "pre-push": "npx tsc && npx eslint --ignore-path .gitignore --ext .ts,.tsx"
+      "pre-commit": "lint-staged && pretty-quick --staged",
+      "pre-push": "npx tsc && npm run lint"
     }
   },
   "lint-staged": {
