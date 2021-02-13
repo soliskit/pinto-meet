@@ -14,6 +14,7 @@ const Room = ({
   roomName
 }: InferGetServerSidePropsType<typeof getServerSideProps>) => {
   const router = useRouter()
+  // eslint-disable-next-line @typescript-eslint/ban-ts-comment
   // @ts-ignore
   const socketRef = useRef<Socket>(undefined)
   const stream = useUserMedia()
