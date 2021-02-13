@@ -6,12 +6,15 @@ import UnShare from '../public/un-share'
 import UnMute from '../public/unmute'
 import Video from '../types/video'
 
-const Presenter = (props: { stream: MediaStream, disconnect: () => void }) => {
+// eslint-disable-next-line @typescript-eslint/explicit-module-boundary-types
+const Presenter = (props: { stream: MediaStream; disconnect: () => void }) => {
   const [micActivated, setMicActivated] = useState<boolean>(true)
   const [screenCaptureActivated, setScreenCapture] = useState<boolean>(false)
 
-  let muteButton: JSX.IntrinsicElements['button'] // eslint-disable-line no-undef
-  let shareButton: JSX.IntrinsicElements['button'] // eslint-disable-line no-undef
+  // eslint-disable-next-line no-undef
+  let muteButton: JSX.IntrinsicElements['button']
+  // eslint-disable-next-line no-undef
+  let shareButton: JSX.IntrinsicElements['button']
 
   const activateMicrophone = () => {
     setMicActivated(true)

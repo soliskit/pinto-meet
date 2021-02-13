@@ -1,5 +1,6 @@
 import { useEffect, useState } from 'react'
 
+// eslint-disable-next-line @typescript-eslint/explicit-module-boundary-types
 const Time = () => {
   const [date, setDate] = useState(new Date())
   const months = [
