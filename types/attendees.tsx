@@ -9,9 +9,6 @@ const Attendees = (props: { peerCalls: PeerCall[] }) => {
       <div className='w-1/3 lg:max-w-max' key={peerCall.peerId}>
         <Video stream={peerCall.stream} muted={false} key={peerCall.peerId} />
       </div>
-
-
-
     )
   )
   return <>{videos}</>
