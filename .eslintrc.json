@@ -28,5 +28,10 @@
     "react/react-in-jsx-scope": "off",
     "prettier/prettier": "error"
   },
-  "reportUnusedDisableDirectives": true
+  "reportUnusedDisableDirectives": true,
+  "settings": {
+    "react": {
+      "version": "detect"
+    }
+  }
 }
