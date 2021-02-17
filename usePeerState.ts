@@ -18,7 +18,7 @@ const usePeerState = (
           const peerOptions: Peer.PeerJSOption = {
             key: process.env.NEXT_PUBLIC_KEY,
             host: process.env.NEXT_PUBLIC_HOST,
-            debug: 2
+            debug: 3
           }
           if (process.env.NEXT_PUBLIC_NODE_ENV === 'production') {
             peerOptions.secure = true
