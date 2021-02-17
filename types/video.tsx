@@ -11,8 +11,6 @@ const Video = (props: { stream: MediaStream, muted: boolean }) => {
     return videoRef.current.play()
   }
 
-  let me = "test"
-
   if (props.stream && videoRef.current && !videoRef.current.srcObject) {
     videoRef.current.muted = props.muted
     videoRef.current.srcObject = props.stream
