@@ -13,7 +13,8 @@
     "prod": "npx vercel dev --listen 5000 --debug",
     "postinstall": "husky install",
     "pretty-quick": "pretty-quick",
-    "lint": "eslint --ignore-path .gitignore --ext .ts,.tsx ."
+    "lint": "eslint --ignore-path .gitignore --ext .ts,.tsx .",
+    "test": "node ./test/server.js --trace-warnings"
   },
   "dependencies": {
     "autoprefixer": "^10.2.4",
