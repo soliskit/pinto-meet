@@ -10,7 +10,7 @@ app.get('/', (req, res) => {
   res.sendFile('index.html', { root: __dirname })
 })
 
-app.get('/test/script.js', (req, res) => {
+app.get('/script.js', (req, res) => {
   // sendFile() sets Content-Type response HTTP header field based on filename extension
   res.sendFile('script.js', { root: __dirname })
 })
