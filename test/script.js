@@ -3,6 +3,7 @@ const ENVIROMENT = 'production'
 const HOST = 'pintopinto.herokuapp.com'
 const peerOptions = {
   key: 'pinto',
+  secure: ENVIROMENT === 'production',
   host: HOST,
   port: 9000,
   debug: 3
