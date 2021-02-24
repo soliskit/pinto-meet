@@ -5,8 +5,10 @@ const peerOptions = {
   key: 'pinto',
   secure: ENVIROMENT === 'production',
   host: HOST,
-  port: 9000,
   debug: 3
+}
+if (ENVIROMENT !== 'production') {
+  peerOptions.port = 9000
 }
 const socketOptions = {
   path: '/pinto.io',
