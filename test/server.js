@@ -3,8 +3,11 @@ const express = require('express')
 
 const app = express()
 
-app.get('/', (req, res) => {
-  res.sendFile('index.html', { root: __dirname })
+app.set('view engine', 'ejs')
+app.set('views', __dirname)
+
+app.get('/:room', (req, res) => {
+  res.render('index', { roomId: req.params.room })
 })
 
 app.get('/script.js', (req, res) => {
