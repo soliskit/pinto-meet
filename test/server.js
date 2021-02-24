@@ -1,10 +1,7 @@
 /* eslint-disable @typescript-eslint/no-var-requires */
-const path = require('path')
 const express = require('express')
 
 const app = express()
-// TODO: - Verify test folder is serving files from absolute path of directory
-app.use(express.static(path.join(__dirname, 'test')))
 
 app.get('/', (req, res) => {
   res.sendFile('index.html', { root: __dirname })
