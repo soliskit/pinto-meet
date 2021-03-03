@@ -1,4 +1,5 @@
 /* eslint-disable @typescript-eslint/no-var-requires */
+require('dotenv').config()
 const express = require('express')
 
 const app = express()
@@ -12,7 +13,13 @@ app.get('/script.js', (req, res) => {
 })
 
 app.get('/:room', (req, res) => {
-  res.render('index', { roomId: req.params.room })
+  res.render(
+    'index', {
+      roomId: req.params.room,
+      key: process.env.NEXT_PUBLIC_KEY,
+      host: process.env.NEXT_PUBLIC_HOST,
+      env: process.env.NEXT_PUBLIC_NODE_ENV
+    })
 })
 
 app.listen(5000, () => {
