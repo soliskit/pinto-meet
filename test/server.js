@@ -1,6 +1,11 @@
 /* eslint-disable @typescript-eslint/no-var-requires */
 require('dotenv').config()
 const express = require('express')
+let stunUrl
+const accountSid = process.env.NEXT_PUBLIC_ACCOUNT_SID
+const authToken = process.env.NEXT_PUBLIC_AUTH_TOKEN
+const client = require('twilio')(accountSid, authToken)
+client.tokens.create().then(token => stunUrl = token.iceServers[0].urls)
 
 const app = express()
 
@@ -16,6 +21,7 @@ app.get('/:room', (req, res) => {
   res.render(
     'index', {
       roomId: req.params.room,
+      stunUrl: stunUrl,
       key: process.env.NEXT_PUBLIC_KEY,
       host: process.env.NEXT_PUBLIC_HOST,
       env: process.env.NEXT_PUBLIC_NODE_ENV
