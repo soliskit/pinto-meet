@@ -2,7 +2,12 @@ let socket
 const peerOptions = {
   key: KEY,
   host: HOST,
-  debug: 3
+  debug: 3,
+  config: {
+    'iceServers': [
+      { urls: STUN_URL }
+    ]
+  }
 }
 if (ENVIROMENT === 'production') {
   peerOptions.secure = true
