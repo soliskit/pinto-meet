@@ -1,8 +1,6 @@
 let socket
-const ENVIROMENT = 'production'
-const HOST = 'pintopinto.herokuapp.com'
 const peerOptions = {
-  key: 'pinto',
+  key: KEY,
   host: HOST,
   debug: 3
 }
@@ -12,7 +10,7 @@ if (ENVIROMENT === 'production') {
   peerOptions.port = 443
 }
 const socketOptions = {
-  path: '/pinto.io',
+  path: `/${KEY}.io`,
   rememberUpgrade: true
 }
 if (ENVIROMENT === 'production') {
