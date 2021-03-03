@@ -9,7 +9,7 @@ const peerOptions = {
 if (ENVIROMENT === 'production') {
   peerOptions.secure = true
 } else {
-  peerOptions.port = 9000
+  peerOptions.port = 443
 }
 const socketOptions = {
   path: '/pinto.io',
