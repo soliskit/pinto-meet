@@ -33,12 +33,12 @@ const peerCalls = []
 const connectedUsers = []
 
 function addCallToPeers(userId, call) {
-  const video = document.createElement('video')
-  call.on('stream', (userVideoStream) => {
-    addVideoStream(video, userVideoStream, userId)
+  const remoteVideo = document.createElement('video')
+  call.on('stream', (remoteStream) => {
+    addVideoStream(remoteVideo, remoteStream, userId)
   })
   call.on('close', () => {
-    removeVideoStream(video, userId)
+    removeVideoStream(remoteVideo, userId)
   })
   peerCalls[userId] = call
 }
@@ -55,12 +55,12 @@ navigator.mediaDevices
     video: true,
     audio: true
   })
-  .then((stream) => {
-    addVideoStream(localVideo, stream, localPeer.id)
+  .then((localStream) => {
+    addVideoStream(localVideo, localStream, localPeer.id)
 
     localPeer.on('call', (call) => {
       const userId = call.peer
-      call.answer(stream)
+      call.answer(localStream)
       addCallToPeers(userId, call)
     })
 
@@ -70,7 +70,7 @@ navigator.mediaDevices
       answerButton.id = 'answer' + userId
       callControls.append(answerButton)
       answerButton.addEventListener('click', () => {
-        const call = localPeer.call(userId, stream)
+        const call = localPeer.call(userId, localStream)
         addCallToPeers(userId, call)
         answerButton.remove()
       })
