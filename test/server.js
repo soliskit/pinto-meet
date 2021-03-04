@@ -5,7 +5,7 @@ let stunUrl
 const accountSid = process.env.NEXT_PUBLIC_ACCOUNT_SID
 const authToken = process.env.NEXT_PUBLIC_AUTH_TOKEN
 const client = require('twilio')(accountSid, authToken)
-client.tokens.create().then(token => stunUrl = token.iceServers[0].urls)
+client.tokens.create().then(token => stunUrl = token.iceServers[0].url)
 
 const app = express()
 
