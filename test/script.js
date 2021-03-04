@@ -4,7 +4,7 @@ const peerOptions = {
   host: HOST,
   debug: 3,
   config: {
-    'iceServers': [
+    iceServers: [
       { urls: STUN_URL }
     ]
   }
