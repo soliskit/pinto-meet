@@ -8,10 +8,11 @@ import useConnectionState from '../../useConnectionState'
 import usePeerState from '../../usePeerState'
 import useUserMedia from '../../useUserMedia'
 import { InferGetServerSidePropsType, GetServerSideProps } from 'next'
+import twilio from 'twilio'
 
 // eslint-disable-next-line @typescript-eslint/explicit-module-boundary-types
 const Room = ({
-  roomName
+  roomName, stunUrl
 }: InferGetServerSidePropsType<typeof getServerSideProps>) => {
   const router = useRouter()
   // eslint-disable-next-line @typescript-eslint/ban-ts-comment
@@ -41,7 +42,7 @@ const Room = ({
     }
   }, [roomName])
 
-  const [userid, peer, peerError] = usePeerState({ userId: undefined })
+  const [userid, peer, peerError] = usePeerState({ userId: undefined, stunUrl: stunUrl })
   const [calls] = useConnectionState(peer, socketRef.current, stream)
   const [callStatus, setCallStatus] = useState<boolean>(false)
   const attendees = <Attendees peerCalls={calls} />
@@ -159,6 +160,9 @@ const Room = ({
 }
 
 export const getServerSideProps: GetServerSideProps = async (context) => {
+  const client = twilio(process.env.NEXT_PUBLIC_ACCOUNT_SID, process.env.NEXT_PUBLIC_AUTH_TOKEN)
+  const iceServers: {url: string, urls: string} = Object((await client.tokens.create()).iceServers.shift())
+  const stunUrl = iceServers.url
   let roomName: string
   if (context.query.roomId) {
     roomName = (await context.query.roomId.toString())
@@ -170,7 +174,8 @@ export const getServerSideProps: GetServerSideProps = async (context) => {
 
   return {
     props: {
-      roomName
+      roomName,
+      stunUrl
     }
   }
 }

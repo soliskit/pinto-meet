@@ -4,7 +4,7 @@ import PeerError from './types/peer-error'
 
 // copied partially from https://github.com/madou/react-peer/blob/master/src/use-peer-state.tsx
 const usePeerState = (
-  opts: { userId: string | undefined } = { userId: undefined }
+  opts: { userId: string | undefined, stunUrl: string } = { userId: undefined, stunUrl: '' }
 ): [string | undefined, Peer, PeerError | undefined] => {
   const [error, setError] = useState<PeerError | undefined>(undefined)
   const [peer, setPeer] = useState<Peer | null>(null)
@@ -18,7 +18,12 @@ const usePeerState = (
           const peerOptions: Peer.PeerJSOption = {
             key: process.env.NEXT_PUBLIC_KEY,
             host: process.env.NEXT_PUBLIC_HOST,
-            debug: 3
+            debug: 3,
+            config: {
+              iceServers: [
+                { urls: opts.stunUrl }
+              ]
+            }
           }
           if (process.env.NEXT_PUBLIC_NODE_ENV === 'production') {
             peerOptions.secure = true
