@@ -26,9 +26,9 @@ if (ENVIROMENT === 'production') {
 const videoGrid = document.getElementById('video-grid')
 const connectedUsersList = document.getElementById('connected-users')
 const callControls = document.getElementById('call-controls')
-const myPeer = new Peer(undefined, peerOptions)
-const myVideo = document.createElement('video')
-myVideo.muted = true
+const localPeer = new Peer(undefined, peerOptions)
+const localVideo = document.createElement('video')
+localVideo.muted = true
 const peers = []
 const connectedUsers = []
 
@@ -56,9 +56,9 @@ navigator.mediaDevices
     audio: true
   })
   .then((stream) => {
-    addVideoStream(myVideo, stream, myPeer.id)
+    addVideoStream(localVideo, stream, localPeer.id)
 
-    myPeer.on('call', (call) => {
+    localPeer.on('call', (call) => {
       const userId = call.peer
       call.answer(stream)
       addCallToPeers(userId, call)
@@ -70,7 +70,7 @@ navigator.mediaDevices
       answerButton.id = 'answer' + userId
       callControls.append(answerButton)
       answerButton.addEventListener('click', () => {
-        const call = myPeer.call(userId, stream)
+        const call = localPeer.call(userId, stream)
         addCallToPeers(userId, call)
         answerButton.remove()
       })
@@ -85,7 +85,7 @@ socket.on('user-disconnected', (userId) => {
   removeCallFromPeersByUserId(userId)
 })
 
-myPeer.on('open', (id) => {
+localPeer.on('open', (id) => {
   const hangUpButton = document.createElement('button')
   hangUpButton.innerText = 'Hangup'
   callControls.append(hangUpButton)
