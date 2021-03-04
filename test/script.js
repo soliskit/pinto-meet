@@ -30,7 +30,7 @@ const localPeer = new Peer(undefined, peerOptions)
 const localVideo = document.createElement('video')
 localVideo.muted = true
 const peerCalls = []
-const connectedUsers = []
+const connectedUsers = new Set()
 
 function addCallToPeers(userId, call) {
   const remoteVideo = document.createElement('video')
@@ -96,10 +96,10 @@ localPeer.on('open', (id) => {
 })
 
 function addVideoStream(video, stream, userId) {
-  if (connectedUsers.indexOf(userId) !== -1) {
+  if (connectedUsers.has(userId)) {
     return
   }
-  connectedUsers.push(userId)
+  connectedUsers.add(userId)
   video.srcObject = stream
   video.addEventListener('canplay', () => {
     video.play()
@@ -114,5 +114,5 @@ function addVideoStream(video, stream, userId) {
 function removeVideoStream(video, userId) {
   document.getElementById(userId).remove()
   video.remove()
-  connectedUsers.remove(userId)
+  connectedUsers.delete(userId)
 }
