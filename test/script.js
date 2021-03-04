@@ -101,7 +101,7 @@ function addVideoStream(video, stream, userId) {
   }
   connectedUsers.push(userId)
   video.srcObject = stream
-  video.addEventListener('loadedmetadata', () => {
+  video.addEventListener('canplay', () => {
     video.play()
   })
   videoGrid.append(video)
