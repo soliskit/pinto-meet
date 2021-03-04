@@ -163,8 +163,9 @@ export const getServerSideProps: GetServerSideProps = async (context) => {
   if (context.query.roomId) {
     roomName = context.query.roomId.toString()
   } else {
-    // if roomId param is missing, use end of url
+    // TODO: - When missing roomId param, use end of url. Unsure when it happens
     roomName = context.resolvedUrl.slice(6)
+    console.error('Missing roomId param')
   }
 
   return {
