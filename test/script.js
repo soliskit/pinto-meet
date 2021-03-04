@@ -29,7 +29,7 @@ const callControls = document.getElementById('call-controls')
 const localPeer = new Peer(undefined, peerOptions)
 const localVideo = document.createElement('video')
 localVideo.muted = true
-const peers = []
+const peerCalls = []
 const connectedUsers = []
 
 function addCallToPeers(userId, call) {
@@ -40,13 +40,13 @@ function addCallToPeers(userId, call) {
   call.on('close', () => {
     removeVideoStream(video, userId)
   })
-  peers[userId] = call
+  peerCalls[userId] = call
 }
 
 function removeCallFromPeersByUserId(userId) {
-  if (peers[userId]) {
-    peers[userId].close()
-    delete peers[userId]
+  if (peerCalls[userId]) {
+    peerCalls[userId].close()
+    delete peerCalls[userId]
   }
 }
 
