@@ -23,13 +23,22 @@ if (ENVIROMENT === 'production') {
 } else {
   socket = io(`http://${HOST}`, socketOptions)
 }
+class PeerCall {
+  constructor(peerId, call) {
+    this.peerId = peerId
+    this.call = call
+  }
+  getId() {
+    return this.id
+  }
+}
 const videoGrid = document.getElementById('video-grid')
 const connectedUsersList = document.getElementById('connected-users')
 const callControls = document.getElementById('call-controls')
 const localPeer = new Peer(undefined, peerOptions)
 const localVideo = document.createElement('video')
 localVideo.muted = true
-const peerCalls = []
+let peerCalls = new Set()
 const connectedUsers = new Set()
 
 function addCallToPeers(userId, call) {
@@ -40,14 +49,27 @@ function addCallToPeers(userId, call) {
   call.on('close', () => {
     removeVideoStream(remoteVideo, userId)
   })
-  peerCalls[userId] = call
+  const peer = new PeerCall(userId, call)
+  peerCalls.add(peer)
 }
 
 function removeCallFromPeersByUserId(userId) {
-  if (peerCalls[userId]) {
-    peerCalls[userId].close()
-    delete peerCalls[userId]
+  let disconnectedPeer
+  const calls = new Set()
+  const openCalls = new Set()
+  const unique = (value, set) => {
+    if (!calls.has(value.peerId)) {
+      calls.add(value.peerId)
+      openCalls.add({ peerId: value.peerId, call: value.call })
+      if (value.peerId === userId) {
+        disconnectedPeer = value
+        disconnectedPeer.call.close()
+        openCalls.delete(disconnectedPeer)
+      }
+    }
   }
+  peerCalls.forEach(unique)
+  peerCalls = openCalls
 }
 
 navigator.mediaDevices
