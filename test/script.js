@@ -54,22 +54,23 @@ function addCallToPeers(userId, call) {
 }
 
 function removeCallFromPeersByUserId(userId) {
-  let disconnectedPeer
+  let removedPeer
   const calls = new Set()
-  const openCalls = new Set()
+  const remainingPeers = new Set()
+
   const unique = (value, set) => {
     if (!calls.has(value.peerId)) {
       calls.add(value.peerId)
-      openCalls.add({ peerId: value.peerId, call: value.call })
+      remainingPeers.add({ peerId: value.peerId, call: value.call })
       if (value.peerId === userId) {
-        disconnectedPeer = value
-        disconnectedPeer.call.close()
-        openCalls.delete(disconnectedPeer)
+        removedPeer = value
+        removedPeer.call.close()
+        remainingPeers.delete(removedPeer)
       }
     }
   }
   peerCalls.forEach(unique)
-  peerCalls = openCalls
+  peerCalls = remainingPeers
 }
 
 navigator.mediaDevices
