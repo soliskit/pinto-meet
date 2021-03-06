@@ -28,9 +28,6 @@ class PeerCall {
     this.peerId = peerId
     this.call = call
   }
-  getId() {
-    return this.peerId
-  }
 }
 const videoGrid = document.getElementById('video-grid')
 const connectedUsersList = document.getElementById('connected-users')
