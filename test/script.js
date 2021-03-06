@@ -23,12 +23,6 @@ if (ENVIROMENT === 'production') {
 } else {
   socket = io(`http://${HOST}`, socketOptions)
 }
-class PeerCall {
-  constructor(peerId, call) {
-    this.peerId = peerId
-    this.call = call
-  }
-}
 const videoGrid = document.getElementById('video-grid')
 const connectedUsersList = document.getElementById('connected-users')
 const callControls = document.getElementById('call-controls')
@@ -46,8 +40,7 @@ function addCallToPeers(userId, call) {
   call.on('close', () => {
     removeVideoStream(remoteVideo, userId)
   })
-  const peer = new PeerCall(userId, call)
-  peerCalls.add(peer)
+  peerCalls.add({ userId, call })
 }
 
 function removeCallFromPeersByUserId(userId) {
