@@ -58,7 +58,7 @@ navigator.mediaDevices
   })
   .then((localStream) => {
     addVideoStream(localVideo, localStream, localPeer.id)
-
+    
     localPeer.on('call', (call) => {
       const userId = call.peer
       call.answer(localStream)
