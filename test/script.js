@@ -21,7 +21,7 @@ const socketOptions = {
 if (ENVIROMENT === 'production') {
   socket = io(`https://${HOST}`, socketOptions)
 } else {
-  socket = io(`http://${HOST}`, socketOptions)
+  socket = io(`http://${HOST}:443`, socketOptions)
 }
 const videoGrid = document.getElementById('video-grid')
 const connectedUsersList = document.getElementById('connected-users')
