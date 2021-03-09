@@ -98,14 +98,14 @@ socket.on('user-disconnected', (userId) => {
   removeCallFromPeersByUserId(userId)
 })
 
-localPeer.on('open', (id) => {
+localPeer.on('open', (userId) => {
   const hangUpButton = document.createElement('button')
   hangUpButton.innerText = 'Hangup'
   callControls.append(hangUpButton)
   hangUpButton.addEventListener('click', () => {
     socket.disconnect()
   })
-  socket.emit('join-room', ROOM_ID, id)
+  socket.emit('join-room', ROOM_ID, userId)
 })
 
 function addVideoStream(video, stream, userId) {
