@@ -88,15 +88,15 @@ navigator.mediaDevices
         answerButton.remove()
       })
     })
-  })
 
-socket.on('user-disconnected', (userId) => {
-  const staleAnswerButton = document.getElementById('answer' + userId)
-  if (staleAnswerButton) {
-    staleAnswerButton.remove()
-  }
-  removeCallFromPeersByUserId(userId)
-})
+    socket.on('user-disconnected', (userId) => {
+      const staleAnswerButton = document.getElementById('answer' + userId)
+      if (staleAnswerButton) {
+        staleAnswerButton.remove()
+      }
+      removeCallFromPeersByUserId(userId)
+    })
+  })
 
 localPeer.on('open', (userId) => {
   const hangUpButton = document.createElement('button')
