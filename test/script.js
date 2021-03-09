@@ -29,7 +29,7 @@ const callControls = document.getElementById('call-controls')
 const localPeer = new Peer(undefined, peerOptions)
 const localVideo = document.createElement('video')
 localVideo.muted = true
-let peerCalls = new Set()
+const peerCalls = new Map()
 const connectedUsers = new Set()
 
 function addCallToPeers(userId, call) {
@@ -40,27 +40,15 @@ function addCallToPeers(userId, call) {
   call.on('close', () => {
     removeVideoStream(remoteVideo, userId)
   })
-  peerCalls.add({ userId, call })
+  peerCalls.set(userId, { userId, call })
 }
 
 function removeCallFromPeersByUserId(userId) {
-  let removedPeer
-  const calls = new Set()
-  const remainingPeers = new Set()
-
-  const unique = (value, set) => {
-    if (!calls.has(value.peerId)) {
-      calls.add(value.peerId)
-      remainingPeers.add({ peerId: value.peerId, call: value.call })
-      if (value.peerId === userId) {
-        removedPeer = value
-        removedPeer.call.close()
-        remainingPeers.delete(removedPeer)
-      }
-    }
+  const removedPeer = peerCalls.get(userId)
+  if (removedPeer) {
+    removedPeer.call.close()
+    peerCalls.delete(userId)
   }
-  peerCalls.forEach(unique)
-  peerCalls = remainingPeers
 }
 
 navigator.mediaDevices
