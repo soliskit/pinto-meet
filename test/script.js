@@ -32,7 +32,7 @@ localVideo.muted = true
 const peerCalls = new Map()
 const connectedUsers = new Set()
 
-function addCallToPeers(userId, call) {
+const addCallToPeers = (userId, call) => {
   const remoteVideo = document.createElement('video')
   call.on('stream', (remoteStream) => {
     addVideoStream(remoteVideo, remoteStream, userId)
@@ -43,7 +43,7 @@ function addCallToPeers(userId, call) {
   peerCalls.set(userId, { userId, call })
 }
 
-function removeCallFromPeersByUserId(userId) {
+const removeCallFromPeersByUserId = (userId) => {
   const removedPeer = peerCalls.get(userId)
   if (removedPeer) {
     removedPeer.call.close()
@@ -96,7 +96,7 @@ localPeer.on('open', (userId) => {
   socket.emit('join-room', ROOM_ID, userId)
 })
 
-function addVideoStream(video, stream, userId) {
+const addVideoStream = (video, stream, userId) => {
   if (connectedUsers.has(userId)) {
     return
   }
@@ -112,7 +112,7 @@ function addVideoStream(video, stream, userId) {
   connectedUsersList.append(userName)
 }
 
-function removeVideoStream(video, userId) {
+const removeVideoStream = (video, userId) => {
   document.getElementById(userId).remove()
   video.remove()
   connectedUsers.delete(userId)
