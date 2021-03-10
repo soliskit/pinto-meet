@@ -91,7 +91,7 @@ localPeer.on('open', (userId) => {
   hangUpButton.innerText = 'Hangup'
   callControls.append(hangUpButton)
   hangUpButton.addEventListener('click', () => {
-    socket.disconnect()
+    socket.close()
   })
   socket.emit('join-room', ROOM_ID, userId)
 })
