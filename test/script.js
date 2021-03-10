@@ -40,6 +40,9 @@ const addCallToPeers = (userId, call) => {
   call.on('close', () => {
     removeVideoStream(remoteVideo, userId)
   })
+  call.on('error', (error) => {
+    console.error(error)
+  })
   peerCalls.set(userId, { userId, call })
 }
 
