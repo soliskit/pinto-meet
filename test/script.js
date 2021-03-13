@@ -64,9 +64,9 @@ navigator.mediaDevices
     addVideoStream(localVideo, localStream, localUserId)
     
     localPeer.on('call', (call) => {
-      const userId = call.peer
+      const remoteUserId = call.peer
       call.answer(localStream)
-      addCallToPeers(userId, call)
+      addCallToPeers(remoteUserId, call)
     })
 
     socket.on('user-connected', (userId) => {
