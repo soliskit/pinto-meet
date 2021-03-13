@@ -60,7 +60,8 @@ navigator.mediaDevices
     audio: true
   })
   .then((localStream) => {
-    addVideoStream(localVideo, localStream, localPeer.id)
+    const localUserId = localPeer.id
+    addVideoStream(localVideo, localStream, localUserId)
     
     localPeer.on('call', (call) => {
       const userId = call.peer
