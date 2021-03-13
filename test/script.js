@@ -34,6 +34,7 @@ const connectedUsers = new Set()
 
 const addCallToPeers = (userId, call) => {
   const remoteVideo = document.createElement('video')
+  peerCalls.set(userId, { userId, call })
   call.on('stream', (remoteStream) => {
     addVideoStream(remoteVideo, remoteStream, userId)
   })
@@ -43,7 +44,6 @@ const addCallToPeers = (userId, call) => {
   call.on('error', (error) => {
     console.error(error)
   })
-  peerCalls.set(userId, { userId, call })
 }
 
 const removeCallFromPeersByUserId = (userId) => {
@@ -93,10 +93,10 @@ localPeer.on('open', (userId) => {
   const hangUpButton = document.createElement('button')
   hangUpButton.innerText = 'Hangup'
   callControls.append(hangUpButton)
+  socket.emit('join-room', ROOM_ID, userId)
   hangUpButton.addEventListener('click', () => {
     socket.close()
   })
-  socket.emit('join-room', ROOM_ID, userId)
 })
 
 const addVideoStream = (video, stream, userId) => {
