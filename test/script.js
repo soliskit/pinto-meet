@@ -88,6 +88,9 @@ navigator.mediaDevices
       removeCallFromPeersByUserId(userId)
     })
   })
+  .catch((error) => {
+    console.error(error)
+  })
 
 localPeer.on('open', (userId) => {
   const hangUpButton = document.createElement('button')
