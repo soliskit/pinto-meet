@@ -18,7 +18,7 @@ const usePeerState = (
           const peerOptions: Peer.PeerJSOption = {
             key: process.env.NEXT_PUBLIC_KEY,
             host: process.env.NEXT_PUBLIC_HOST,
-            debug: 3,
+            debug: 2,
             config: {
               iceServers: [
                 { urls: opts.stunUrl }
