@@ -4,7 +4,7 @@
 
 @layer base {
   body {
-    background-color: #290149;
+    background-color: #1a1c20 !important;
     @apply bg-gradient-to-r from-video-start via-video to-video-end min-h-screen;
   }
 }
