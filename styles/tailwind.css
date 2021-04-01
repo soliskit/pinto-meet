@@ -6,3 +6,91 @@
   -webkit-backdrop-filter: blur(.8em) saturate(200%) hue-rotate(20deg);
   backdrop-filter: blur(.8em) saturate(200%) hue-rotate(20deg);
 }
+
+/* SE I */
+@media (min-width: 320px) and (max-width: 375px) {
+  video {
+    max-height: 280px;
+  }
+}
+
+/* X🅂 / SE II / iPhone mini / Pro */
+@media (min-width: 375px) and (max-width: 400px) {
+  video {
+    max-height: 300px;
+  }
+}
+
+/* X🅁 / Pro Max */
+@media (min-width: 400px) and (max-width: 450px) {
+  video {
+    max-height: 300px;
+  }
+}
+@media (min-width: 450px) and (max-width: 475px) {
+  video {
+    max-height: 350px;
+  }
+}
+
+/* SE I landscape */
+@media (min-width: 475px) and (max-width: 568px) {
+  video {
+    max-height: 400px;
+  }
+}
+@media (min-width: 568px) and (max-width: 715px) {
+  video {
+    max-height: 250px;
+  }
+}
+
+/* iPad mini / 10" / 11" */
+@media (min-width: 715px) and (max-width: 875px) {
+  video {
+    max-height: 315px;
+  }
+}
+
+/* (X🅁 / Pro Max) landscape */
+@media (min-width: 875px) and (max-width: 1000px) {
+  video {
+    max-height: 365px;
+  }
+}
+
+/* 13" */
+@media (min-width: 1000px) and (max-width: 1366px) {
+  video {
+    max-height: 480px;
+  }
+}
+
+/* 13" landscape */
+@media (min-width: 1366px) and (max-width: 1600px) {
+  video {
+    max-height: 375px;
+  }
+}
+@media (min-width: 1600px) and (max-width: 1920px) {
+  video {
+    max-height: 450px;
+  }
+}
+
+/* Apple TV */
+@media (min-width: 1920px) and (max-width: 2200px) {
+  video {
+    max-height: 380px;
+  }
+}
+@media (min-width: 2200px) and (max-width: 2500px) {
+  video {
+    max-height: 450px;
+  }
+}
+@media (min-width: 2500px) and (max-width: 3600px) {
+  video {
+    max-height: 480px;
+  }
+}
