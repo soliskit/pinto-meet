@@ -123,7 +123,7 @@ const Room = ({
   }
 
   return (
-    <div className='bg-yellow-100 min-h-screen'>
+    <>
       <Head>
         <title>Pinto Pinto | {roomName}</title>
         <meta
