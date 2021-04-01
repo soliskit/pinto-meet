@@ -17,16 +17,12 @@ module.exports = {
       ]
     },
     screens: {
-      // iPhone SE portrait
-      sm: '320px',
-      // iPhone 8+ landscape
-      md: '736px',
-      // iPad mini landscape & iPad Pro 12.9 portait
-      lg: '1024px',
-      // iPad Pro 12.9 landscape
-      xl: '1366px',
-      // Desktop
-      '2xl': '1552px'
+      xs: '414px', // X🅁
+      sm: '568px', // SE I landscape
+      md: '768px', // 10"
+      lg: '1024px', // 13"
+      xl: '1366px', // 13" landscape
+      xxl: '1920px' // Apple TV
     },
     extend: {
       backgroundImage: () => ({
