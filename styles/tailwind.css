@@ -3,7 +3,7 @@
 @tailwind utilities;
 
 @layer base {
-  body {
+  html {
     @apply bg-gradient-to-r from-video-start via-video to-video-end min-h-screen;
   }
 }
