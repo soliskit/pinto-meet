@@ -29,7 +29,51 @@ module.exports = {
         'hero-image': "url('/hero_image.jpg')"
       }),
       colors: {
-        control: '#f5f5f557'
+        control:  {
+          light: '#f5f5f557',
+          DEFAULT: '#f5f5f557',
+          dark: '#f5f5f557'
+        },
+        default:  {
+          light: '#72246C',
+          DEFAULT: '#72246C',
+          dark: '#72246C'
+        },
+        room:  {
+          light: '#72246C',
+          DEFAULT: '#151515',
+          dark: '#72246C'
+        },
+        video:  {
+          start: '#301b3f',
+          DEFAULT: '#290149',
+          end: '#282846'
+        },
+        'btn-primary':  {
+          light: '#f5f5f557',
+          DEFAULT: '#301B3F',
+          dark: '#f5f5f557'
+        },
+        'btn-secondary':  {
+          light: '#f5f5f557',
+          DEFAULT: '#301B3F',
+          dark: '#f5f5f557'
+        },
+        'btn-tertiary':  {
+          light: '#f5f5f557',
+          DEFAULT: '#301B3F',
+          dark: '#f5f5f557'
+        },
+        'btn-danger':  {
+          light: '#f5f5f557',
+          DEFAULT: '#301B3F',
+          dark: '#f5f5f557'
+        },
+        'input-name':  {
+          light: '#f5f5f557',
+          DEFAULT: '#301B3F',
+          dark: '#f5f5f557'
+        }
       }
     }
   },

@@ -2,6 +2,12 @@
 @tailwind components;
 @tailwind utilities;
 
+@layer base {
+  body {
+    @apply bg-gradient-to-r from-video-start via-video to-video-end min-h-screen;
+  }
+}
+
 .filter {
   -webkit-backdrop-filter: blur(.8em) saturate(200%) hue-rotate(20deg);
   backdrop-filter: blur(.8em) saturate(200%) hue-rotate(20deg);
