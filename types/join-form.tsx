@@ -21,7 +21,7 @@ const JoinForm = () => {
   }
 
   return (
-    <div className='pt-10'>
+    <>
       <h1 className='pb-5'>Open room: {name}</h1>
       <form id={`join-${name}`} className='pb-5'>
         <input
@@ -41,7 +41,7 @@ const JoinForm = () => {
       >
         Open
       </button>
-    </div>
+    </>
   )
 }
 

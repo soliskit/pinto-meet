@@ -54,12 +54,10 @@ const Time = () => {
   })
 
   return (
-    <h1 className='sm:text-3xl md:text-7xl lg:text-8xl'>
-      <time>
-        {hour}:{minute} {ampm}&nbsp; • &nbsp;{weekday}, &nbsp;{month} {day}
-      </time>
-    </h1>
-  )
+    <time>
+      {hour}:{minute} {ampm}&nbsp; • &nbsp;{weekday}, &nbsp;{month} {day}
+    </time>
+    )
 }
 
 export default Time

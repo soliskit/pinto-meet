@@ -25,14 +25,9 @@ const Home = () => (
       <link rel='icon' href='/favicon.ico' />
     </Head>
 
-    <div className='pt-10 pl-5'>
-      <header>
-        <Time />
-      </header>
-
-      <main>
-        <JoinForm />
-      </main>
+    <div className='grid grid-cols-1 gap-y-4'>
+      <Time />
+      <JoinForm />
     </div>
   </>
 )
