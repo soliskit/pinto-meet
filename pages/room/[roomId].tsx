@@ -77,9 +77,10 @@ const Room = ({
 
   let errorMessage = <></>
   let roomHeader = (
-    <header>
-      <h4>Join room: {roomName} to get started</h4>
-    </header>
+    <>
+      <h1>Join room: {roomName}</h1>
+      <h2>to start call</h2>
+    </>
   )
   let joinButton = (
     <button
@@ -93,28 +94,25 @@ const Room = ({
   if (peerError) {
     errorMessage = (
       <div className='error'>
-        <h3>Peer</h3>
-        <p>
-          {peerError.type}: {peerError.message}
-        </p>
+        <h1>Peer</h1>
+        <h2>{peerError.type}: {peerError.message}</h2>
       </div>
     )
   }
 
   if (callStatus && calls.length === 0) {
     roomHeader = (
-      <header>
-        <h4>Joined room: {roomName}</h4>
-        <p>You are the only person in the room</p>
-      </header>
+      <>
+        <h1>Joined room | {roomName}</h1>
+        <h2>You are the only participant in the room</h2>
+      </>
     )
   } else if (callStatus) {
     roomHeader = (
-      <header>
-        <h4>
-          Joined room: {roomName} with {toCardinal(calls.length)} participant
-        </h4>
-      </header>
+      <>
+        <h1>Joined room | {roomName}</h1>
+        <h2>with {toCardinal(calls.length)} participant</h2>
+      </>
     )
   }
 
