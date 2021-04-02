@@ -11,15 +11,18 @@
     @apply text-4xl md:text-7xl lg:text-8xl xl:text-9xl;
     @apply text-center sm:text-right;
     @apply pt-24 xs:pt-12 sm:pr-8;
+    @apply text-yellow-50;
   }
   h1 {
     @apply text-2xl xs:text-3xl md:text-5xl;
     @apply text-center sm:text-right sm:pr-8;
     @apply pt-24 xs:pt-12;
+    @apply text-yellow-50;
   }
   h2 {
     @apply text-lg xs:text-xl md:text-2xl;
     @apply text-center sm:text-right sm:pr-8;
+    @apply text-yellow-50;
   }
   input {
     @apply rounded-lg w-full;
@@ -27,10 +30,12 @@
     @apply text-lg xs:text-xl md:text-2xl;
     @apply text-center sm:text-right sm:pr-6;
     @apply py-6;
+    @apply text-yellow-50;
   }
   button {
     @apply rounded-lg;
     @apply text-lg xs:text-xl md:text-2xl;
+    @apply text-yellow-50;
   }
 }
 
