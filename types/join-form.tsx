@@ -23,11 +23,10 @@ const JoinForm = () => {
   return (
     <>
       <h2>Type name or press open to generate a room name{name}</h2>
-      <form id={`join-${name}`} className='pb-5'>
+      <form id={`join-${name}`}>
         <input
           type='text'
           value={name}
-          className='pl-3 py-3 md:pl-6 md:py-6 w-5/6 md:w-1/3 rounded-lg bg-yellow-100'
           onChange={updateName}
           placeholder='Enter room name'
         />
@@ -35,7 +34,7 @@ const JoinForm = () => {
       <button
         type='submit'
         form={`join-${name}`}
-        className='py-3 md:py-6 w-5/6 md:w-1/3 text-lg rounded-lg bg-yellow-800'
+        className='join-room'
         autoFocus={true}
         onClick={handleSubmission}
       >
