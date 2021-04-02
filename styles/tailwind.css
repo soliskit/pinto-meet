@@ -21,6 +21,24 @@
     @apply text-lg xs:text-xl md:text-2xl;
     @apply text-center sm:text-right sm:pr-8;
   }
+  input {
+    @apply rounded-lg w-full;
+    @apply bg-green-900;
+    @apply text-lg xs:text-xl md:text-2xl;
+    @apply text-center sm:text-right sm:pr-6;
+    @apply py-6;
+  }
+  button {
+    @apply rounded-lg;
+    @apply text-lg xs:text-xl md:text-2xl;
+  }
+}
+
+@layer components {
+  .join-room {
+     @apply bg-red-800;
+     @apply py-6;
+  }
 }
 
 .filter {
