@@ -3,10 +3,11 @@
 @tailwind utilities;
 
 @layer base {
+  html {
+    @apply bg-gradient-to-r from-video-start via-video to-video-end min-h-screen;
+  }
   body {
     @apply min-h-screen;
-    @apply bg-video-start;
-    @apply bg-gradient-to-r from-video-start via-video to-video-end min-h-screen;
   }
   time {
     @apply text-4xl md:text-7xl lg:text-8xl xl:text-9xl;
