@@ -35,6 +35,7 @@
   button {
     @apply rounded-lg;
     @apply text-lg xs:text-xl md:text-2xl;
+    @apply p-1 md:p-3 xl:p-5;
     @apply text-yellow-50;
   }
 }
