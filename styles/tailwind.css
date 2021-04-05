@@ -4,6 +4,7 @@
 
 @layer base {
   body {
+    @apply min-h-screen;
     @apply bg-video;
     @apply bg-gradient-to-r from-video-start via-video to-video-end min-h-screen;
   }
