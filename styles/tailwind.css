@@ -34,9 +34,10 @@
   }
   button {
     @apply rounded-lg;
-    @apply text-lg xs:text-xl md:text-2xl;
+    @apply text-base xs:text-xl md:text-2xl;
     @apply p-1 md:p-3 xl:p-5;
     @apply text-yellow-50;
+    @apply w-28 xs:w-40 md:w-48;
   }
 }
 
