@@ -4,7 +4,7 @@ import Time from '../types/time'
 
 // eslint-disable-next-line @typescript-eslint/explicit-module-boundary-types
 const Home = () => (
-  <div className='bg-hero-image min-h-screen bg-cover bg-center'>
+  <>
     <Head>
       <title>Pinto Pinto</title>
       <meta
@@ -25,16 +25,11 @@ const Home = () => (
       <link rel='icon' href='/favicon.ico' />
     </Head>
 
-    <div className='pt-10 pl-5'>
-      <header>
-        <Time />
-      </header>
-
-      <main>
-        <JoinForm />
-      </main>
+    <div className='grid grid-cols-1 gap-y-4'>
+      <Time />
+      <JoinForm />
     </div>
-  </div>
+  </>
 )
 
 export default Home

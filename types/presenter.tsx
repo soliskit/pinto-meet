@@ -9,10 +9,13 @@ import Video from '../types/video'
 // eslint-disable-next-line @typescript-eslint/explicit-module-boundary-types
 const Presenter = (props: { stream: MediaStream; disconnect: () => void }) => {
   const [micActivated, setMicActivated] = useState<boolean>(true)
+  const [videoActive, setVideoActive] = useState<boolean>(true)
   const [screenCaptureActivated, setScreenCapture] = useState<boolean>(false)
 
   // eslint-disable-next-line no-undef
   let muteButton: JSX.IntrinsicElements['button']
+  // eslint-disable-next-line no-undef
+  let videoButton: JSX.IntrinsicElements['button']
   // eslint-disable-next-line no-undef
   let shareButton: JSX.IntrinsicElements['button']
 
@@ -32,6 +35,14 @@ const Presenter = (props: { stream: MediaStream; disconnect: () => void }) => {
     })
   }
 
+  const startVideo = () => {
+    setVideoActive(true)
+  }
+
+  const stopVideo = () => {
+    setVideoActive(false)
+  }
+
   const startScreenCapture = () => {
     setScreenCapture(true)
   }
@@ -41,17 +52,9 @@ const Presenter = (props: { stream: MediaStream; disconnect: () => void }) => {
   }
 
   if (micActivated) {
-    muteButton = (
-      <button onClick={deactivateMicrophone}>
-        <UnMute />
-      </button>
-    )
+    muteButton = <button className='bg-yellow-600' onClick={deactivateMicrophone}>Mute</button>
   } else {
-    muteButton = (
-      <button onClick={activateMicrophone}>
-        <Mute />
-      </button>
-    )
+    muteButton = <button className='bg-yellow-600' onClick={activateMicrophone}>Unmute</button>
   }
 
   if (screenCaptureActivated) {
@@ -68,19 +71,21 @@ const Presenter = (props: { stream: MediaStream; disconnect: () => void }) => {
     )
   }
 
+  if (videoActive) {
+    videoButton = <button className='bg-black my-1.5' onClick={stopVideo}>Stop Video</button>
+  } else {
+    videoButton = <button className='bg-black my-1.5' onClick={startVideo}>Start Video</button>
+  }
+
   return (
-    <div className='flex'>
-      <div className='relative'>
-        <Video stream={props.stream} muted={true} />
-        <div className='absolute inset-x-0 bottom-2'>
-          <div className='flex justify-evenly'>
-            {muteButton}
-            {shareButton}
-            <button onClick={props.disconnect}>
-              <Disconnect />
-            </button>
-          </div>
+    <div className='presenter filter'>
+      <div className='flex justify-center'>
+        <div className='flex flex-col justify-center pr-1.5'>
+          {muteButton}
+          {videoButton}
+          <button className='bg-red-800' onClick={props.disconnect}>End</button>
         </div>
+        <Video stream={props.stream} muted={true} />
       </div>
     </div>
   )

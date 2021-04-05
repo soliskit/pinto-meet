@@ -77,9 +77,10 @@ const Room = ({
 
   let errorMessage = <></>
   let roomHeader = (
-    <header>
-      <h4>Join room: {roomName} to get started</h4>
-    </header>
+    <>
+      <h1>Join room: {roomName}</h1>
+      <h2>to start call</h2>
+    </>
   )
   let joinButton = (
     <button
@@ -93,28 +94,25 @@ const Room = ({
   if (peerError) {
     errorMessage = (
       <div className='error'>
-        <h3>Peer</h3>
-        <p>
-          {peerError.type}: {peerError.message}
-        </p>
+        <h1>Peer</h1>
+        <h2>{peerError.type}: {peerError.message}</h2>
       </div>
     )
   }
 
   if (callStatus && calls.length === 0) {
     roomHeader = (
-      <header>
-        <h4>Joined room: {roomName}</h4>
-        <p>You are the only person in the room</p>
-      </header>
+      <>
+        <h1>Joined room | {roomName}</h1>
+        <h2>You are the only participant in the room</h2>
+      </>
     )
   } else if (callStatus) {
     roomHeader = (
-      <header>
-        <h4>
-          Joined room: {roomName} with {toCardinal(calls.length)} participant
-        </h4>
-      </header>
+      <>
+        <h1>Joined room | {roomName}</h1>
+        <h2>with {toCardinal(calls.length)} participant</h2>
+      </>
     )
   }
 
@@ -123,7 +121,7 @@ const Room = ({
   }
 
   return (
-    <div className='bg-yellow-100 min-h-screen'>
+    <>
       <Head>
         <title>Pinto Pinto | {roomName}</title>
         <meta
@@ -148,14 +146,14 @@ const Room = ({
       </Head>
       {errorMessage}
       {roomHeader}
-      <div className='max-w-full gap-2 flex flex-wrap justify-evenly'>
-        {attendees}
-        <div className='w-1/3 lg:max-w-max'>
-          <Presenter stream={stream} disconnect={hangup} />
+      <div className='p-1 sm:p-3 lg:p-7'>
+        <div className='grid grid-cols-1 sm:grid-cols-2 xl:grid-cols-3 xxl:grid-cols-4 gap-1 sm:gap-3 lg:gap-7 justify-items-center items-center'>
+          {attendees}
         </div>
       </div>
       <div className='mt-5 grid'>{joinButton}</div>
-    </div>
+      <Presenter stream={stream} disconnect={hangup} />
+    </>
   )
 }
 
