@@ -78,7 +78,7 @@ const Presenter = (props: { stream: MediaStream; disconnect: () => void }) => {
   }
 
   return (
-    <div className='presenter filter fixed bottom-0'>
+    <div className='presenter filter safe-inset-bottom'>
       <div className='flex justify-center'>
         <div className='flex flex-col justify-center pr-1.5'>
           {muteButton}
