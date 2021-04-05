@@ -45,6 +45,24 @@
      @apply bg-red-800;
      @apply py-6;
   }
+
+  .presenter {
+    @apply w-screen rounded-lg;
+  }
+
+  .presenter video {
+    @apply w-40 h-40;
+  }
+  @screen md {
+    .presenter video {
+      @apply w-56 h-56;
+    }
+  }
+  @screen xl {
+    .presenter video {
+      @apply w-72 h-72;
+    }
+  }
 }
 
 .filter {
