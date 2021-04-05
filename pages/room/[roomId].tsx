@@ -103,15 +103,15 @@ const Room = ({
   if (callStatus && calls.length === 0) {
     roomHeader = (
       <>
-        <h1>Joined room | {roomName}</h1>
-        <h2>You are the only participant in the room</h2>
+        <h1>Joined | {roomName}</h1>
+        <h2>You are the 1st in the room</h2>
       </>
     )
   } else if (callStatus) {
     roomHeader = (
       <>
-        <h1>Joined room | {roomName}</h1>
-        <h2>with {toCardinal(calls.length)} participant</h2>
+        <h1>Joined | {roomName}</h1>
+        <h2>{toCardinal(calls.length)} in the room</h2>
       </>
     )
   }
