@@ -149,10 +149,10 @@ const Room = ({
       <div className='p-1 sm:p-3 lg:p-7'>
         <div className='grid grid-cols-1 sm:grid-cols-2 xl:grid-cols-3 xxl:grid-cols-4 gap-1 sm:gap-3 lg:gap-7 justify-items-center items-center'>
           {attendees}
-          <Presenter stream={stream} disconnect={hangup} />
         </div>
       </div>
       <div className='mt-5 grid'>{joinButton}</div>
+      <Presenter stream={stream} disconnect={hangup} />
     </>
   )
 }
