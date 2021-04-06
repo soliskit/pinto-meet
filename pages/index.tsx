@@ -1,7 +1,7 @@
 import Head from 'next/head'
 import JoinForm from '../types/join-form'
 import Time from '../types/time'
-import PhotoUploader from '../public/photo-uploader'
+import PhotoUploader from '../types/photo-uploader'
 
 // eslint-disable-next-line @typescript-eslint/explicit-module-boundary-types
 const Home = () => (
