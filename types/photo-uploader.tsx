@@ -5,6 +5,7 @@ const PhotoUploader = () => {
   const defaultPhoto = '/no-video.svg'
   const canvasRef = useRef<HTMLCanvasElement>(null)
   const [photo, setPhoto] = useState(defaultPhoto)
+  const [stream, setStream] = useState<MediaStream | null>(null)
 
   const draw = (context: CanvasRenderingContext2D) => {
     const image: HTMLImageElement = new Image()
@@ -38,8 +39,9 @@ const PhotoUploader = () => {
   useEffect(() => {
     const canvas = canvasRef.current
     const context = canvas?.getContext('2d')
-    if (context) {
+    if (context && canvas) {
       draw(context)
+      setStream(canvas.captureStream())
     }
   }, [photo])
 
