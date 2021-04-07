@@ -58,7 +58,8 @@ const PhotoUploader = () => {
         />
         <button onClick={removePhoto}>Remove photo</button>
         <canvas ref={canvasRef} height='288px'/>
-        <Video stream={stream} muted={true} />
+        {/* @ts-ignore */}
+        <Video stream={stream} muted={true} /> 
       </form>
     </div>
   )
