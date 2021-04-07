@@ -52,7 +52,6 @@ const PhotoUploader = () => {
         <input
           type='file'
           accept='image/*'
-          capture='user'
           id="profile_photo"
           onChange={handleChange}
         />
