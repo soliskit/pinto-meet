@@ -1,4 +1,5 @@
 import { useEffect, useRef, useState } from 'react'
+import Video from '../types/video'
 
 // eslint-disable-next-line @typescript-eslint/explicit-module-boundary-types, prettier/prettier
 const PhotoUploader = () => {
@@ -50,13 +51,14 @@ const PhotoUploader = () => {
       <form encType='multipart/form-data'>
         <input
           type='file'
-          accept='.png, .jpg, .jpeg'
+          accept='image/*'
+          capture='user'
           id="profile_photo"
-          style={{ display: 'inline-grid' }}
           onChange={handleChange}
         />
         <button onClick={removePhoto}>Remove photo</button>
         <canvas ref={canvasRef} height='288px'/>
+        <Video stream={stream} muted={true} />
       </form>
     </div>
   )
