@@ -38,9 +38,12 @@ const PhotoUploader = () => {
   }
 
   useEffect(() => {
+    if (!canvasRef.current) {
+      throw Error('Missing canvas element reference')
+    }
     const canvas = canvasRef.current
-    const context = canvas?.getContext('2d')
-    if (context && canvas) {
+    const context = canvas.getContext('2d')
+    if (context) {
       draw(context)
       setStream(canvas.captureStream())
     }
