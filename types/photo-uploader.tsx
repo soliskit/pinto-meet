@@ -22,8 +22,10 @@ const PhotoUploader = () => {
         imageWidth = image.width
         imageHeight = image.height
       }
+      const x = context.canvas.width / 2 - imageWidth / 2
+      const y = context.canvas.height / 2 - imageHeight / 2
       context.clearRect(0, 0, context.canvas.width, context.canvas.height)
-      context.drawImage(image, 0, 0, imageWidth, imageHeight)
+      context.drawImage(image, x, y, imageWidth, imageHeight)
     }
   }
 
