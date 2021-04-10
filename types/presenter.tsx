@@ -23,7 +23,7 @@ const Presenter = (props: { stream: MediaStream; disconnect: () => void }) => {
     setMicActivated(true)
     const audioTracks = props.stream.getAudioTracks()
     audioTracks.forEach((track) => {
-      track.enabled = true
+      props.stream.addTrack(track)
     })
   }
 
@@ -31,7 +31,7 @@ const Presenter = (props: { stream: MediaStream; disconnect: () => void }) => {
     setMicActivated(false)
     const audioTracks = props.stream.getAudioTracks()
     audioTracks.forEach((track) => {
-      track.enabled = false
+      props.stream.removeTrack(track)
     })
   }
 
