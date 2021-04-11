@@ -45,11 +45,13 @@ const PhotoUploader = () => {
     }
     const canvas = canvasRef.current
     const context = canvas.getContext('2d')
-    if (context) {
-      draw(context)
+    if(!stream) {
       setStream(canvas.captureStream())
     }
-  }, [photo])
+    if (context) {
+      draw(context)
+    }
+  }, [stream, photo])
 
   return (
     <div className='flex flex-col items-center'>
