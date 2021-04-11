@@ -50,6 +50,11 @@ const PhotoUploader = (props: { stream: MediaStream | null, setStream: Dispatch<
     if (context) {
       draw(context)
     }
+    return () => {
+      props.stream?.getTracks().forEach(track => {
+        track.stop()
+      })
+    }
   }, [props.stream, photo])
 
   return (
