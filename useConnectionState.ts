@@ -14,8 +14,12 @@ const useConnectionState = (
     if (!peer || !socket || !stream) {
       return
     }
-
+    
     peer.on('call', (call) => {
+      if (!stream) {
+        console.error('stream is null')
+        return
+      }
       const peerId = call.peer
       call.answer(stream)
       addCallToPeers(peerId, call)

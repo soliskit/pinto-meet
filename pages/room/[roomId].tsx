@@ -9,6 +9,7 @@ import usePeerState from '../../usePeerState'
 import useUserMedia from '../../useUserMedia'
 import { InferGetServerSidePropsType, GetServerSideProps } from 'next'
 import twilio from 'twilio'
+import PhotoUploader from '../../types/photo-uploader'
 
 // eslint-disable-next-line @typescript-eslint/explicit-module-boundary-types
 const Room = ({
@@ -18,7 +19,7 @@ const Room = ({
   // eslint-disable-next-line @typescript-eslint/ban-ts-comment
   // @ts-ignore
   const socketRef = useRef<Socket>(undefined)
-  const stream = useUserMedia()
+  const [stream, setStream] = useState<MediaStream | null>(null)
   const socketOptions: Partial<ManagerOptions & SocketOptions> = {
     path: `/${process.env.NEXT_PUBLIC_KEY}.io`,
     rememberUpgrade: true
@@ -143,6 +144,8 @@ const Room = ({
       </div>
       <div className='mt-5 grid'>{joinButton}</div>
       <Presenter stream={stream} disconnect={hangup} />
+
+      <PhotoUploader stream={stream} setStream={setStream} />
     </>
   )
 }
