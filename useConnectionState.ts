@@ -6,7 +6,7 @@ import PeerCall from './types/peer-call'
 const useConnectionState = (
   peer: Peer,
   socket: Socket,
-  stream: MediaStream
+  stream: MediaStream | null
 ): [PeerCall[]] => {
   const [calls, setCalls] = useState<PeerCall[]>([])
 
@@ -14,8 +14,12 @@ const useConnectionState = (
     if (!peer || !socket || !stream) {
       return
     }
-
+    
     peer.on('call', (call) => {
+      if (!stream) {
+        console.error('stream is null')
+        return
+      }
       const peerId = call.peer
       call.answer(stream)
       addCallToPeers(peerId, call)

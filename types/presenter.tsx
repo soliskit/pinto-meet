@@ -7,7 +7,7 @@ import UnMute from '../public/unmute'
 import Video from '../types/video'
 
 // eslint-disable-next-line @typescript-eslint/explicit-module-boundary-types
-const Presenter = (props: { stream: MediaStream; disconnect: () => void }) => {
+const Presenter = (props: { stream: MediaStream | null, disconnect: () => void }) => {
   const [audioTrack, setAudioTrack] = useState<MediaStreamTrack | null>(null)
   const [micActivated, setMicActivated] = useState<boolean>(true)
   const [videoActive, setVideoActive] = useState<boolean>(true)
@@ -22,12 +22,15 @@ const Presenter = (props: { stream: MediaStream; disconnect: () => void }) => {
 
   const activateMicrophone = () => {
     setMicActivated(true)
-    if (audioTrack) {
+    if (audioTrack && props.stream) {
       props.stream.addTrack(audioTrack)
     }
   }
 
   const deactivateMicrophone = () => {
+    if(!props.stream) {
+      return
+    }
     setMicActivated(false)
     if (!audioTrack) {
       const track = props.stream.getAudioTracks()[0]
