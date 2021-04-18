@@ -1,6 +1,7 @@
 import Head from 'next/head'
 import JoinForm from '../types/join-form'
 import Time from '../types/time'
+import PhotoUploader from '../types/photo-uploader'
 
 // eslint-disable-next-line @typescript-eslint/explicit-module-boundary-types
 const Home = () => (
@@ -28,7 +29,9 @@ const Home = () => (
     <div className='grid grid-cols-1 gap-y-4'>
       <Time />
       <JoinForm />
+      <PhotoUploader/>
     </div>
+    <br></br>
   </>
 )
 

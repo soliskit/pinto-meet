@@ -8,6 +8,7 @@ import Video from '../types/video'
 
 // eslint-disable-next-line @typescript-eslint/explicit-module-boundary-types
 const Presenter = (props: { stream: MediaStream; disconnect: () => void }) => {
+  const [audioTrack, setAudioTrack] = useState<MediaStreamTrack | null>(null)
   const [micActivated, setMicActivated] = useState<boolean>(true)
   const [videoActive, setVideoActive] = useState<boolean>(true)
   const [screenCaptureActivated, setScreenCapture] = useState<boolean>(false)
@@ -21,18 +22,20 @@ const Presenter = (props: { stream: MediaStream; disconnect: () => void }) => {
 
   const activateMicrophone = () => {
     setMicActivated(true)
-    const audioTracks = props.stream.getAudioTracks()
-    audioTracks.forEach((track) => {
-      track.enabled = true
-    })
+    if (audioTrack) {
+      props.stream.addTrack(audioTrack)
+    }
   }
 
   const deactivateMicrophone = () => {
     setMicActivated(false)
-    const audioTracks = props.stream.getAudioTracks()
-    audioTracks.forEach((track) => {
-      track.enabled = false
-    })
+    if (!audioTrack) {
+      const track = props.stream.getAudioTracks()[0]
+      setAudioTrack(track)
+      props.stream.removeTrack(track)
+    } else {
+      props.stream.removeTrack(audioTrack)
+    }
   }
 
   const startVideo = () => {
@@ -85,7 +88,7 @@ const Presenter = (props: { stream: MediaStream; disconnect: () => void }) => {
           {videoButton}
           <button className='bg-red-800' onClick={props.disconnect}>End</button>
         </div>
-        <Video stream={props.stream} muted={true} />
+        <Video stream={props.stream} muted={false} />
       </div>
     </div>
   )
