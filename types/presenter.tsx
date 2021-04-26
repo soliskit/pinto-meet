@@ -1,9 +1,6 @@
 import { useState } from 'react'
-import Disconnect from '../public/disconnect'
-import Mute from '../public/mute'
 import Share from '../public/share'
 import UnShare from '../public/un-share'
-import UnMute from '../public/unmute'
 import Video from '../types/video'
 
 // eslint-disable-next-line @typescript-eslint/explicit-module-boundary-types
