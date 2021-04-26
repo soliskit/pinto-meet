@@ -50,7 +50,7 @@ const PhotoUploader = (props: { stream: MediaStream | null, setStream: Dispatch<
     if (context) {
       draw(context)
     }
-    return () => {
+    return function cleanup() {
       props.stream?.getTracks().forEach(track => {
         track.stop()
       })
