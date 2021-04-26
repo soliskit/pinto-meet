@@ -42,7 +42,7 @@ const Room = ({
     }
   }, [roomName])
 
-  const [userid, peer, peerError] = usePeerState({ userId: undefined, stunUrl: stunUrl })
+  const [peer, userid, peerError] = usePeerState({ userId: undefined, stunUrl: stunUrl })
   const [calls] = useConnectionState(peer, socketRef.current, stream)
   const [callStatus, setCallStatus] = useState<boolean>(false)
   const attendees = <Attendees peerCalls={calls} />
