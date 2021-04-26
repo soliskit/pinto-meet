@@ -5,10 +5,10 @@ import PeerError from './types/peer-error'
 // copied partially from https://github.com/madou/react-peer/blob/master/src/use-peer-state.tsx
 const usePeerState = (
   opts: { userId: string | undefined, stunUrl: string } = { userId: undefined, stunUrl: '' }
-): [string | undefined, Peer, PeerError | undefined] => {
-  const [error, setError] = useState<PeerError | undefined>(undefined)
+): [Peer, string | undefined, PeerError | undefined] => {
   const [peer, setPeer] = useState<Peer | null>(null)
   const [userId, setUserId] = useState(opts.userId)
+  const [error, setError] = useState<PeerError | undefined>(undefined)
 
   useEffect(() => {
     import('peerjs').then(({ default: Peer }) => {
@@ -55,10 +55,8 @@ const usePeerState = (
   }, [opts.userId])
 
   return [
-    userId,
-    // eslint-disable-next-line @typescript-eslint/ban-ts-comment
-    // @ts-ignore
     peer,
+    userId,
     error
   ]
 }
