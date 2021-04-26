@@ -1,12 +1,11 @@
-import { useEffect, useRef, useState } from 'react'
+import { Dispatch, SetStateAction, useEffect, useRef, useState } from 'react'
 import Video from '../types/video'
 
 // eslint-disable-next-line @typescript-eslint/explicit-module-boundary-types, prettier/prettier
-const PhotoUploader = () => {
+const PhotoUploader = (props: { stream: MediaStream | null, setStream: Dispatch<SetStateAction<MediaStream | null>> }) => {
   const defaultPhoto = '/no-video.svg'
   const canvasRef = useRef<HTMLCanvasElement>(null)
   const [photo, setPhoto] = useState(defaultPhoto)
-  const [stream, setStream] = useState<MediaStream | null>(null)
 
   const draw = (context: CanvasRenderingContext2D) => {
     const image: HTMLImageElement = new Image()
@@ -45,11 +44,18 @@ const PhotoUploader = () => {
     }
     const canvas = canvasRef.current
     const context = canvas.getContext('2d')
+    if(!props.stream) {
+      props.setStream(canvas.captureStream())
+    }
     if (context) {
       draw(context)
-      setStream(canvas.captureStream())
     }
-  }, [photo])
+    return () => {
+      props.stream?.getTracks().forEach(track => {
+        track.stop()
+      })
+    }
+  }, [props.stream, photo])
 
   return (
     <div className='flex flex-col items-center'>
@@ -61,9 +67,7 @@ const PhotoUploader = () => {
           onChange={handleChange}
         />
         <button onClick={removePhoto}>Remove photo</button>
-        <canvas ref={canvasRef} height='288px'/>
-        {/* @ts-ignore */}
-        <Video stream={stream} muted={true} /> 
+        <canvas style={{display: "none"}} width="400px" height="300px" ref={canvasRef}></canvas>
       </form>
     </div>
   )
