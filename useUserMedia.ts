@@ -1,6 +1,6 @@
 import { useEffect, useState } from 'react'
 
-const useUserMedia = (): MediaStream => {
+const useUserMedia = (): MediaStream | null => {
   const [stream, setStream] = useState<MediaStream | null>(null)
 
   useEffect(() => {
@@ -25,8 +25,6 @@ const useUserMedia = (): MediaStream => {
       }
     }
   }, [stream])
-  // eslint-disable-next-line @typescript-eslint/ban-ts-comment
-  // @ts-ignore
   return stream
 }
 
