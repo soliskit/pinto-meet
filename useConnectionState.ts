@@ -6,7 +6,7 @@ import PeerCall from './types/peer-call'
 const useConnectionState = (
   peer: Peer,
   socket: Socket,
-  stream: MediaStream
+  stream: MediaStream | null
 ): [PeerCall[]] => {
   const [calls, setCalls] = useState<PeerCall[]>([])
 
