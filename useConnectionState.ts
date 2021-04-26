@@ -4,7 +4,7 @@ import { Socket } from 'socket.io-client'
 import PeerCall from './types/peer-call'
 
 const useConnectionState = (
-  peer: Peer,
+  peer: Peer | null,
   socket: Socket,
   stream: MediaStream | null
 ): [PeerCall[]] => {
