@@ -100,24 +100,14 @@ const Room = ({
     )
   }
 
-  if (callStatus && calls.length === 0) {
-    roomHeader = (
-      <>
-        <h1>Joined | {roomName}</h1>
-        <h2>You are the 1st in the room</h2>
-      </>
-    )
-  } else if (callStatus) {
-    roomHeader = (
-      <>
-        <h1>Joined | {roomName}</h1>
-        <h2>{toCardinal(calls.length)} in the room</h2>
-      </>
-    )
-  }
-
   if (callStatus) {
     joinButton = <></>
+    roomHeader = (
+      <>
+        <h1>Joined | {roomName}</h1>
+        <h2>{toCardinal(calls.length + 1)} in the room</h2>
+      </>
+    )
   }
 
   return (
