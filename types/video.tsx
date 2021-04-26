@@ -1,7 +1,7 @@
 import { useRef } from 'react'
 
 // eslint-disable-next-line @typescript-eslint/explicit-module-boundary-types, prettier/prettier
-const Video = (props: { stream: MediaStream, muted: boolean }) => {
+const Video = (props: { stream: MediaStream | null, muted: boolean }) => {
   const videoRef = useRef<HTMLVideoElement>(null)
 
   const handleCanPlay = () => {
