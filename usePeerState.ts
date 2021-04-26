@@ -38,21 +38,18 @@ const usePeerState = (
         }
       })
 
-      localPeer?.on('open', () => {
-        if (userId !== localPeer?.id) {
-          setUserId(localPeer?.id)
-        }
+      localPeer?.on('open', (id) => {
+        console.dir(id)
+        setUserId(id)
       })
 
       localPeer?.on('error', (err) => setError(err))
     })
 
     return function cleanup() {
-      if (peer) {
-        peer.destroy()
-      }
+      peer?.destroy()
     }
-  }, [opts.userId])
+  }, [userId, error])
 
   return [
     peer,
