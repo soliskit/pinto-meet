@@ -22,7 +22,7 @@ const JoinForm = () => {
 
   return (
     <>
-      <h2>Type name or press open to generate a room name{name}</h2>
+      <h2>Type name or press open to generate a room name</h2>
       <form id={`join-${name}`}>
         <input
           type='text'
