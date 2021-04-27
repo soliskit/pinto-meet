@@ -156,7 +156,7 @@ export const getServerSideProps: GetServerSideProps = async (context) => {
   const stunUrl = iceServers.url
   let roomName: string
   if (context.query.roomId) {
-    roomName = (await context.query.roomId.toString())
+    roomName = context.query.roomId.toString()
   } else {
     // TODO: - When missing roomId param, use end of url. Unsure when it happens
     roomName = context.resolvedUrl.slice(6)
