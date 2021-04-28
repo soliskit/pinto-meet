@@ -49,7 +49,7 @@ const usePeerState = (
     return function cleanup() {
       peer?.destroy()
     }
-  }, [userId, error])
+  }, [error])
 
   return [
     peer,
