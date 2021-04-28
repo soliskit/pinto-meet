@@ -87,6 +87,7 @@ const Room = ({
     <button
       className='w-1/3 place-self-center py-4 md:py-6 rounded-lg bg-yellow-800'
       onClick={join}
+      disabled={!userid}
     >
       Join Now
     </button>
