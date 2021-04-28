@@ -42,8 +42,9 @@ const usePeerState = (
 
     return function cleanup() {
       peer.current?.destroy()
+      peer.current = null
     }
-  }, [error])
+  }, [])
 
   return [
     peer.current,
