@@ -1,8 +1,7 @@
-import { Dispatch, SetStateAction, useEffect, useRef, useState } from 'react'
-import Video from '../types/video'
+import { useEffect, useRef, useState } from 'react'
 
 // eslint-disable-next-line @typescript-eslint/explicit-module-boundary-types, prettier/prettier
-const PhotoUploader = (props: { stream: MediaStream | null, setStream: Dispatch<SetStateAction<MediaStream | null>> }) => {
+const PhotoUploader = (props: { stream: MediaStream | null, streamDidChange: (stream: MediaStream) => void }) => {
   const defaultPhoto = '/no-video.svg'
   const canvasRef = useRef<HTMLCanvasElement>(null)
   const [photo, setPhoto] = useState(defaultPhoto)
@@ -45,7 +44,7 @@ const PhotoUploader = (props: { stream: MediaStream | null, setStream: Dispatch<
     const canvas = canvasRef.current
     const context = canvas.getContext('2d')
     if(!props.stream) {
-      props.setStream(canvas.captureStream())
+      props.streamDidChange(canvas.captureStream())
     }
     if (context) {
       draw(context)
