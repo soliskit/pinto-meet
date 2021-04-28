@@ -1,58 +1,52 @@
 import Peer from 'peerjs'
-import { useEffect, useState } from 'react'
+import { useEffect, useRef, useState } from 'react'
 import PeerError from './types/peer-error'
 
 // copied partially from https://github.com/madou/react-peer/blob/master/src/use-peer-state.tsx
 const usePeerState = (
   opts: { userId: string | undefined, stunUrl: string } = { userId: undefined, stunUrl: '' }
 ): [Peer | null, string | undefined, PeerError | undefined] => {
-  const [peer, setPeer] = useState<Peer | null>(null)
+  const peer = useRef<Peer | null>(null)
   const [userId, setUserId] = useState(opts.userId)
   const [error, setError] = useState<PeerError | undefined>(undefined)
 
   useEffect(() => {
     import('peerjs').then(({ default: Peer }) => {
-      let localPeer: Peer | undefined
-      setPeer((currentPeer) => {
-        if (!currentPeer) {
-          const peerOptions: Peer.PeerJSOption = {
-            key: process.env.NEXT_PUBLIC_KEY,
-            host: process.env.NEXT_PUBLIC_HOST,
-            debug: 2,
-            config: {
-              iceServers: [
-                { urls: opts.stunUrl }
-              ]
-            }
-          }
-          if (process.env.NEXT_PUBLIC_NODE_ENV === 'production') {
-            peerOptions.secure = true
-          } else {
-            peerOptions.port = Number(process.env.NEXT_PUBLIC_PORT)
-          }
-          localPeer = new Peer(opts.userId, peerOptions)
-          return localPeer
-        } else {
-          localPeer = currentPeer
-          return currentPeer
+      if (peer.current) {
+        return
+      }
+      const peerOptions: Peer.PeerJSOption = {
+        key: process.env.NEXT_PUBLIC_KEY,
+        host: process.env.NEXT_PUBLIC_HOST,
+        debug: 2,
+        config: {
+          iceServers: [
+            { urls: opts.stunUrl }
+          ]
         }
-      })
+      }
+      if (process.env.NEXT_PUBLIC_NODE_ENV === 'production') {
+        peerOptions.secure = true
+      } else {
+        peerOptions.port = Number(process.env.NEXT_PUBLIC_PORT)
+      }
+      peer.current = new Peer(opts.userId, peerOptions)
 
-      localPeer?.on('open', (id) => {
+      peer.current?.on('open', (id) => {
         console.dir(id)
         setUserId(id)
       })
 
-      localPeer?.on('error', (err) => setError(err))
+      peer.current?.on('error', (err) => setError(err))
     })
 
     return function cleanup() {
-      peer?.destroy()
+      peer.current?.destroy()
     }
   }, [error])
 
   return [
-    peer,
+    peer.current,
     userId,
     error
   ]
