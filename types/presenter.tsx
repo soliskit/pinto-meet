@@ -88,7 +88,7 @@ const Presenter = (props: { stream: MediaStream | null, disconnect: () => void }
           {videoButton}
           <button className='bg-red-800' onClick={props.disconnect}>End</button>
         </div>
-        <Video stream={props.stream} muted={false} />
+        <Video stream={props.stream} muted={true} /> 
       </div>
     </div>
   )
