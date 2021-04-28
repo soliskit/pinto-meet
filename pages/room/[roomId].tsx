@@ -19,7 +19,7 @@ const Room = ({
   const router = useRouter()
   // eslint-disable-next-line @typescript-eslint/ban-ts-comment
   // @ts-ignore
-  const socketRef = useRef<Socket>(undefined)
+  const socketRef = useRef<Socket | undefined>(undefined)
   // const stream = useUserMedia()
   const [stream, setStream] = useState<MediaStream | null>(null)
   const socketOptions: Partial<ManagerOptions & SocketOptions> = {
@@ -40,7 +40,8 @@ const Room = ({
       )
     }
     return function cleanup() {
-      socketRef.current.disconnect()
+      socketRef.current?.disconnect()
+      socketRef.current = undefined
       router.reload() // syncs socket state with peerServer on browser back action
     }
   }, [roomName])
@@ -70,7 +71,7 @@ const Room = ({
 
   const join = () => {
     setCallStatus(true)
-    socketRef.current.emit('join-room', roomName, userid)
+    socketRef.current?.emit('join-room', roomName, userid)
   }
 
   const hangup = () => {
