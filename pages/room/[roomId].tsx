@@ -1,7 +1,6 @@
 import Head from 'next/head'
 import { useRouter } from 'next/router'
-import { useEffect, useRef, useState } from 'react'
-import { io, Socket, ManagerOptions, SocketOptions } from 'socket.io-client'
+import { useState } from 'react'
 import Attendees from '../../types/attendees'
 import Presenter from '../../types/presenter'
 import useConnectionState from '../../useConnectionState'
@@ -10,7 +9,7 @@ import useUserMedia from '../../useUserMedia'
 import { InferGetServerSidePropsType, GetServerSideProps } from 'next'
 import twilio from 'twilio'
 import PhotoUploader from '../../types/photo-uploader'
-
+import useSocketState from '../../useSocketState'
 
 // eslint-disable-next-line @typescript-eslint/explicit-module-boundary-types
 const Room = ({
@@ -19,35 +18,12 @@ const Room = ({
   const router = useRouter()
   // eslint-disable-next-line @typescript-eslint/ban-ts-comment
   // @ts-ignore
-  const socketRef = useRef<Socket | undefined>(undefined)
   // const stream = useUserMedia()
   const [stream, setStream] = useState<MediaStream | null>(null)
-  const socketOptions: Partial<ManagerOptions & SocketOptions> = {
-    path: `/${process.env.NEXT_PUBLIC_KEY}.io`,
-    rememberUpgrade: true
-  }
 
-  useEffect(() => {
-    if (process.env.NEXT_PUBLIC_NODE_ENV === 'production') {
-      socketRef.current = io(
-        `https://${process.env.NEXT_PUBLIC_HOST}`,
-        socketOptions
-      )
-    } else {
-      socketRef.current = io(
-        `http://${process.env.NEXT_PUBLIC_HOST}:${process.env.NEXT_PUBLIC_PORT}`,
-        socketOptions
-      )
-    }
-    return function cleanup() {
-      socketRef.current?.disconnect()
-      socketRef.current = undefined
-      router.reload() // syncs socket state with peerServer on browser back action
-    }
-  }, [roomName])
-
+  const socket = useSocketState()
   const [peer, userid, peerError] = usePeerState({ userId: undefined, stunUrl: stunUrl })
-  const [calls] = useConnectionState(peer, socketRef.current, stream)
+  const [calls] = useConnectionState(peer, socket, stream)
   const [callStatus, setCallStatus] = useState<boolean>(false)
   const attendees = <Attendees peerCalls={calls} />
 
@@ -71,12 +47,13 @@ const Room = ({
 
   const join = () => {
     setCallStatus(true)
-    socketRef.current?.emit('join-room', roomName, userid)
+    socket?.emit('join-room', roomName, userid)
   }
 
   const hangup = () => {
     setCallStatus(false)
-    router.push('/')
+    socket?.disconnect()
+    socket?.connect()
   }
 
   let errorMessage = <></>
