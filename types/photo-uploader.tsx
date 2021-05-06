@@ -49,7 +49,7 @@ const PhotoUploader = (props: { stream: MediaStream | null, streamDidChange: (st
     if (context) {
       draw(context)
     }
-  }, [photo])
+  }, [photo, props.stream])
 
   return (
     <div className='flex flex-col items-center'>
