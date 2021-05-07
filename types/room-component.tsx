@@ -1,4 +1,4 @@
-import { useState } from 'react'
+import { RefObject, useState } from 'react'
 import Attendees from './attendees'
 import Presenter from './presenter'
 import useConnectionState from '../useConnectionState'
@@ -7,7 +7,7 @@ import useUserMedia from '../useUserMedia'
 import PhotoUploader from './photo-uploader'
 import useSocketState from '../useSocketState'
 
-const RoomComponent = (props: {roomName: string, stunUrl: string }) => {
+const RoomComponent = (props: {roomName: string, stunUrl: string, canvasRef: RefObject<HTMLCanvasElement> }) => {
   // eslint-disable-next-line @typescript-eslint/ban-ts-comment
   // @ts-ignore
   // const stream = useUserMedia()
@@ -100,7 +100,7 @@ const RoomComponent = (props: {roomName: string, stunUrl: string }) => {
         </div>
       </div>
       <div className='mt-5 grid'>{joinButton}</div>
-      <PhotoUploader stream={stream} streamDidChange={streamDidChange}/>
+      <PhotoUploader stream={stream} streamDidChange={streamDidChange} canvasRef={props.canvasRef}/>
       <Presenter stream={stream} disconnect={hangup} />
     </>
   )
