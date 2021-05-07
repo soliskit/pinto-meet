@@ -1,102 +1,15 @@
+import { InferGetServerSidePropsType, GetServerSideProps } from 'next'
 import Head from 'next/head'
 import { useRouter } from 'next/router'
-import { useState } from 'react'
-import Attendees from '../../types/attendees'
-import Presenter from '../../types/presenter'
-import useConnectionState from '../../useConnectionState'
-import usePeerState from '../../usePeerState'
-import useUserMedia from '../../useUserMedia'
-import { InferGetServerSidePropsType, GetServerSideProps } from 'next'
+import React from 'react'
 import twilio from 'twilio'
-import PhotoUploader from '../../types/photo-uploader'
-import useSocketState from '../../useSocketState'
+import RoomComponent from '../../types/room-component'
 
 // eslint-disable-next-line @typescript-eslint/explicit-module-boundary-types
 const Room = ({
   roomName, stunUrl
 }: InferGetServerSidePropsType<typeof getServerSideProps>) => {
   const router = useRouter()
-  // eslint-disable-next-line @typescript-eslint/ban-ts-comment
-  // @ts-ignore
-  // const stream = useUserMedia()
-  const [stream, setStream] = useState<MediaStream | null>(null)
-
-  const socket = useSocketState()
-  const [peer, userid, peerError] = usePeerState({ userId: undefined, stunUrl: stunUrl })
-  const [calls] = useConnectionState(peer, socket, stream)
-  const [callStatus, setCallStatus] = useState<boolean>(false)
-  const attendees = <Attendees peerCalls={calls} />
-
-  const toCardinal = (num: number): string => {
-    const ones = num % 10
-    const tens = num % 100
-
-    if (tens < 11 || tens > 13) {
-      switch (ones) {
-        case 1:
-          return `${num}st`
-        case 2:
-          return `${num}nd`
-        case 3:
-          return `${num}rd`
-      }
-    }
-
-    return `${num}th`
-  }
-
-  const join = () => {
-    setCallStatus(true)
-    socket?.emit('join-room', roomName, userid)
-  }
-
-  const hangup = () => {
-    setCallStatus(false)
-    socket?.disconnect()
-    socket?.connect()
-  }
-
-  let errorMessage = <></>
-  
-  const streamDidChange = (stream: MediaStream) => {
-    console.error("setStream()")
-    setStream(stream)
-  }
-
-  let roomHeader = (
-    <>
-      <h1>Join room: {roomName}</h1>
-      <h2>to start call</h2>
-    </>
-  )
-  let joinButton = (
-    <button
-      className='w-1/3 place-self-center py-4 md:py-6 rounded-lg bg-yellow-800'
-      onClick={join}
-      disabled={!userid}
-    >
-      Join Now
-    </button>
-  )
-
-  if (peerError) {
-    errorMessage = (
-      <div className='error'>
-        <h1>Peer</h1>
-        <h2>{peerError.type}: {peerError.message}</h2>
-      </div>
-    )
-  }
-
-  if (callStatus) {
-    joinButton = <></>
-    roomHeader = (
-      <>
-        <h1>Joined | {roomName}</h1>
-        <h2>{toCardinal(calls.length + 1)} in the room</h2>
-      </>
-    )
-  }
 
   return (
     <>
@@ -122,19 +35,12 @@ const Room = ({
         />
         <link rel='icon' href='/favicon.ico' />
       </Head>
-      {errorMessage}
-      {roomHeader}
-      <div className='p-1 sm:p-3 lg:p-7'>
-        <div className='grid grid-cols-1 sm:grid-cols-2 xl:grid-cols-3 xxl:grid-cols-4 gap-1 sm:gap-3 lg:gap-7 justify-items-center items-center'>
-          {attendees}
-        </div>
-      </div>
-      <div className='mt-5 grid'>{joinButton}</div>
-      <PhotoUploader stream={stream} streamDidChange={streamDidChange}/>
-      <Presenter stream={stream} disconnect={hangup} />
+      <RoomComponent roomName={roomName} stunUrl={stunUrl} />
     </>
   )
 }
+
+export default Room
 
 export const getServerSideProps: GetServerSideProps = async (context) => {
   const client = twilio(process.env.NEXT_PUBLIC_ACCOUNT_SID, process.env.NEXT_PUBLIC_AUTH_TOKEN)
@@ -156,5 +62,3 @@ export const getServerSideProps: GetServerSideProps = async (context) => {
     }
   }
 }
-
-export default Room
