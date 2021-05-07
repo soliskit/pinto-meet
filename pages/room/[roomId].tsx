@@ -1,7 +1,7 @@
 import { InferGetServerSidePropsType, GetServerSideProps } from 'next'
 import Head from 'next/head'
 import { useRouter } from 'next/router'
-import React from 'react'
+import React, { useRef } from 'react'
 import twilio from 'twilio'
 import RoomComponent from '../../types/room-component'
 
@@ -10,6 +10,7 @@ const Room = ({
   roomName, stunUrl
 }: InferGetServerSidePropsType<typeof getServerSideProps>) => {
   const router = useRouter()
+  const canvasRef = useRef<HTMLCanvasElement>(null)
 
   return (
     <>
@@ -35,7 +36,8 @@ const Room = ({
         />
         <link rel='icon' href='/favicon.ico' />
       </Head>
-      <RoomComponent roomName={roomName} stunUrl={stunUrl} />
+      <canvas style={{display: "none"}} width="400px" height="300px" ref={canvasRef}></canvas>
+      <RoomComponent roomName={roomName} stunUrl={stunUrl} canvasRef={canvasRef} />
     </>
   )
 }

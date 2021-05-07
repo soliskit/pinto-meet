@@ -1,9 +1,8 @@
-import { useEffect, useRef, useState } from 'react'
+import { RefObject, useEffect, useRef, useState } from 'react'
 
 // eslint-disable-next-line @typescript-eslint/explicit-module-boundary-types, prettier/prettier
-const PhotoUploader = (props: { stream: MediaStream | null, streamDidChange: (stream: MediaStream) => void }) => {
+const PhotoUploader = (props: { stream: MediaStream | null, streamDidChange: (stream: MediaStream) => void, canvasRef: RefObject<HTMLCanvasElement>}) => {
   const defaultPhoto = '/no-video.svg'
-  const canvasRef = useRef<HTMLCanvasElement>(null)
   const [photo, setPhoto] = useState(defaultPhoto)
 
   const draw = (context: CanvasRenderingContext2D) => {
@@ -38,10 +37,10 @@ const PhotoUploader = (props: { stream: MediaStream | null, streamDidChange: (st
   }
 
   useEffect(() => {
-    if (!canvasRef.current) {
+    if (!props.canvasRef.current) {
       throw Error('Missing canvas element reference')
     }
-    const canvas = canvasRef.current
+    const canvas = props.canvasRef.current
     const context = canvas.getContext('2d')
     if(!props.stream) {
       props.streamDidChange(canvas.captureStream())
@@ -61,7 +60,6 @@ const PhotoUploader = (props: { stream: MediaStream | null, streamDidChange: (st
           onChange={handleChange}
         />
         <button onClick={removePhoto}>Remove photo</button>
-        <canvas style={{display: "none"}} width="400px" height="300px" ref={canvasRef}></canvas>
       </form>
     </div>
   )
