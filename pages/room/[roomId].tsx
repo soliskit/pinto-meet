@@ -1,21 +1,18 @@
-import { InferGetServerSidePropsType, GetServerSideProps } from 'next'
+import { GetServerSideProps } from 'next'
 import Head from 'next/head'
 import { useRouter } from 'next/router'
 import React, { useRef } from 'react'
 import twilio from 'twilio'
 import RoomComponent from '../../types/room-component'
 
-// eslint-disable-next-line @typescript-eslint/explicit-module-boundary-types
-const Room = ({
-  roomName, stunUrl
-}: InferGetServerSidePropsType<typeof getServerSideProps>) => {
+const Room = (props: { roomName: string, stunUrl: string }) => {
   const router = useRouter()
   const canvasRef = useRef<HTMLCanvasElement>(null)
 
   return (
     <>
       <Head>
-        <title>Pinto Pinto | {roomName}</title>
+        <title>Pinto Pinto | {props.roomName}</title>
         <meta
           property='og:title'
           content='Video conferencing for the rest of us'
@@ -37,7 +34,7 @@ const Room = ({
         <link rel='icon' href='/favicon.ico' />
       </Head>
       <canvas style={{display: "none"}} width="400px" height="300px" ref={canvasRef}></canvas>
-      <RoomComponent roomName={roomName} stunUrl={stunUrl} canvasRef={canvasRef} />
+      <RoomComponent roomName={props.roomName} stunUrl={props.stunUrl} canvasRef={canvasRef} />
     </>
   )
 }
