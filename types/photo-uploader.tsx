@@ -59,8 +59,8 @@ const PhotoUploader = (props: { stream: MediaStream | null, streamDidChange: (st
           id="profile_photo"
           onChange={handleChange}
         />
-        <button onClick={removePhoto}>Remove photo</button>
       </form>
+        <button onClick={removePhoto}>Remove photo</button>
     </div>
   )
 }
