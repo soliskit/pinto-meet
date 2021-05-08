@@ -7,9 +7,13 @@ import useUserMedia from '../useUserMedia'
 import PhotoUploader from './photo-uploader'
 import useSocketState from '../useSocketState'
 
-const RoomComponent = (props: {roomName: string, stunUrl: string, canvasRef: RefObject<HTMLCanvasElement> }) => {
-  // eslint-disable-next-line @typescript-eslint/ban-ts-comment
-  // @ts-ignore
+const RoomComponent = (
+  props: {
+    roomName: string, 
+    stunUrl: string, 
+    canvasRef: RefObject<HTMLCanvasElement> 
+  } 
+) => {
   // const stream = useUserMedia()
   const [stream, setStream] = useState<MediaStream | null>(null)
 
