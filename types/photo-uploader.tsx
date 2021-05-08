@@ -1,7 +1,11 @@
 import { RefObject, useEffect, useRef, useState } from 'react'
 
-// eslint-disable-next-line @typescript-eslint/explicit-module-boundary-types, prettier/prettier
-const PhotoUploader = (props: { stream: MediaStream | null, streamDidChange: (stream: MediaStream) => void, canvasRef: RefObject<HTMLCanvasElement>}) => {
+const PhotoUploader = (
+  props: {
+    stream: MediaStream | null,
+    streamDidChange: (stream: MediaStream) => void,
+    canvasRef: RefObject<HTMLCanvasElement>
+  }) => {
   const defaultPhoto = '/no-video.svg'
   const [photo, setPhoto] = useState(defaultPhoto)
 

@@ -3,8 +3,11 @@ import Share from '../public/share'
 import UnShare from '../public/un-share'
 import Video from '../types/video'
 
-// eslint-disable-next-line @typescript-eslint/explicit-module-boundary-types
-const Presenter = (props: { stream: MediaStream | null, disconnect: () => void }) => {
+const Presenter = (
+  props: {
+    stream: MediaStream | null,
+    disconnect: () => void
+  }) => {
   const [micActivated, setMicActivated] = useState<boolean>(true)
   const [audioTrack, setAudioTrack] = useState<MediaStreamTrack | undefined>(undefined)
   const [videoActive, setVideoActive] = useState<boolean>(true)
