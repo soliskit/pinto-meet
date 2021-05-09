@@ -23,24 +23,6 @@ const RoomComponent = (
   const [callStatus, setCallStatus] = useState<boolean>(false)
   const attendees = <Attendees peerCalls={calls} />
 
-  const toCardinal = (num: number): string => {
-    const ones = num % 10
-    const tens = num % 100
-
-    if (tens < 11 || tens > 13) {
-      switch (ones) {
-        case 1:
-          return `${num}st`
-        case 2:
-          return `${num}nd`
-        case 3:
-          return `${num}rd`
-      }
-    }
-
-    return `${num}th`
-  }
-
   const join = () => {
     setCallStatus(true)
     socket?.emit('join-room', props.roomName, userid)
@@ -108,6 +90,24 @@ const RoomComponent = (
       <Presenter stream={stream} disconnect={hangup} />
     </>
   )
+}
+
+const toCardinal = (num: number): string => {
+  const ones = num % 10
+  const tens = num % 100
+
+  if (tens < 11 || tens > 13) {
+    switch (ones) {
+      case 1:
+        return `${num}st`
+      case 2:
+        return `${num}nd`
+      case 3:
+        return `${num}rd`
+    }
+  }
+
+  return `${num}th`
 }
 
 export default RoomComponent
