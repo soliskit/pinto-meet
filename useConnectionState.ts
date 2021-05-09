@@ -37,7 +37,7 @@ const useConnectionState = (
     socket.on('user-disconnected', (peerId: string) => {
       removeCallFromPeersByUserId(peerId)
     })
-  }, [peer, socket, stream])
+  }, [stream])
 
   const addCallToPeers = (peerId: string, call: MediaConnection) => {
     call.on('stream', (peerVideoStream: MediaStream) => {
