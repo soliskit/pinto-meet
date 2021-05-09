@@ -104,7 +104,7 @@ const RoomComponent = (
         </div>
       </div>
       <div className='mt-5 grid'>{joinButton}</div>
-      <PhotoUploader stream={stream} streamDidChange={streamDidChange} canvasRef={props.canvasRef}/>
+      <PhotoUploader stream={stream} streamDidChange={streamDidChange} peer={peer} canvasRef={props.canvasRef}/>
       <Presenter stream={stream} disconnect={hangup} />
     </>
   )
