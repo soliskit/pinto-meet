@@ -103,7 +103,7 @@ const PhotoUploader = (
     return function cleanup() {
       console.dir("cleanup <PhotoUploader>'s useEffect")
     }
-  }, [photo, props.canvasRef.current?.getContext('2d'), props.peer])
+  }, [photo, props.peer])
 
   return (
     <div className='flex flex-col items-center'>
