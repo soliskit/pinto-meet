@@ -1,4 +1,4 @@
-import { RefObject, useState } from 'react'
+import { useRef, useState } from 'react'
 import Attendees from './attendees'
 import Presenter from './presenter'
 import useConnectionState from '../useConnectionState'
@@ -10,13 +10,11 @@ import useSocketState from '../useSocketState'
 const RoomComponent = (
   props: {
     roomName: string, 
-    stunUrl: string, 
-    canvasRef: RefObject<HTMLCanvasElement> 
+    stunUrl: string
   } 
 ) => {
-  // const stream = useUserMedia()
+  const canvasRef = useRef<HTMLCanvasElement>(null)
   const [stream, setStream] = useState<MediaStream | null>(null)
-
   const socket = useSocketState()
   const [peer, userid, peerError] = usePeerState({ userId: undefined, stunUrl: props.stunUrl })
   const [calls] = useConnectionState(peer, socket, stream)
@@ -86,7 +84,8 @@ const RoomComponent = (
         </div>
       </div>
       <div className='mt-5 grid'>{joinButton}</div>
-      <PhotoUploader stream={stream} streamDidChange={streamDidChange} peer={peer} canvasRef={props.canvasRef}/>
+      <canvas style={{display: "none"}} width="400px" height="300px" ref={canvasRef}></canvas>
+      <PhotoUploader stream={stream} streamDidChange={streamDidChange} peer={peer} canvasRef={canvasRef}/>
       <Presenter stream={stream} disconnect={hangup} />
     </>
   )
