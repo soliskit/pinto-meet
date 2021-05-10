@@ -9,27 +9,43 @@ const useConnectionState = (
   stream: MediaStream | null
 ): [PeerCall[]] => {
   const [calls, setCalls] = useState<PeerCall[]>([])
-
+  
+  console.dir('CONNECTION STATE LOAD')
   useEffect(() => {
-    if (!peer || !socket || !stream) {
+    if (!peer) {
+      console.dir('PEER === NULL')
       return
     }
+    if (!socket) {
+      console.dir('SOCKET === NULL')
+      return
+    }
+    if (!stream) {
+      console.dir('STREAM === NULL')
+      return
+    }
+    console.dir('STREAM NOT NULL')
+    console.dir('----------------------------------------------------')
     
     peer.on('call', (call) => {
       if (!stream) {
-        console.error('stream is null')
+        console.dir('STREAM IS NULL')
         return
       }
       const peerId = call.peer
+      console.dir('ANSWER REMOTE STREAM')
+      console.dir(`answer: ${peerId} recieve: ${stream}`)
       call.answer(stream)
       addCallToPeers(peerId, call)
     })
 
     socket.on('user-connected', (peerId: string) => {
       if (!stream) {
-        console.error('stream is null')
+        console.dir('STREAM IS NULL')
         return
       }
+      console.dir('CALL REMOTE STREAM')
+      console.dir(`call: ${peerId} with: ${stream}`)
       const call = peer.call(peerId, stream)
       addCallToPeers(peerId, call)
     })
