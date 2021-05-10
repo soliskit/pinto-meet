@@ -17,8 +17,11 @@ const useUserMedia = (): MediaStream | null => {
     }
     if (!stream) {
       enableStream()
+      console.dir(`STREAM ENABLED: ${stream}`)
     } else {
+      console.dir(`STREAM EXISTS: ${stream}`)
       return function cleanup() {
+        console.dir('STREAM TRACKS STOPPED')
         stream.getTracks().forEach((track) => {
           track.stop()
         })

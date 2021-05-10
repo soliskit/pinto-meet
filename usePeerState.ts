@@ -37,9 +37,9 @@ const usePeerState = (
         peerOptions.port = Number(process.env.NEXT_PUBLIC_PORT)
       }
       peer.current = new Peer(opts.userId, peerOptions)
-
+      console.dir('PEER CREATED:')
       peer.current?.on('open', (id) => {
-        console.dir(id)
+        console.dir(`PEER ID: ${id}`)
         setUserId(id)
       })
 
@@ -47,6 +47,7 @@ const usePeerState = (
     })
 
     return function cleanup() {
+      console.dir('PEER: DESTORYED')
       peer.current?.destroy()
       peer.current = null
     }

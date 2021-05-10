@@ -35,7 +35,7 @@ const RoomComponent = (
   let errorMessage = <></>
   
   const streamDidChange = (stream: MediaStream) => {
-    console.error("setStream()")
+    console.dir("setStream()")
     setStream(stream)
   }
 
