@@ -15,6 +15,7 @@ const RoomComponent = (
 ) => {
   const canvasRef = useRef<HTMLCanvasElement>(null)
   const [stream, setStream] = useState<MediaStream | null>(null)
+  const cameraStream = useUserMedia()
   const socket = useSocketState()
   const [peer, userid, peerError] = usePeerState({ userId: undefined, stunUrl: props.stunUrl })
   const [calls] = useConnectionState(peer, socket, stream)
@@ -24,6 +25,10 @@ const RoomComponent = (
   const join = () => {
     setCallStatus(true)
     socket?.emit('join-room', props.roomName, userid)
+  }
+
+  const toggleVideo = () => {
+    setStream(cameraStream)
   }
 
   const hangup = () => {
@@ -53,6 +58,14 @@ const RoomComponent = (
     >
       Join Now
     </button>
+  )
+  const cameraButton = (
+    <button
+    className='w-1/3 place-self-center py-4 md:py-6 rounded-lg bg-yellow-800'
+    onClick={toggleVideo}
+  >
+    Camera Button
+  </button>
   )
 
   if (peerError) {
@@ -84,6 +97,7 @@ const RoomComponent = (
         </div>
       </div>
       <div className='mt-5 grid'>{joinButton}</div>
+      <div className='mt-5 grid'>{cameraButton}</div>
       <canvas style={{display: "none"}} width="400px" height="300px" ref={canvasRef}></canvas>
       <PhotoUploader stream={stream} streamDidChange={streamDidChange} peer={peer} canvasRef={canvasRef}/>
       <Presenter stream={stream} disconnect={hangup} />
