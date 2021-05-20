@@ -4,7 +4,7 @@ import Peer from 'peerjs'
 const PhotoUploader = (
   props: {
     stream: MediaStream | null,
-    streamDidChange: (stream: MediaStream) => void,
+    trackDidChange: (newTrack: MediaStreamTrack) => void,
     canvasRef: RefObject<HTMLCanvasElement>,
     peer: Peer | null
   }) => {
@@ -27,10 +27,9 @@ const PhotoUploader = (
         const [x, y, width, height] = positionDimension(image, context)
         context.clearRect(0, 0, context.canvas.width, context.canvas.height)
         context.drawImage(image, x, y, width, height)
-        console.dir('CAPTURING STREAM')
-        props.streamDidChange(canvas.captureStream())
-      } else {
-        console.dir('SKIP CAPTURING STREAM')
+        canvas.captureStream().getTracks().forEach((newTrack) => {
+          props.trackDidChange(newTrack)
+        })
       }
     })
   }
