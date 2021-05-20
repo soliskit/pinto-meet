@@ -28,7 +28,13 @@ const RoomComponent = (
   }
 
   const toggleVideo = () => {
-    setStream(cameraStream)
+
+    setStream((localStream) => {
+      cameraStream?.getTracks().forEach((newTrack) => {
+        trackDidChange(newTrack)
+      })
+      return localStream
+    })
   }
 
   const hangup = () => {
@@ -39,9 +45,18 @@ const RoomComponent = (
 
   let errorMessage = <></>
   
-  const streamDidChange = (stream: MediaStream) => {
-    console.dir("setStream()")
-    setStream(stream)
+  const trackDidChange = (newTrack: MediaStreamTrack) => {
+    setStream((localStream) => {
+      
+        localStream = new MediaStream([newTrack])
+        calls.forEach((peerCall) => {
+          const sender = peerCall.connection.peerConnection.getSenders().find((sender) => {
+            return sender.track?.kind === newTrack.kind
+          })
+          sender?.replaceTrack(newTrack)
+        })
+      return localStream
+    })
   }
 
   let roomHeader = (
@@ -99,7 +114,7 @@ const RoomComponent = (
       <div className='mt-5 grid'>{joinButton}</div>
       <div className='mt-5 grid'>{cameraButton}</div>
       <canvas style={{display: "none"}} width="400px" height="300px" ref={canvasRef}></canvas>
-      <PhotoUploader stream={stream} streamDidChange={streamDidChange} peer={peer} canvasRef={canvasRef}/>
+      <PhotoUploader stream={stream} trackDidChange={trackDidChange} peer={peer} canvasRef={canvasRef}/>
       <Presenter stream={stream} disconnect={hangup} />
     </>
   )
