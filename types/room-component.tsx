@@ -28,7 +28,6 @@ const RoomComponent = (
   }
 
   const toggleVideo = () => {
-
     setStream((localStream) => {
       cameraStream?.getTracks().forEach((newTrack) => {
         trackDidChange(newTrack)
@@ -47,8 +46,17 @@ const RoomComponent = (
   
   const trackDidChange = (newTrack: MediaStreamTrack) => {
     setStream((localStream) => {
-      
-        localStream = new MediaStream([newTrack])
+        if (localStream) {
+          const oldTrack = localStream.getTracks().find((track) => {
+            return track.kind === newTrack.kind
+          })
+          if (oldTrack) {
+            localStream.removeTrack(oldTrack)
+          }
+          localStream.addTrack(newTrack)
+        } else {
+          localStream = new MediaStream([newTrack])
+        }
         calls.forEach((peerCall) => {
           const sender = peerCall.connection.peerConnection.getSenders().find((sender) => {
             return sender.track?.kind === newTrack.kind
