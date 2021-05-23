@@ -43,6 +43,21 @@ const usePeerState = (
         setUserId(id)
       })
 
+      peer.current.on('disconnected', () => {
+        for (let i = 1; i < 6; i+= 1) {
+          setTimeout(() => {
+            if (peer.current && peer.current.disconnected) {
+              peer.current.reconnect()
+            }
+          }, 10000 * i)
+        }
+      })
+      
+      peer.current.on('close', () => {
+        console.dir('PEER ON CLOSE')
+        cleanup()
+      })
+
       peer.current.on('error', (err) => setError(err))
     })
 
