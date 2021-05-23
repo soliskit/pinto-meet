@@ -46,12 +46,14 @@ const usePeerState = (
       peer.current.on('error', (err) => setError(err))
     })
 
-    return function cleanup() {
-      console.dir('PEER: DESTORYED')
-      peer.current?.destroy()
-      peer.current = null
-    }
+    return cleanup()
   }, [])
+
+  const cleanup = () => {
+    console.dir('PEER: DESTORYED')
+    peer.current?.destroy()
+    peer.current = null
+  }
 
   return [
     peer.current,
