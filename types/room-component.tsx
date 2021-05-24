@@ -28,11 +28,8 @@ const RoomComponent = (
   }
 
   const toggleVideo = () => {
-    setStream((localStream) => {
-      cameraStream?.getTracks().forEach((newTrack) => {
-        trackDidChange(newTrack)
-      })
-      return localStream
+    cameraStream?.getTracks().forEach((newTrack) => {
+      trackDidChange(newTrack)
     })
   }
 
