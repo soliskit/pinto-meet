@@ -46,7 +46,7 @@ const PhotoUploader = (
   }
 
   let disableCameraButton = (
-    <button onClick={draw}>Disable Camera</button>
+    <button className='bg-black my-1.5' onClick={draw}>Stop Video</button>
   )
   if(!props.cameraEnabled) {
     disableCameraButton = <></>
