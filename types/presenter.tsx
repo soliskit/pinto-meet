@@ -6,7 +6,9 @@ import Video from '../types/video'
 const Presenter = (
   props: {
     stream: MediaStream | null,
-    disconnect: () => void
+    disconnect: () => void,
+    videoEnabled: boolean,
+    startVideo: () => void
   }) => {
   const [micActivated, setMicActivated] = useState<boolean>(true)
   const [audioTrack, setAudioTrack] = useState<MediaStreamTrack | undefined>(undefined)
@@ -41,10 +43,6 @@ const Presenter = (
     }
   }
 
-  const startVideo = () => {
-    setVideoActive(true)
-  }
-
   const stopVideo = () => {
     setVideoActive(false)
   }
@@ -77,10 +75,10 @@ const Presenter = (
     )
   }
 
-  if (videoActive) {
+  if (props.videoEnabled) {
     videoButton = <button className='bg-black my-1.5' onClick={stopVideo}>Stop Video</button>
   } else {
-    videoButton = <button className='bg-black my-1.5' onClick={startVideo}>Start Video</button>
+    videoButton = <button className='bg-black my-1.5' onClick={props.startVideo}>Start Video</button>
   }
 
   return (
