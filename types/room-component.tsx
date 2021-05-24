@@ -72,16 +72,6 @@ const RoomComponent = (
       <h2>to start call</h2>
     </>
   )
-  let joinButton = (
-    <button
-      className='w-1/3 place-self-center py-4 md:py-6 rounded-lg bg-yellow-800'
-      onClick={join}
-      disabled={!userid}
-    >
-      Join Now
-    </button>
-  )
-
   if (peerError) {
     errorMessage = (
       <div className='error'>
@@ -114,9 +104,8 @@ const RoomComponent = (
           {attendees}
         </div>
       </div>
-      <div className='mt-5 grid'>{joinButton}</div>
       <canvas style={{display: "none"}} width="400px" height="300px" ref={canvasRef}></canvas>
-      <Presenter peer={peer} stream={stream} canvasRef={canvasRef} disconnect={hangup} videoEnabled={videoEnabled} startVideo={startVideo} trackDidChange={trackDidChange} />
+      <Presenter peer={peer} stream={stream} canvasRef={canvasRef} startCall={join} disconnect={hangup} videoEnabled={videoEnabled} startVideo={startVideo} trackDidChange={trackDidChange} />
     </>
   )
 }
