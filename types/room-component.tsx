@@ -21,15 +21,15 @@ const RoomComponent = (
   const [calls] = useConnectionState(peer, socket, stream)
   const [callStatus, setCallStatus] = useState<boolean>(false)
   const attendees = <Attendees peerCalls={calls} />
-  const [cameraHasBeenEnabled, setCameraHasBeenEnabled] = useState<boolean>(false)
+  const [videoEnabled, setVideoEnabled] = useState<boolean>(false)
 
   const join = () => {
     setCallStatus(true)
     socket?.emit('join-room', props.roomName, userid)
   }
 
-  const toggleVideo = () => {
-    setCameraHasBeenEnabled(true)
+  const startVideo = () => {
+    setVideoEnabled(true)
     cameraStream?.getTracks().forEach((newTrack) => {
       trackDidChange(newTrack, true)
     })
@@ -44,7 +44,7 @@ const RoomComponent = (
   let errorMessage = <></>
   
   const trackDidChange = (newTrack: MediaStreamTrack, usingCamera: boolean) => {
-    setCameraHasBeenEnabled(usingCamera)
+    setVideoEnabled(usingCamera)
     setStream((localStream) => {
         if (localStream) {
           const oldTrack = localStream.getTracks().find((track) => {
@@ -82,14 +82,6 @@ const RoomComponent = (
       Join Now
     </button>
   )
-  let cameraButton = (
-    <button
-    className='w-1/3 place-self-center py-4 md:py-6 rounded-lg bg-yellow-800'
-    onClick={toggleVideo}
-  >
-    Enable Camera
-  </button>
-  )
 
   if (peerError) {
     errorMessage = (
@@ -100,10 +92,8 @@ const RoomComponent = (
     )
   }
 
-  if (!cameraHasBeenEnabled) {
+  if (!videoEnabled) {
     joinButton = <></>
-  } else {
-    cameraButton = <></>
   }
 
   if (callStatus) {
@@ -126,10 +116,9 @@ const RoomComponent = (
         </div>
       </div>
       <div className='mt-5 grid'>{joinButton}</div>
-      <div className='mt-5 grid'>{cameraButton}</div>
       <canvas style={{display: "none"}} width="400px" height="300px" ref={canvasRef}></canvas>
-      <PhotoUploader stream={stream} trackDidChange={trackDidChange} peer={peer} canvasRef={canvasRef} cameraEnabled={cameraHasBeenEnabled} />
-      <Presenter stream={stream} disconnect={hangup} />
+      <PhotoUploader stream={stream} trackDidChange={trackDidChange} peer={peer} canvasRef={canvasRef} cameraEnabled={videoEnabled} />
+      <Presenter stream={stream} disconnect={hangup} videoEnabled={videoEnabled} startVideo={startVideo} />
     </>
   )
 }
