@@ -60,18 +60,24 @@ const PhotoUploader = (
   }, [photo, props.peer])
 
   return (
-    <div className='flex flex-col items-center'>
+    <>
       {disableCameraButton}
       <form encType='multipart/form-data'>
         <input
           type='file'
+          disabled={props.cameraEnabled}
           accept='image/*'
           id="profile_photo"
           onChange={handleChange}
         />
       </form>
-      <button onClick={removePhoto}>Remove photo</button>
-    </div>
+      <button
+        onClick={removePhoto}
+        style={{display: photo === defaultPhoto || props.cameraEnabled ? "none" : "block", position: "absolute", minWidth: "44px", height: "44px", padding: "0", marginLeft: "200px", marginTop: "-150px", textAlign: "center", backgroundColor: "#444444AA", borderRadius: "22px", zIndex: 2}}
+      >
+        remove
+      </button>
+    </>
   )
 }
 

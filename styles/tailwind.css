@@ -76,6 +76,12 @@
   margin-bottom: env(safe-area-inset-bottom);
 }
 
+#profile_photo {
+  opacity: 0; /* make transparent */
+  z-index: -1; /* move under anything else */
+  position: absolute; /* don't let it take up space */
+}
+
 /* SE I */
 @media (min-width: 320px) and (max-width: 375px) {
   video {
