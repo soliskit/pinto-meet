@@ -4,9 +4,10 @@ import Peer from 'peerjs'
 const PhotoUploader = (
   props: {
     stream: MediaStream | null,
-    trackDidChange: (newTrack: MediaStreamTrack) => void,
+    trackDidChange: (newTrack: MediaStreamTrack, usingCamera: boolean) => void,
     canvasRef: RefObject<HTMLCanvasElement>,
-    peer: Peer | null
+    peer: Peer | null,
+    cameraEnabled: boolean
   }) => {
   const defaultPhoto = '/no-video.svg'
   const [photo, setPhoto] = useState<string>(defaultPhoto)
@@ -28,7 +29,7 @@ const PhotoUploader = (
         context.clearRect(0, 0, context.canvas.width, context.canvas.height)
         context.drawImage(image, x, y, width, height)
         canvas.captureStream().getTracks().forEach((newTrack) => {
-          props.trackDidChange(newTrack)
+          props.trackDidChange(newTrack, false)
         })
       }
     })
@@ -44,6 +45,13 @@ const PhotoUploader = (
     setPhoto(defaultPhoto)
   }
 
+  let disableCameraButton = (
+    <button onClick={draw}>Disable Camera</button>
+  )
+  if(!props.cameraEnabled) {
+    disableCameraButton = <></>
+  }
+
   useEffect(() => {
     draw()
     return function cleanup() {
@@ -53,6 +61,7 @@ const PhotoUploader = (
 
   return (
     <div className='flex flex-col items-center'>
+      {disableCameraButton}
       <form encType='multipart/form-data'>
         <input
           type='file'
@@ -62,7 +71,6 @@ const PhotoUploader = (
         />
       </form>
       <button onClick={removePhoto}>Remove photo</button>
-      <button onClick={draw}>ReDraw</button>
     </div>
   )
 }
