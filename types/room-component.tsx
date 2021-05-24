@@ -21,6 +21,7 @@ const RoomComponent = (
   const [calls] = useConnectionState(peer, socket, stream)
   const [callStatus, setCallStatus] = useState<boolean>(false)
   const attendees = <Attendees peerCalls={calls} />
+  const [cameraHasBeenEnabled, setCameraHasBeenEnabled] = useState<boolean>(false)
 
   const join = () => {
     setCallStatus(true)
@@ -28,8 +29,9 @@ const RoomComponent = (
   }
 
   const toggleVideo = () => {
+    setCameraHasBeenEnabled(true)
     cameraStream?.getTracks().forEach((newTrack) => {
-      trackDidChange(newTrack)
+      trackDidChange(newTrack, true)
     })
   }
 
@@ -41,7 +43,8 @@ const RoomComponent = (
 
   let errorMessage = <></>
   
-  const trackDidChange = (newTrack: MediaStreamTrack) => {
+  const trackDidChange = (newTrack: MediaStreamTrack, usingCamera: boolean) => {
+    setCameraHasBeenEnabled(usingCamera)
     setStream((localStream) => {
         if (localStream) {
           const oldTrack = localStream.getTracks().find((track) => {
@@ -79,12 +82,12 @@ const RoomComponent = (
       Join Now
     </button>
   )
-  const cameraButton = (
+  let cameraButton = (
     <button
     className='w-1/3 place-self-center py-4 md:py-6 rounded-lg bg-yellow-800'
     onClick={toggleVideo}
   >
-    Camera Button
+    Enable Camera
   </button>
   )
 
@@ -95,6 +98,12 @@ const RoomComponent = (
         <h2>{peerError.type}: {peerError.message}</h2>
       </div>
     )
+  }
+
+  if (!cameraHasBeenEnabled) {
+    joinButton = <></>
+  } else {
+    cameraButton = <></>
   }
 
   if (callStatus) {
@@ -119,7 +128,7 @@ const RoomComponent = (
       <div className='mt-5 grid'>{joinButton}</div>
       <div className='mt-5 grid'>{cameraButton}</div>
       <canvas style={{display: "none"}} width="400px" height="300px" ref={canvasRef}></canvas>
-      <PhotoUploader stream={stream} trackDidChange={trackDidChange} peer={peer} canvasRef={canvasRef}/>
+      <PhotoUploader stream={stream} trackDidChange={trackDidChange} peer={peer} canvasRef={canvasRef} cameraEnabled={cameraHasBeenEnabled} />
       <Presenter stream={stream} disconnect={hangup} />
     </>
   )
