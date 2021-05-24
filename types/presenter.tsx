@@ -1,7 +1,5 @@
 import Peer from 'peerjs'
 import { RefObject, useState } from 'react'
-import Share from '../public/share'
-import UnShare from '../public/un-share'
 import Video from '../types/video'
 import PhotoUploader from './photo-uploader'
 
@@ -10,6 +8,7 @@ const Presenter = (
     peer: Peer | null,
     stream: MediaStream | null,
     canvasRef: RefObject<HTMLCanvasElement>,
+    startCall: () => void,
     disconnect: () => void,
     videoEnabled: boolean,
     startVideo: () => void
@@ -17,14 +16,13 @@ const Presenter = (
   }) => {
   const [micActivated, setMicActivated] = useState<boolean>(true)
   const [audioTrack, setAudioTrack] = useState<MediaStreamTrack | undefined>(undefined)
-  const [screenCaptureActivated, setScreenCapture] = useState<boolean>(false)
 
   // eslint-disable-next-line no-undef
   let muteButton: JSX.IntrinsicElements['button']
   // eslint-disable-next-line no-undef
   let videoButton: JSX.IntrinsicElements['button']
   // eslint-disable-next-line no-undef
-  let shareButton: JSX.IntrinsicElements['button']
+  let callButton: JSX.IntrinsicElements['button']
 
   const activateMicrophone = () => {
     setMicActivated(true)
@@ -47,32 +45,16 @@ const Presenter = (
     }
   }
 
-  const startScreenCapture = () => {
-    setScreenCapture(true)
-  }
-
-  const endScreenCapture = () => {
-    setScreenCapture(false)
-  }
-
   if (micActivated) {
     muteButton = <button className='bg-yellow-600' onClick={deactivateMicrophone}>Mute</button>
   } else {
     muteButton = <button className='bg-yellow-600' onClick={activateMicrophone}>Unmute</button>
   }
 
-  if (screenCaptureActivated) {
-    shareButton = (
-      <button disabled={true} onClick={endScreenCapture}>
-        <UnShare />
-      </button>
-    )
+  if (props.videoEnabled) {
+    callButton = <button className='bg-yellow-800' onClick={props.startCall}>Join Now</button>
   } else {
-    shareButton = (
-      <button disabled={true} onClick={startScreenCapture}>
-        <Share />
-      </button>
-    )
+    callButton = <button className='bg-red-800' onClick={props.disconnect}>End</button>
   }
 
   if (props.videoEnabled) {
@@ -88,7 +70,7 @@ const Presenter = (
           {muteButton}
           {videoButton}
           <PhotoUploader stream={props.stream} trackDidChange={props.trackDidChange} peer={props.peer} canvasRef={props.canvasRef} cameraEnabled={props.videoEnabled} />
-          <button className='bg-red-800' onClick={props.disconnect}>End</button>
+          {callButton}
         </div>
         <label htmlFor="profile_photo">
           <Video stream={props.stream} muted={true} /> 
