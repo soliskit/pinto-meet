@@ -4,7 +4,6 @@ import Presenter from './presenter'
 import useConnectionState from '../useConnectionState'
 import usePeerState from '../usePeerState'
 import useUserMedia from '../useUserMedia'
-import PhotoUploader from './photo-uploader'
 import useSocketState from '../useSocketState'
 
 const RoomComponent = (
@@ -117,8 +116,7 @@ const RoomComponent = (
       </div>
       <div className='mt-5 grid'>{joinButton}</div>
       <canvas style={{display: "none"}} width="400px" height="300px" ref={canvasRef}></canvas>
-      <PhotoUploader stream={stream} trackDidChange={trackDidChange} peer={peer} canvasRef={canvasRef} cameraEnabled={videoEnabled} />
-      <Presenter stream={stream} disconnect={hangup} videoEnabled={videoEnabled} startVideo={startVideo} />
+      <Presenter peer={peer} stream={stream} canvasRef={canvasRef} disconnect={hangup} videoEnabled={videoEnabled} startVideo={startVideo} trackDidChange={trackDidChange} />
     </>
   )
 }

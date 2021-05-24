@@ -1,18 +1,22 @@
-import { useState } from 'react'
+import Peer from 'peerjs'
+import { RefObject, useState } from 'react'
 import Share from '../public/share'
 import UnShare from '../public/un-share'
 import Video from '../types/video'
+import PhotoUploader from './photo-uploader'
 
 const Presenter = (
   props: {
+    peer: Peer | null,
     stream: MediaStream | null,
+    canvasRef: RefObject<HTMLCanvasElement>,
     disconnect: () => void,
     videoEnabled: boolean,
     startVideo: () => void
+    trackDidChange: (newTrack: MediaStreamTrack, usingCamera: boolean) => void
   }) => {
   const [micActivated, setMicActivated] = useState<boolean>(true)
   const [audioTrack, setAudioTrack] = useState<MediaStreamTrack | undefined>(undefined)
-  const [videoActive, setVideoActive] = useState<boolean>(true)
   const [screenCaptureActivated, setScreenCapture] = useState<boolean>(false)
 
   // eslint-disable-next-line no-undef
@@ -41,10 +45,6 @@ const Presenter = (
     } else {
       props.stream.removeTrack(audioTrack)
     }
-  }
-
-  const stopVideo = () => {
-    setVideoActive(false)
   }
 
   const startScreenCapture = () => {
@@ -76,7 +76,7 @@ const Presenter = (
   }
 
   if (props.videoEnabled) {
-    videoButton = <button className='bg-black my-1.5' onClick={stopVideo}>Stop Video</button>
+    videoButton = <></>
   } else {
     videoButton = <button className='bg-black my-1.5' onClick={props.startVideo}>Start Video</button>
   }
@@ -87,6 +87,7 @@ const Presenter = (
         <div className='flex flex-col justify-center pr-1.5'>
           {muteButton}
           {videoButton}
+          <PhotoUploader stream={props.stream} trackDidChange={props.trackDidChange} peer={props.peer} canvasRef={props.canvasRef} cameraEnabled={props.videoEnabled} />
           <button className='bg-red-800' onClick={props.disconnect}>End</button>
         </div>
         <Video stream={props.stream} muted={true} /> 
