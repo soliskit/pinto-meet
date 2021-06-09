@@ -81,12 +81,7 @@ const RoomComponent = (
     )
   }
 
-  if (!videoEnabled) {
-    joinButton = <></>
-  }
-
   if (callStatus) {
-    joinButton = <></>
     roomHeader = (
       <>
         <h1>Joined | {props.roomName}</h1>
