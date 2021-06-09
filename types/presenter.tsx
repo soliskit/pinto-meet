@@ -72,9 +72,9 @@ const Presenter = (
           <PhotoUploader stream={props.stream} trackDidChange={props.trackDidChange} peer={props.peer} canvasRef={props.canvasRef} cameraEnabled={props.videoEnabled} />
           {callButton}
         </div>
-        <label htmlFor="profile_photo">
+        {/* <label htmlFor="profile_photo"> */}
           <Video stream={props.stream} muted={true} /> 
-        </label>
+        {/* </label> */}
       </div>
     </div>
   )
