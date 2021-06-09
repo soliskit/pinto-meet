@@ -69,11 +69,11 @@ const RoomComponent = (
   let roomHeader
   if (videoEnabled) {
     roomHeader = (
-    <>
-      <h1>Join room: {props.roomName}</h1>
+      <>
+        <h1>Join room: {props.roomName}</h1>
         <h2>Choose Join Now to begin call</h2>
-    </>
-  )
+      </>
+    )
   } else {
     roomHeader = (
       <>
