@@ -33,7 +33,7 @@ const Presenter = (
 
   const deactivateMicrophone = () => {
     if (!props.stream) {
-      return
+      throw Error('Presenter missing local stream')
     }
     setMicActivated(false)
     if (!audioTrack) {

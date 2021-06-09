@@ -22,8 +22,6 @@ const PhotoUploader = (
     const image = new Image()
     image.src = photo
     image.decode().then(() => {
-      console.dir('IMAGE DECODED')
-      console.dir(`STREAM: ${props.stream}`)
       if (props.peer) {
         const [x, y, width, height] = positionDimension(image, context)
         context.clearRect(0, 0, context.canvas.width, context.canvas.height)
