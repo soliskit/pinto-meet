@@ -66,27 +66,36 @@ const RoomComponent = (
     })
   }
 
-  let roomHeader = (
+  let roomHeader
+  if (videoEnabled) {
+    roomHeader = (
     <>
       <h1>Join room: {props.roomName}</h1>
-      <h2>to start call</h2>
+        <h2>Choose Join Now to begin call</h2>
     </>
   )
-  if (peerError) {
-    errorMessage = (
-      <div className='error'>
-        <h1>Peer</h1>
-        <h2>{peerError.type}: {peerError.message}</h2>
-      </div>
+  } else {
+    roomHeader = (
+      <>
+        <h1>Join room: {props.roomName}</h1>
+        <h2>Choose Start Video & Join Now to begin call</h2>
+      </>
     )
   }
-
   if (callStatus) {
     roomHeader = (
       <>
         <h1>Joined | {props.roomName}</h1>
         <h2>{toCardinal(calls.length + 1)} in the room</h2>
       </>
+    )
+  }
+  if (peerError) {
+    errorMessage = (
+      <div className='error'>
+        <h1>Peer</h1>
+        <h2>{peerError.type}: {peerError.message}</h2>
+      </div>
     )
   }
 
