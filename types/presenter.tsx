@@ -15,6 +15,7 @@ const Presenter = (
     trackDidChange: (newTrack: MediaStreamTrack, usingCamera: boolean) => void
   }) => {
   const [micActivated, setMicActivated] = useState<boolean>(true)
+  const [callStatus, setCallStatus] = useState<boolean>(false)
   const [audioTrack, setAudioTrack] = useState<MediaStreamTrack | undefined>(undefined)
 
   // eslint-disable-next-line no-undef
@@ -45,16 +46,26 @@ const Presenter = (
     }
   }
 
+  const joinCall = () => {
+    setCallStatus(true)
+    props.startCall()
+  }
+
+  const leaveCall = () => {
+    setCallStatus(false)
+    props.disconnect()
+  }
+
   if (micActivated) {
     muteButton = <button className='bg-yellow-600' onClick={deactivateMicrophone}>Mute</button>
   } else {
     muteButton = <button className='bg-yellow-600' onClick={activateMicrophone}>Unmute</button>
   }
 
-  if (props.videoEnabled) {
-    callButton = <button className='bg-yellow-800' onClick={props.startCall}>Join Now</button>
+  if (callStatus) {
+    callButton = <button className='bg-red-800' onClick={leaveCall}>End</button>
   } else {
-    callButton = <button className='bg-red-800' onClick={props.disconnect}>End</button>
+    callButton = <button id='join-button' className='bg-yellow-800' disabled={!props.videoEnabled} onClick={joinCall}>Join Now</button>
   }
 
   if (props.videoEnabled) {
