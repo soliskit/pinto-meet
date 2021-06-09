@@ -22,9 +22,15 @@ const RoomComponent = (
   const attendees = <Attendees peerCalls={calls} />
   const [videoEnabled, setVideoEnabled] = useState<boolean>(false)
 
-  const join = () => {
+  const joinCall = () => {
     setCallStatus(true)
     socket?.emit('join-room', props.roomName, userid)
+  }
+
+  const leaveCall = () => {
+    setCallStatus(false)
+    socket?.disconnect()
+    socket?.connect()
   }
 
   const startVideo = () => {
@@ -32,12 +38,6 @@ const RoomComponent = (
     cameraStream?.getTracks().forEach((newTrack) => {
       trackDidChange(newTrack, true)
     })
-  }
-
-  const hangup = () => {
-    setCallStatus(false)
-    socket?.disconnect()
-    socket?.connect()
   }
 
   let errorMessage = <></>
@@ -109,7 +109,7 @@ const RoomComponent = (
         </div>
       </div>
       <canvas style={{display: "none"}} width="400px" height="300px" ref={canvasRef}></canvas>
-      <Presenter peer={peer} stream={stream} canvasRef={canvasRef} startCall={join} disconnect={hangup} videoEnabled={videoEnabled} startVideo={startVideo} trackDidChange={trackDidChange} />
+      <Presenter peer={peer} stream={stream} canvasRef={canvasRef} joinCall={joinCall} leaveCall={leaveCall} videoEnabled={videoEnabled} startVideo={startVideo} trackDidChange={trackDidChange} />
     </>
   )
 }
