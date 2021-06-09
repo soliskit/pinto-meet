@@ -8,8 +8,8 @@ const Presenter = (
     peer: Peer | null,
     stream: MediaStream | null,
     canvasRef: RefObject<HTMLCanvasElement>,
-    startCall: () => void,
-    disconnect: () => void,
+    joinCall: () => void,
+    leaveCall: () => void,
     videoEnabled: boolean,
     startVideo: () => void
     trackDidChange: (newTrack: MediaStreamTrack, usingCamera: boolean) => void
@@ -46,14 +46,14 @@ const Presenter = (
     }
   }
 
-  const joinCall = () => {
+  const startCall = () => {
     setCallStatus(true)
-    props.startCall()
+    props.joinCall()
   }
 
-  const leaveCall = () => {
+  const endCall = () => {
     setCallStatus(false)
-    props.disconnect()
+    props.leaveCall()
   }
 
   if (micActivated) {
@@ -63,9 +63,9 @@ const Presenter = (
   }
 
   if (callStatus) {
-    callButton = <button className='bg-red-800' onClick={leaveCall}>End</button>
+    callButton = <button className='bg-red-800' onClick={endCall}>End</button>
   } else {
-    callButton = <button id='join-button' className='bg-yellow-800' disabled={!props.videoEnabled} onClick={joinCall}>Join Now</button>
+    callButton = <button id='join-button' className='bg-yellow-800' disabled={!props.videoEnabled} onClick={startCall}>Join Now</button>
   }
 
   if (props.videoEnabled) {
