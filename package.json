@@ -9,9 +9,9 @@
   "scripts": {
     "build": "next build",
     "start": "next start",
-    "dev": "next dev -p 5000",
-    "vercel": "npx vercel dev --listen 5000 --debug",
-    "prod": "npx next build --profile && npx next start -p 5000",
+    "dev": "next dev -p 4000",
+    "vercel": "npx vercel dev --listen 4000 --debug",
+    "prod": "npx next build --profile && npx next start -p 4000",
     "pretty-quick": "pretty-quick",
     "lint": "eslint --ignore-path .gitignore --ext .ts,.tsx .",
     "test": "node ./test/server.js --trace-warnings",
@@ -22,12 +22,12 @@
     "haikunator": "^2.1.2",
     "next": "^10.2.3",
     "peerjs": "^1.3.2",
-    "postcss": "^8.3.0",
+    "postcss": "^8.3.5",
     "react": "17.0.2",
     "react-dom": "17.0.2",
     "socket.io-client": "^4.1.2",
-    "tailwindcss": "^2.1.4",
-    "twilio": "^3.63.1"
+    "tailwindcss": "^2.2.4",
+    "twilio": "^3.64.0"
   },
   "husky": {
     "hooks": {
@@ -41,14 +41,14 @@
     ]
   },
   "devDependencies": {
-    "@types/node": "^15.12.2",
-    "@types/react": "^17.0.9",
-    "@typescript-eslint/eslint-plugin": "^4.26.1",
-    "@typescript-eslint/parser": "^4.26.1",
-    "@vercel/node": "^1.11.0",
+    "@types/node": "^15.12.4",
+    "@types/react": "^17.0.11",
+    "@typescript-eslint/eslint-plugin": "^4.28.0",
+    "@typescript-eslint/parser": "^4.28.0",
+    "@vercel/node": "^1.11.1",
     "dotenv": "^10.0.0",
     "ejs": "^3.1.6",
-    "eslint": "^7.28.0",
+    "eslint": "^7.29.0",
     "eslint-config-prettier": "^8.3.0",
     "eslint-config-standard": "^16.0.3",
     "eslint-plugin-import": "^2.23.4",
@@ -61,9 +61,9 @@
     "husky": "^6.0.0",
     "lint-staged": "^11.0.0",
     "prettier": "2.3.1",
-    "pretty-quick": "^3.1.0",
-    "typescript": "^4.3.2",
-    "vercel": "^23.0.0"
+    "pretty-quick": "^3.1.1",
+    "typescript": "^4.3.4",
+    "vercel": "^23.0.1"
   },
   "author": "David Solis",
   "repository": "https://github.com/pinto-pinto/pinto-meet",

@@ -18,9 +18,6 @@
     "plugin:@typescript-eslint/recommended",
     "standard",
     "prettier",
-    "prettier/@typescript-eslint",
-    "prettier/react",
-    "prettier/standard",
     "plugin:prettier/recommended"
   ],
   "plugins": ["react", "@typescript-eslint", "prettier"],
