@@ -20,7 +20,7 @@ const useSocketState = (): Socket | undefined => {
         socketOptions
       )
     }
-    
+
     socketRef.current?.on('disconnect', (reason: string) => {
       console.dir(reason)
       switch (reason) {
@@ -31,7 +31,9 @@ const useSocketState = (): Socket | undefined => {
           console.log('Socket manually disconnected by server')
           break
         case 'ping timeout':
-          console.error('Server failed to send PING packet within timeout range')
+          console.error(
+            'Server failed to send PING packet within timeout range'
+          )
           break
         case 'transport close':
           console.log('User lost connection or network was changed')
@@ -46,10 +48,12 @@ const useSocketState = (): Socket | undefined => {
           console.error('Socket disconnected for unknown reason')
       }
     })
-  
+
     socketRef.current?.on('connect', () => {
       console.dir('io client connect')
-      console.log(`${socketRef.current?.id} - connected: ${socketRef.current?.connected}`)
+      console.log(
+        `${socketRef.current?.id} - connected: ${socketRef.current?.connected}`
+      )
     })
 
     return function cleanup() {

@@ -6,17 +6,16 @@ import usePeerState from '../usePeerState'
 import useUserMedia from '../useUserMedia'
 import useSocketState from '../useSocketState'
 
-const RoomComponent = (
-  props: {
-    roomName: string, 
-    stunUrl: string
-  } 
-) => {
+// eslint-disable-next-line @typescript-eslint/explicit-module-boundary-types
+const RoomComponent = (props: { roomName: string; stunUrl: string }) => {
   const canvasRef = useRef<HTMLCanvasElement>(null)
   const [stream, setStream] = useState<MediaStream | null>(null)
   const cameraStream = useUserMedia()
   const socket = useSocketState()
-  const [peer, userid, peerError] = usePeerState({ userId: undefined, stunUrl: props.stunUrl })
+  const [peer, userid, peerError] = usePeerState({
+    userId: undefined,
+    stunUrl: props.stunUrl
+  })
   const [calls] = useConnectionState(peer, socket, stream)
   const [callStatus, setCallStatus] = useState<boolean>(false)
   const attendees = <Attendees peerCalls={calls} />
@@ -41,27 +40,29 @@ const RoomComponent = (
   }
 
   let errorMessage = <></>
-  
+
   const trackDidChange = (newTrack: MediaStreamTrack, usingCamera: boolean) => {
     setVideoEnabled(usingCamera)
     setStream((localStream) => {
-        if (localStream) {
-          const oldTrack = localStream.getTracks().find((track) => {
-            return track.kind === newTrack.kind
-          })
-          if (oldTrack) {
-            localStream.removeTrack(oldTrack)
-          }
-          localStream.addTrack(newTrack)
-        } else {
-          localStream = new MediaStream([newTrack])
+      if (localStream) {
+        const oldTrack = localStream.getTracks().find((track) => {
+          return track.kind === newTrack.kind
+        })
+        if (oldTrack) {
+          localStream.removeTrack(oldTrack)
         }
-        calls.forEach((peerCall) => {
-          const sender = peerCall.connection.peerConnection.getSenders().find((sender) => {
+        localStream.addTrack(newTrack)
+      } else {
+        localStream = new MediaStream([newTrack])
+      }
+      calls.forEach((peerCall) => {
+        const sender = peerCall.connection.peerConnection
+          .getSenders()
+          .find((sender) => {
             return sender.track?.kind === newTrack.kind
           })
-          sender?.replaceTrack(newTrack)
-        })
+        sender?.replaceTrack(newTrack)
+      })
       return localStream
     })
   }
@@ -94,7 +95,9 @@ const RoomComponent = (
     errorMessage = (
       <div className='error'>
         <h1>Peer</h1>
-        <h2>{peerError.type}: {peerError.message}</h2>
+        <h2>
+          {peerError.type}: {peerError.message}
+        </h2>
       </div>
     )
   }
@@ -108,8 +111,22 @@ const RoomComponent = (
           {attendees}
         </div>
       </div>
-      <canvas style={{display: "none"}} width="400px" height="300px" ref={canvasRef}></canvas>
-      <Presenter peer={peer} stream={stream} canvasRef={canvasRef} joinCall={joinCall} leaveCall={leaveCall} videoEnabled={videoEnabled} startVideo={startVideo} trackDidChange={trackDidChange} />
+      <canvas
+        style={{ display: 'none' }}
+        width='400px'
+        height='300px'
+        ref={canvasRef}
+      ></canvas>
+      <Presenter
+        peer={peer}
+        stream={stream}
+        canvasRef={canvasRef}
+        joinCall={joinCall}
+        leaveCall={leaveCall}
+        videoEnabled={videoEnabled}
+        startVideo={startVideo}
+        trackDidChange={trackDidChange}
+      />
     </>
   )
 }
@@ -133,4 +150,3 @@ const toCardinal = (num: number): string => {
 }
 
 export default RoomComponent
-

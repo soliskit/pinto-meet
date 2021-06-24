@@ -4,14 +4,11 @@ import PeerError from './types/peer-error'
 
 // copied partially from https://github.com/madou/react-peer/blob/master/src/use-peer-state.tsx
 const usePeerState = (
-  opts: { 
-    userId: string | undefined, 
-    stunUrl: string 
-  } = { userId: undefined, stunUrl: ''}
-  ): [
-    Peer | null, string | undefined, 
-    PeerError | undefined
-  ] => {
+  opts: {
+    userId: string | undefined
+    stunUrl: string
+  } = { userId: undefined, stunUrl: '' }
+): [Peer | null, string | undefined, PeerError | undefined] => {
   const peer = useRef<Peer | null>(null)
   const [userId, setUserId] = useState(opts.userId)
   const [error, setError] = useState<PeerError | undefined>(undefined)
@@ -26,9 +23,7 @@ const usePeerState = (
         host: process.env.NEXT_PUBLIC_HOST,
         debug: 2,
         config: {
-          iceServers: [
-            { urls: opts.stunUrl }
-          ]
+          iceServers: [{ urls: opts.stunUrl }]
         }
       }
       if (process.env.NEXT_PUBLIC_NODE_ENV === 'production') {
@@ -44,7 +39,7 @@ const usePeerState = (
       })
 
       peer.current.on('disconnected', () => {
-        for (let i = 1; i < 6; i+= 1) {
+        for (let i = 1; i < 6; i += 1) {
           setTimeout(() => {
             if (peer.current && peer.current.disconnected) {
               peer.current.reconnect()
@@ -52,7 +47,7 @@ const usePeerState = (
           }, 10000 * i)
         }
       })
-      
+
       peer.current.on('close', () => {
         console.dir('PEER ON CLOSE')
         console.dir('PEER: DESTORYED')
@@ -63,18 +58,14 @@ const usePeerState = (
       peer.current.on('error', (err) => setError(err))
     })
 
-    return function cleanup () {
+    return function cleanup() {
       console.dir('PEER: DESTORYED')
       peer.current?.destroy()
       peer.current = null
     }
   }, [])
 
-  return [
-    peer.current,
-    userId,
-    error
-  ]
+  return [peer.current, userId, error]
 }
 
 export default usePeerState

@@ -3,20 +3,22 @@ import { RefObject, useState } from 'react'
 import Video from '../types/video'
 import PhotoUploader from './photo-uploader'
 
-const Presenter = (
-  props: {
-    peer: Peer | null,
-    stream: MediaStream | null,
-    canvasRef: RefObject<HTMLCanvasElement>,
-    joinCall: () => void,
-    leaveCall: () => void,
-    videoEnabled: boolean,
-    startVideo: () => void
-    trackDidChange: (newTrack: MediaStreamTrack, usingCamera: boolean) => void
-  }) => {
+// eslint-disable-next-line @typescript-eslint/explicit-module-boundary-types
+const Presenter = (props: {
+  peer: Peer | null
+  stream: MediaStream | null
+  canvasRef: RefObject<HTMLCanvasElement>
+  joinCall: () => void
+  leaveCall: () => void
+  videoEnabled: boolean
+  startVideo: () => void
+  trackDidChange: (newTrack: MediaStreamTrack, usingCamera: boolean) => void
+}) => {
   const [micActivated, setMicActivated] = useState<boolean>(true)
   const [callStatus, setCallStatus] = useState<boolean>(false)
-  const [audioTrack, setAudioTrack] = useState<MediaStreamTrack | undefined>(undefined)
+  const [audioTrack, setAudioTrack] = useState<MediaStreamTrack | undefined>(
+    undefined
+  )
 
   // eslint-disable-next-line no-undef
   let muteButton: JSX.IntrinsicElements['button']
@@ -57,21 +59,46 @@ const Presenter = (
   }
 
   if (micActivated) {
-    muteButton = <button className='bg-yellow-600' onClick={deactivateMicrophone}>Mute</button>
+    muteButton = (
+      <button className='bg-yellow-600' onClick={deactivateMicrophone}>
+        Mute
+      </button>
+    )
   } else {
-    muteButton = <button className='bg-yellow-600' onClick={activateMicrophone}>Unmute</button>
+    muteButton = (
+      <button className='bg-yellow-600' onClick={activateMicrophone}>
+        Unmute
+      </button>
+    )
   }
 
   if (callStatus) {
-    callButton = <button className='bg-red-800' onClick={endCall}>End</button>
+    callButton = (
+      <button className='bg-red-800' onClick={endCall}>
+        End
+      </button>
+    )
   } else {
-    callButton = <button id='join-button' className='bg-yellow-800' disabled={!props.videoEnabled} onClick={startCall}>Join Now</button>
+    callButton = (
+      <button
+        id='join-button'
+        className='bg-yellow-800'
+        disabled={!props.videoEnabled}
+        onClick={startCall}
+      >
+        Join Now
+      </button>
+    )
   }
 
   if (props.videoEnabled) {
     videoButton = <></>
   } else {
-    videoButton = <button className='bg-black my-1.5' onClick={props.startVideo}>Start Video</button>
+    videoButton = (
+      <button className='bg-black my-1.5' onClick={props.startVideo}>
+        Start Video
+      </button>
+    )
   }
 
   return (
@@ -80,11 +107,17 @@ const Presenter = (
         <div className='flex flex-col justify-center pr-1.5'>
           {muteButton}
           {videoButton}
-          <PhotoUploader stream={props.stream} trackDidChange={props.trackDidChange} peer={props.peer} canvasRef={props.canvasRef} cameraEnabled={props.videoEnabled} />
+          <PhotoUploader
+            stream={props.stream}
+            trackDidChange={props.trackDidChange}
+            peer={props.peer}
+            canvasRef={props.canvasRef}
+            cameraEnabled={props.videoEnabled}
+          />
           {callButton}
         </div>
         {/* <label htmlFor="profile_photo"> */}
-          <Video stream={props.stream} muted={true} /> 
+        <Video stream={props.stream} muted={true} />
         {/* </label> */}
       </div>
     </div>

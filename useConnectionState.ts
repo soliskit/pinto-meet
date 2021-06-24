@@ -9,7 +9,7 @@ const useConnectionState = (
   stream: MediaStream | null
 ): [PeerCall[]] => {
   const [calls, setCalls] = useState<PeerCall[]>([])
-  
+
   useEffect(() => {
     if (!peer) {
       console.dir('PEER === NULL')
@@ -21,7 +21,7 @@ const useConnectionState = (
     if (!stream) {
       throw Error('STREAM === NULL')
     }
-    
+
     peer.on('call', (call) => {
       const peerId = call.peer
       console.dir(`answer: ${peerId} recieve: ${stream}`)
