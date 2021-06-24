@@ -57,7 +57,7 @@ const Time = () => {
     <time>
       {hour}:{minute} {ampm}&nbsp; • &nbsp;{weekday}, &nbsp;{month} {day}
     </time>
-    )
+  )
 }
 
 export default Time

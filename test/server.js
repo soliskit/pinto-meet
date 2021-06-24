@@ -5,7 +5,7 @@ let stunUrl
 const accountSid = process.env.NEXT_PUBLIC_ACCOUNT_SID
 const authToken = process.env.NEXT_PUBLIC_AUTH_TOKEN
 const client = require('twilio')(accountSid, authToken)
-client.tokens.create().then(token => stunUrl = token.iceServers[0].url)
+client.tokens.create().then((token) => (stunUrl = token.iceServers[0].url))
 
 const app = express()
 
@@ -18,16 +18,15 @@ app.get('/script.js', (req, res) => {
 })
 
 app.get('/:room', (req, res) => {
-  res.render(
-    'index', {
-      roomId: req.params.room,
-      stunUrl: stunUrl,
-      key: process.env.NEXT_PUBLIC_KEY,
-      host: process.env.NEXT_PUBLIC_HOST,
-      env: process.env.NEXT_PUBLIC_NODE_ENV
-    })
+  res.render('index', {
+    roomId: req.params.room,
+    stunUrl: stunUrl,
+    key: process.env.NEXT_PUBLIC_KEY,
+    host: process.env.NEXT_PUBLIC_HOST,
+    env: process.env.NEXT_PUBLIC_NODE_ENV
+  })
 })
 
-app.listen(5000, () => {
-  console.dir('Test node client server listening on http://localhost:5000')
+app.listen(4000, () => {
+  console.dir('Test node client server listening on http://localhost:4000')
 })

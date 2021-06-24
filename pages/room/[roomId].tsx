@@ -1,11 +1,11 @@
 import { GetServerSideProps } from 'next'
 import Head from 'next/head'
 import { useRouter } from 'next/router'
-import React from 'react'
 import twilio from 'twilio'
 import RoomComponent from '../../types/room-component'
 
-const Room = (props: { roomName: string, stunUrl: string }) => {
+// eslint-disable-next-line @typescript-eslint/explicit-module-boundary-types
+const Room = (props: { roomName: string; stunUrl: string }) => {
   const router = useRouter()
 
   return (
@@ -40,8 +40,13 @@ const Room = (props: { roomName: string, stunUrl: string }) => {
 export default Room
 
 export const getServerSideProps: GetServerSideProps = async (context) => {
-  const client = twilio(process.env.NEXT_PUBLIC_ACCOUNT_SID, process.env.NEXT_PUBLIC_AUTH_TOKEN)
-  const iceServers: {url: string, urls: string} = Object((await client.tokens.create()).iceServers.shift())
+  const client = twilio(
+    process.env.NEXT_PUBLIC_ACCOUNT_SID,
+    process.env.NEXT_PUBLIC_AUTH_TOKEN
+  )
+  const iceServers: { url: string; urls: string } = Object(
+    (await client.tokens.create()).iceServers.shift()
+  )
   const stunUrl = iceServers.url
   let roomName: string
   if (context.query.roomId) {

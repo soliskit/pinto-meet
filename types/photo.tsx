@@ -1,6 +1,6 @@
 import { useEffect, useRef } from 'react'
 
-// eslint-disable-next-line @typescript-eslint/explicit-module-boundary-types, prettier/prettier
+// eslint-disable-next-line @typescript-eslint/explicit-module-boundary-types
 const Photo = () => {
   const canvasRef = useRef<HTMLCanvasElement>(null)
 
@@ -21,9 +21,7 @@ const Photo = () => {
   })
   // w-40 h-40 md:w-56 md:h-56 xl:w-72 xl:h-72
 
-  return (
-    <canvas ref={canvasRef} height='300px'/>
-  )
+  return <canvas ref={canvasRef} height='300px' />
 }
 
 export default Photo

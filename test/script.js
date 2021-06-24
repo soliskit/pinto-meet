@@ -1,12 +1,11 @@
+/* eslint-disable no-undef */
 let socket
 const peerOptions = {
   key: KEY,
   host: HOST,
   debug: 3,
   config: {
-    iceServers: [
-      { urls: STUN_URL }
-    ]
+    iceServers: [{ urls: STUN_URL }]
   }
 }
 if (ENVIROMENT === 'production') {
@@ -62,7 +61,7 @@ navigator.mediaDevices
   .then((localStream) => {
     const localUserId = localPeer.id
     addVideoStream(localVideo, localStream, localUserId)
-    
+
     localPeer.on('call', (call) => {
       const remoteUserId = call.peer
       call.answer(localStream)
