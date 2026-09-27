@@ -1,9 +1,0 @@
-.github/
-.next
-.vercel
-node_modules/
-.env
-package-lock.json
-npm-debug.log*
-LICENSE.md
-next-env.d.ts
