@@ -1,0 +1,8 @@
+{
+  "name": "pinto-meet",
+  "private": true,
+  "description": "Retired. The client now lives in soliskit/pinto.",
+  "engines": {
+    "node": "22.x"
+  }
+}
