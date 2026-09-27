@@ -65,8 +65,8 @@
 
 @layer components {
   .join-room {
-     @apply bg-red-800;
-     @apply py-6;
+    @apply bg-red-800;
+    @apply py-6;
   }
 
   .presenter {
@@ -83,8 +83,8 @@
 }
 
 .filter {
-  -webkit-backdrop-filter: blur(.8em) saturate(200%) hue-rotate(20deg);
-  backdrop-filter: blur(.8em) saturate(200%) hue-rotate(20deg);
+  -webkit-backdrop-filter: blur(0.8em) saturate(200%) hue-rotate(20deg);
+  backdrop-filter: blur(0.8em) saturate(200%) hue-rotate(20deg);
 }
 
 .safe-inset-bottom {
