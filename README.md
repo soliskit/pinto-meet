@@ -1,44 +1,67 @@
 # Pinto Pinto
-## Next.js WebRTC for video conference client
 
-### Prerequisites
+Video conferencing for the rest of us. A [Next.js](https://nextjs.org) client that connects browsers directly with WebRTC through [PeerJS](https://peerjs.com/), using the [Pinto](https://github.com/soliskit/pinto) signal server to join rooms. Live at [meet.pintopinto.org](https://meet.pintopinto.org/).
 
-This project is managed through something called a **package**. A package contains all the code being shared as well as a `package.json` file (called a **manifest**) which describes the package.
+Built with Next.js 16, React 19, Tailwind CSS 4 and TypeScript.
 
-This project requires:
+## Requirements
 
-* Node `22.x` installed, if unfamiliar learn more about Node.js by visting [here](https://nodejs.org).
-* NPM comes with node installation and will be used to manage packages.
-* Optionally, you can use Yarn to manage dependencies instead.
+- [Node.js](https://nodejs.org) `22.x` (npm comes with it)
+- A running [Pinto](https://github.com/soliskit/pinto) signal server
+- A [Twilio](https://www.twilio.com/) account, used to fetch STUN servers for each room
 
-On a Mac, you can obtain all of the above packages using [Homebrew](http://brew.sh).
+## Getting started
 
-## Getting Started
-
-First, install the latest packages by running:
+Install dependencies:
 
 ```bash
 npm install
-# or
-yarn install
 ```
 
-First make sure your project is saved in a Git repository of your choosing.
-
-Link your repo to a Vercel project if you haven't already by running and follow the `Vercel CLI` prompts:
-
-```bash
-npx vercel link
-```
-
-Check out [Next.js deployment documentation](https://nextjs.org/docs/deployment) for more details.
-
-First, run the development server:
+Create a `.env.local` file (see [Configuration](#configuration)), then start the development server:
 
 ```bash
 npm run dev
-# or
-yarn dev
 ```
 
-Open [http://localhost:5000](http://localhost:5000) with your browser to see the homepage of our video client app.
+Open [http://localhost:4000](http://localhost:4000). Type a room name, or press **Open** to get a random one, and share the room link with others.
+
+## Configuration
+
+| Variable                  | Example       | Purpose                                            |
+| ------------------------- | ------------- | -------------------------------------------------- |
+| `NEXT_PUBLIC_HOST`        | `localhost`   | Host of the Pinto signal server                    |
+| `NEXT_PUBLIC_PORT`        | `443`         | Port of the signal server, used outside production |
+| `NEXT_PUBLIC_KEY`         | `pinto`       | Must match `KEY` on the signal server              |
+| `NEXT_PUBLIC_NODE_ENV`    | `development` | `production` connects over HTTPS without a port    |
+| `NEXT_PUBLIC_ACCOUNT_SID` |               | Twilio account SID                                 |
+| `NEXT_PUBLIC_AUTH_TOKEN`  |               | Twilio auth token                                  |
+
+The Twilio values are only read on the server in `getServerSideProps`, but keep them out of client code since `NEXT_PUBLIC_` variables can be bundled for the browser.
+
+## Scripts
+
+| Command          | Description                                                                                    |
+| ---------------- | ---------------------------------------------------------------------------------------------- |
+| `npm run dev`    | Development server on port 4000                                                                |
+| `npm run build`  | Production build                                                                               |
+| `npm start`      | Serve the production build                                                                     |
+| `npm run prod`   | Build with profiling and serve on port 4000                                                    |
+| `npm run lint`   | Lint with ESLint                                                                               |
+| `npm test`       | Plain Express and EJS test client on port 4000, for checking the signal server without Next.js |
+| `npm run vercel` | Run through `vercel dev` on port 4000                                                          |
+
+## Project layout
+
+- `pages/`: the home page, `room/[roomId]` and the `api/room` route
+- `types/`: React components (room, presenter, attendees, video, photo uploader)
+- `use*.ts`: hooks for user media, the PeerJS peer, the Socket.IO connection and active calls
+- `styles/tailwind.css` and `tailwind.config.js`: styles and theme
+
+## Deployment
+
+The app deploys to [Vercel](https://vercel.com). Link the repo once with `npx vercel link`, set the variables above in the project settings, and every push gets a preview deployment. See the [Next.js deployment docs](https://nextjs.org/docs/app/getting-started/deploying) for other hosts.
+
+## License
+
+[GPL 3.0](LICENSE.md)
