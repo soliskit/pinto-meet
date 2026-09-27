@@ -1,5 +1,5 @@
 import { JSX } from 'react'
-import PeerCall from './peer-call'
+import PeerCall from '../types/peer-call'
 import Video from './video'
 
 const Attendees = (props: { peerCalls: PeerCall[] }) => {

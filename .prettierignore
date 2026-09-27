@@ -1,5 +1,4 @@
 .github/
-.husky
 .next
 .vercel
 node_modules/

@@ -1,5 +1,5 @@
 module.exports = {
-  content: ['./pages/**/*.tsx', './types/*.{ts,tsx}'],
+  content: ['./pages/**/*.tsx', './components/*.tsx'],
   theme: {
     fontFamily: {
       sans: [
@@ -24,9 +24,6 @@ module.exports = {
       xxl: '1920px' // Apple TV
     },
     extend: {
-      backgroundImage: {
-        'hero-image': "url('/hero_image.jpg')"
-      },
       colors: {
         control: {
           light: '#f5f5f557',
