@@ -1,6 +1,6 @@
 import type { Peer } from 'peerjs'
 import { JSX, RefObject, useState } from 'react'
-import Video from '../types/video'
+import Video from './video'
 import PhotoUploader from './photo-uploader'
 
 const Presenter = (props: {

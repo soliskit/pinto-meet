@@ -48,13 +48,15 @@ The Twilio values are only read on the server in `getServerSideProps`, but keep 
 | `npm start`      | Serve the production build                                                                     |
 | `npm run prod`   | Build with profiling and serve on port 4000                                                    |
 | `npm run lint`   | Lint with ESLint                                                                               |
+| `npm run format` | Format all files with Prettier                                                                 |
 | `npm test`       | Plain Express and EJS test client on port 4000, for checking the signal server without Next.js |
 | `npm run vercel` | Run through `vercel dev` on port 4000                                                          |
 
 ## Project layout
 
-- `pages/`: the home page, `room/[roomId]` and the `api/room` route
-- `types/`: React components (room, presenter, attendees, video, photo uploader)
+- `pages/`: the home page and `room/[roomId]`
+- `components/`: React components (room, presenter, attendees, video, photo uploader, clock, join form)
+- `types/`: shared TypeScript types
 - `use*.ts`: hooks for user media, the PeerJS peer, the Socket.IO connection and active calls
 - `styles/tailwind.css` and `tailwind.config.js`: styles and theme
 

@@ -96,8 +96,5 @@ npm-debug.log*
 # Testing
 /coverage
 
-# Git Hooks
-.husky
-
 # TypeScript
 *.tsbuildinfo
