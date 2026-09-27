@@ -14,6 +14,8 @@ Everything this repo did is covered there:
 
 The last version of the Next.js app is in this repo's history, at commit [`8133c46`](https://github.com/soliskit/pinto-meet/tree/8133c46).
 
+Until the `pintopinto` Vercel project is deleted, `vercel.json` makes it deploy `public/index.html`, a page pointing here, instead of trying to build Next.js.
+
 ## License
 
 [GPL 3.0](LICENSE.md)
