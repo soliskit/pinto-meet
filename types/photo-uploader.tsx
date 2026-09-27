@@ -1,11 +1,10 @@
 import { RefObject, useEffect, useState } from 'react'
-import Peer from 'peerjs'
+import type { Peer } from 'peerjs'
 
-// eslint-disable-next-line @typescript-eslint/explicit-module-boundary-types
 const PhotoUploader = (props: {
   stream: MediaStream | null
   trackDidChange: (newTrack: MediaStreamTrack, usingCamera: boolean) => void
-  canvasRef: RefObject<HTMLCanvasElement>
+  canvasRef: RefObject<HTMLCanvasElement | null>
   peer: Peer | null
   cameraEnabled: boolean
 }) => {

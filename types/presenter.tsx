@@ -1,13 +1,12 @@
-import Peer from 'peerjs'
-import { RefObject, useState } from 'react'
+import type { Peer } from 'peerjs'
+import { JSX, RefObject, useState } from 'react'
 import Video from '../types/video'
 import PhotoUploader from './photo-uploader'
 
-// eslint-disable-next-line @typescript-eslint/explicit-module-boundary-types
 const Presenter = (props: {
   peer: Peer | null
   stream: MediaStream | null
-  canvasRef: RefObject<HTMLCanvasElement>
+  canvasRef: RefObject<HTMLCanvasElement | null>
   joinCall: () => void
   leaveCall: () => void
   videoEnabled: boolean
@@ -20,12 +19,9 @@ const Presenter = (props: {
     undefined
   )
 
-  // eslint-disable-next-line no-undef
-  let muteButton: JSX.IntrinsicElements['button']
-  // eslint-disable-next-line no-undef
-  let videoButton: JSX.IntrinsicElements['button']
-  // eslint-disable-next-line no-undef
-  let callButton: JSX.IntrinsicElements['button']
+  let muteButton: JSX.Element
+  let videoButton: JSX.Element
+  let callButton: JSX.Element
 
   const activateMicrophone = () => {
     setMicActivated(true)

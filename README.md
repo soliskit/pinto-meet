@@ -7,7 +7,7 @@ This project is managed through something called a **package**. A package contai
 
 This project requires:
 
-* Node `14.x` installed, if unfamiliar learn more about Node.js by visting [here](https://nodejs.org).
+* Node `22.x` installed, if unfamiliar learn more about Node.js by visting [here](https://nodejs.org).
 * NPM comes with node installation and will be used to manage packages.
 * Optionally, you can use Yarn to manage dependencies instead.
 

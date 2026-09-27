@@ -1,6 +1,6 @@
 import { useRef } from 'react'
 
-// eslint-disable-next-line @typescript-eslint/explicit-module-boundary-types, prettier/prettier
+// eslint-disable-next-line prettier/prettier
 const Video = (props: { stream: MediaStream | null, muted: boolean }) => {
   const videoRef = useRef<HTMLVideoElement>(null)
 
