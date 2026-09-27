@@ -1,7 +1,4 @@
-// https://nextjs.org/docs/api-reference/next.config.js/introduction
+// https://nextjs.org/docs/pages/api-reference/config/next-config-js
 module.exports = {
-  reactStrictMode: true,
-  future: {
-    webpack5: true,
-  }
+  reactStrictMode: true
 }

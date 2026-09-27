@@ -1,4 +1,4 @@
-import Peer, { MediaConnection } from 'peerjs'
+import type { MediaConnection, Peer } from 'peerjs'
 import { useEffect, useState } from 'react'
 import { Socket } from 'socket.io-client'
 import PeerCall from './types/peer-call'

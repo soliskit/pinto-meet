@@ -98,3 +98,6 @@ npm-debug.log*
 
 # Git Hooks
 .husky
+
+# TypeScript
+*.tsbuildinfo

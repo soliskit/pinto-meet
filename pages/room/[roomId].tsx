@@ -4,7 +4,6 @@ import { useRouter } from 'next/router'
 import twilio from 'twilio'
 import RoomComponent from '../../types/room-component'
 
-// eslint-disable-next-line @typescript-eslint/explicit-module-boundary-types
 const Room = (props: { roomName: string; stunUrl: string }) => {
   const router = useRouter()
 

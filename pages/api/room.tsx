@@ -1,7 +1,6 @@
-import { NowRequest, NowResponse } from '@vercel/node'
+import type { NextApiRequest, NextApiResponse } from 'next'
 
-// eslint-disable-next-line @typescript-eslint/explicit-module-boundary-types
-const UserName = (req: NowRequest, res: NowResponse) => {
+const UserName = (req: NextApiRequest, res: NextApiResponse) => {
   const { name = 'World' } = req.query
   res.send(`Hello ${name}!`)
 }

@@ -6,7 +6,6 @@ import usePeerState from '../usePeerState'
 import useUserMedia from '../useUserMedia'
 import useSocketState from '../useSocketState'
 
-// eslint-disable-next-line @typescript-eslint/explicit-module-boundary-types
 const RoomComponent = (props: { roomName: string; stunUrl: string }) => {
   const canvasRef = useRef<HTMLCanvasElement>(null)
   const [stream, setStream] = useState<MediaStream | null>(null)

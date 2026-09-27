@@ -1,4 +1,3 @@
-// eslint-disable-next-line @typescript-eslint/explicit-module-boundary-types
 const Disconnect = () => (
   <svg
     className='py-3 bg-control rounded-lg filter w-11 h-11 md:w-16 md:h-16 lg:w-20 lg:h-20'

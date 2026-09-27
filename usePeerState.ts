@@ -1,4 +1,4 @@
-import Peer from 'peerjs'
+import type { Peer, PeerOptions } from 'peerjs'
 import { useEffect, useRef, useState } from 'react'
 import PeerError from './types/peer-error'
 
@@ -14,11 +14,11 @@ const usePeerState = (
   const [error, setError] = useState<PeerError | undefined>(undefined)
 
   useEffect(() => {
-    import('peerjs').then(({ default: Peer }) => {
+    import('peerjs').then(({ Peer }) => {
       if (peer.current) {
         return
       }
-      const peerOptions: Peer.PeerJSOption = {
+      const peerOptions: PeerOptions = {
         key: process.env.NEXT_PUBLIC_KEY,
         host: process.env.NEXT_PUBLIC_HOST,
         debug: 2,
@@ -31,7 +31,9 @@ const usePeerState = (
       } else {
         peerOptions.port = Number(process.env.NEXT_PUBLIC_PORT)
       }
-      peer.current = new Peer(opts.userId, peerOptions)
+      peer.current = opts.userId
+        ? new Peer(opts.userId, peerOptions)
+        : new Peer(peerOptions)
 
       peer.current.on('open', (id) => {
         console.dir(`NEW PEER ID: ${id}`)

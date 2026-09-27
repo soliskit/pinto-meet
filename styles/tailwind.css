@@ -1,6 +1,27 @@
-@tailwind base;
-@tailwind components;
-@tailwind utilities;
+@import 'tailwindcss';
+@config '../tailwind.config.js';
+
+/*
+  Tailwind v4 changed some preflight defaults, restore the v2 behaviour
+  https://tailwindcss.com/docs/upgrade-guide#changes-from-v3
+*/
+@layer base {
+  *,
+  ::after,
+  ::before,
+  ::backdrop,
+  ::file-selector-button {
+    border-color: var(--color-gray-200, currentcolor);
+  }
+  input::placeholder,
+  textarea::placeholder {
+    color: var(--color-gray-400);
+  }
+  button:not(:disabled),
+  [role='button']:not(:disabled) {
+    cursor: pointer;
+  }
+}
 
 @layer base {
   body {
@@ -55,15 +76,9 @@
   .presenter video {
     @apply w-40 h-40;
   }
-  @screen md {
-    .presenter video {
-      @apply w-56 h-56;
-    }
-  }
-  @screen xl {
-    .presenter video {
-      @apply w-72 h-72;
-    }
+  .presenter video {
+    @apply md:w-56 md:h-56;
+    @apply xl:w-72 xl:h-72;
   }
 }
 
